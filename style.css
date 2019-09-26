@@ -1,0 +1,91 @@
+*{
+	box-sizing: border-box;
+}
+
+header{background-color: rgb(54,69,30);
+      		padding:10px;}
+footer{background: rgb(54,69,30)
+			padding:5px;}
+
+body{
+	font-family: Arial;
+	padding:10px;
+	background:lightgrey;
+}
+/* Creates the navigation bar*/
+nav{
+	width: 100%;
+	height: 101px;
+	background-color: rgb(54,69,30);
+}
+/* Move the content of the navigation along with the logo to left of the screen*/
+nav p a{
+	float: left;
+	padding: 0px;
+}
+/* Move the actual navigation bar e.g Admission to the left*/
+nav ul{
+	float:left;
+
+}
+nav ul li{
+	float: left;
+	list-style: none;
+	position: relative;
+}
+
+nav ul li a{
+	font-family: arial;
+	display: block;
+	color:orange;
+	font-size: 14px;
+	padding: 24px 40px;
+	text-decoration: none;
+}
+nav ul li ul{
+	display: none;
+	position: absolute;
+	background-color: rgb(54,69,30);
+	padding: 10px;
+}
+nav ul li:hover ul{
+	display: block;
+}
+nav ul li ul li{
+	width: 180px;
+	border-radius: 4px;
+}
+nav ul li ul li a{
+	padding: 8px 14px;
+}
+nav ul li ul li a:hover{ 
+	color: lightgrey;
+}
+.leftcolumn{
+	float: left;
+	width: 70%;
+}
+.rightcolumn{
+	float: left;
+	width: 30%;
+}
+.card{
+	background-color: none;
+	padding: 2px;
+	margin-top: 5px; 
+}
+.row:after{
+	display: table;
+	clear:both;
+}
+.fakeimg{
+	background-color: orange;
+	width: 100%;
+	padding: 10px;
+}
+@media screen and (max-width: 800px){
+	.leftcolumn, .rightcolumn{
+		width: 100%;
+		padding: 0;
+	}
+} 
