@@ -6,7 +6,7 @@ header{background-color: rgb(54,69,30);
       		padding:10px;}
 footer{background: rgb(54,69,30)
 			padding:5px;}
-
+/*Creates a border around the entire homepage of 10 pixels*/
 body{
 	font-family: Arial;
 	padding:10px;
@@ -28,12 +28,13 @@ nav ul{
 	float:left;
 
 }
+/*Flots the navbar to the left*/
 nav ul li{
 	float: left;
 	list-style: none;
 	position: relative;
 }
-
+/* Changes the font of the navigation bar to arial and as well as the color of the letters*/
 nav ul li a{
 	font-family: arial;
 	display: block;
@@ -42,48 +43,59 @@ nav ul li a{
 	padding: 24px 40px;
 	text-decoration: none;
 }
+/*Turn the navigition color to the school original color*/
 nav ul li ul{
 	display: none;
 	position: absolute;
 	background-color: rgb(54,69,30);
 	padding: 10px;
 }
+/*Make sure when the mouse is hovered the list it displays the actual drop down menu on the navigation*/
 nav ul li:hover ul{
 	display: block;
 }
+/*Give the drop down menu a width of 180pixels and a border radius of 4 pixels*/
 nav ul li ul li{
 	width: 180px;
 	border-radius: 4px;
 }
+/*Make sure the drop down menu have a paddig of 8 pixels from the left and right and 14 pixels from the top and down*/
 nav ul li ul li a{
 	padding: 8px 14px;
 }
+/* Make sure there a color change of lightgrey as soon the mouse is hovered over the letter individually*/
 nav ul li ul li a:hover{ 
 	color: lightgrey;
 }
+/*Float the colunm based on its position in relation to the screen width*/
 .leftcolumn{
 	float: left;
 	width: 70%;
 }
+/*Float the colunm based on its position in relation to the screen width*/
 .rightcolumn{
 	float: left;
 	width: 30%;
 }
+/*It is a card fuction which give you the posibility to place information anywhere you'd like on the website*/
 .card{
 	background-color: none;
 	padding: 2px;
 	margin-top: 5px; 
 }
+/*Put a space right after and before each card which contains information*/
 .row:after{
 	display: table;
 	clear:both;
 }
+/* It is a fake image to represent a place holder for the calendar as well as the current semester catalog we will need to have on the homepage*/
 .fakeimg{
 	background-color: orange;
 	width: 100%;
 	padding: 10px;
 }
-@media screen and (max-width: 800px){
+/* Make the scree width versatile for devices screen based on the capacity of the device to view the homepage full screen and minimized*/
+@media screen and (max-width: 1080px){
 	.leftcolumn, .rightcolumn{
 		width: 100%;
 		padding: 0;
