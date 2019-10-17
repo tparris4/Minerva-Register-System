@@ -16,8 +16,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
 require_once "config.php";
 
-$username = $password = "";
-$username_err = $password_err = "";
+$email_address = $password = "";
+$email_address_err = $password_err = "";
 
 //process form
 
@@ -25,9 +25,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
  //username empty
     if(empty(trim($_POST["username"]))){
-        $username_err = "Enter email";
+        $email_address_err = "Enter email";
     }else {
-        $username = trim($_POST["username"]);
+        $email_address = trim($_POST["username"]);
     }
     
     if(empty(trim($_POST["password"]))){
@@ -36,15 +36,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
     
-    if(empty($username_err) && empty($password_err)){
-        $sql = "SELECT id, username, password FROM User WHERE username = ?";
+    if(empty($email_address_err) && empty($password_err)){
+        $sql = "SELECT id, email_address, password FROM User WHERE email_address = ?";
     }
     
     if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "s", $param_username);
+        mysqli_stmt_bind_param($stmt, "s", $param_email_address);
         
         //set para
-        $param_username = $username;
+        $param_email_address = $email_address_err;
         
         //attempt
         if(mysqli_stmt_execute($stmt)){
@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             //check username exists
             if(mysqli_stmt_num_rows($stmt) == 1){
                 //bind results
-                mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                mysqli_stmt_bind_result($stmt, $id, $email_address, $hashed_password);
                 if(mysqli_stmt_fetch($stmt)){
                     if(password_verify($password, $sql))
                 {
@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $_SESSION["loggedin"] = true;
     $_SESSION["id"] = $id;
-    $_SESSION["username"] = $username;
+    $_SESSION["email_address"] = $email_address;
     
     //redirect
                 header("location: homepage.php");}
@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 }
             }else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Please try again later.";
             }
             }
             mysqli_stmt_close($stmt);
