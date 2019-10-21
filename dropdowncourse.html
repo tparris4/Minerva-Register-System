@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Course List</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type ="css/text">
+            /*
+            .dropbtn {
+                background-color: black;
+                color: blue;
+                padding: 16px;
+                font-size: 20px;
+                border: none;
+                cursor: pointer
+            }
+                
+                .dropdown {
+                    position: relative;
+                    display: inline-block;
+                    border: 0.1em solid black;
+                    width: 19em;
+                }
+                    
+                    .dropdown-content a{
+                        color:black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                    }
+                    
+                    .dropdown .title{
+                        margin: .3em .3em .3em .3em;
+                        width: 100%
+                    }
+                        
+                    .dropdown .menu{
+                        transition: max-heigh .5s ease-out;
+                        max-height: 20em;
+                        overflow: hidden;
+                    }
+                        .show {
+                            display:block;
+                        } */
+                        /*Creates a border around the entire homepage of 10 pixels*/
+body{
+	font-family: Arial;
+	padding:10px;
+	background:lightgrey;
+}
+/* Creates the navigation bar*/
+nav{
+	width: 100%;
+	height: 101px;
+	background-color: rgb(54,69,30);
+}
+/* Move the content of the navigation along with the logo to left of the screen*/
+nav p a{
+	float: left;
+	padding: 0px;
+}
+                    /* Move the actual navigation bar e.g Admission to the left*/
+nav ul{
+	float:left;
+
+}
+/*Flots the navbar to the left*/
+nav ul li{
+	float: left;
+	list-style: none;
+	position: relative;
+}
+/* Changes the font of the navigation bar to arial and as well as the color of the letters*/
+nav ul li a{
+	font-family: arial;
+	display: block;
+	color:orange;
+	font-size: 14px;
+	padding: 24px 40px;
+	text-decoration: none;
+}
+/*Turn the navigition color to the school original color*/
+nav ul li ul{
+	display: none;
+	position: absolute;
+	background-color: rgb(54,69,30);
+	padding: 10px;
+}
+                /*Make sure when the mouse is hovered the list it displays the actual drop down menu on the navigation*/
+nav ul li:hover ul{
+	display: block;
+}
+/*Give the drop down menu a width of 180pixels and a border radius of 4 pixels*/
+nav ul li ul li{
+	width: 180px;
+	border-radius: 4px;
+}
+/*Make sure the drop down menu have a paddig of 8 pixels from the left and right and 14 pixels from the top and down*/
+nav ul li ul li a{
+	padding: 8px 14px;
+}
+/* Make sure there a color change of lightgrey as soon the mouse is hovered over the letter individually*/
+nav ul li ul li a:hover{ 
+	color: lightgrey;
+}
+            
+        </style>
+        
+    </head>
+    <body>
+        <script>
+        function Function1() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+        <div class="dropdown">
+             <button onclick="Function1()" class="dropbtn">Select A Major</button>
+            <div id="CourseDropDown" class="dropdown-content">
+                <div class="menu pointerCursor hide">
+                    
+                    <span id='result'> Major chosen is: </span>
+                    
+                    <ul>
+                        <li><a href="MathCrs.html">Math</a></li>
+                        <li><a href="ScienceCrs.html">Science</a></li>
+                        <li><a href="BusinessCrs.html">Business</a></li>
+                        <li><a href="BiologyCrs.html">Biology</a></li>
+                    </ul>
+                    
+            </div>
+            </div>
+        </div>
+    </body>
+</html>

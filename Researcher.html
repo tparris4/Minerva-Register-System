@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Researcher Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style type="text/css">
+            #box1{
+                width:450px;
+                border:1px solid black;
+                padding:50px 50px;
+                margin:50px 50px;
+                align-content: middle;
+                background-color: lightgray;
+               
+            }
+            
+            .btn {
+                border: none;
+                background-color: activeborder;
+                padding: 14px 28px;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 200dx;
+                    display: block;
+                    
+                    
+            }
+            
+            .one {
+                padding: 14dx 28dx;
+            }
+            
+            body{
+                padding: 0px;
+                background-color: lightgray;
+            }
+            </style>
+    </head>
+    <body>
+        <h2>Welcome</h2>
+               <script>
+            function ViewCatalog(){
+                window.location.href="CrsCatalog.html";
+            }
+            
+            function ViewCurrentCrs(){
+                window.location.href="ViewCurrentCrs.html";
+            }
+            
+            function ViewHolds(){
+                window.location.href="ViewHolds.html";
+            }
+            
+            function ViewClassRoster(){
+                window.location.href="ViewClassRoster.html";
+            }
+            </script>
+      
+        <div align="center">
+            <div id="box1" align="left">
+              
+                <button onclick="ViewCatalog()">View Catalog</button>
+                <button onclick="ViewCurrentCrs()">View Current Courses</button>
+                <button onclick="ViewHolds()">View Holds</button>
+                <button onclick="ViewClassRoster()">View Class Roster</button>
+        
+      
+        
+        
+            </div>
+        </div>
+    
+    </body>
+</html>
