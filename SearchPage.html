@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+     *{
+	box-sizing: border-box;
+}
+
+header{background-color: rgb(54,69,30);
+      		padding:10px;}
+footer{background: rgb(54,69,30);
+			padding: 5px;}
+/*Creates a border around the entire homepage of 10 pixels*/
+body{
+	font-family: Arial;
+	padding:10px;
+	background:lightgrey;
+}
+                #box1{
+                width:450px;
+                border:1px solid black;
+                padding:50px 50px;
+                margin:50px 50px;
+                align-content: middle;
+                background-color: lightgray;
+               
+            }
+                        #box2{
+                width:100px;
+                border:1px solid black;
+                padding:50px 50px;
+                margin:50px 50px;
+                align-content: middle;
+                background-color: lightgray;
+               
+            }
+.dropbtn {
+  background-color: #318c5a;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
+</head>
+<body>
+            <header>
+        <p><a href="Minerva University3.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
+        </header>
+
+    <h2>Choose Values</h2>
+    <h4>Days</h4>
+    <form>
+        <label class="checkbox-inline">
+               <input type="checkbox" value =" "> Monday</label>
+                <label class="checkbox-inline">
+               <input type="checkbox" value =" "> Tuesday</label>
+                <label class="checkbox-inline">
+               <input type="checkbox" value =" "> Wednesday</label>
+                <label class="checkbox-inline">
+               <input type="checkbox" value =" "> Thursday</label>
+                <label class="checkbox-inline">
+               <input type="checkbox" value =" "> Friday</label>
+    </form>
+    <div id="box2" align="left">
+<div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Times</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="">12:00-1:00</a>
+    <a href="#about">2:00-3:00</a>
+    <a href="#contact">5:00-6:00</a>
+  </div>
+</div>
+    </div>
+    
+    
+    <div id="box2" align="left">
+    <div class="dropdown">
+  <button onclick="myFunction2()" class="dropbtn">Professor</button>
+  <div id="myDropdown2" class="dropdown-content">
+    <a href="">John Doe</a>
+    <a href="">John Dane</a>
+    <a href="">John Done</a>
+  </div>
+</div>
+    </div>
+    
+    
+    <div id="box2" align="left">
+    <div class="dropdown">
+  <button onclick="myFunction3()" class="dropbtn">Subject</button>
+  <div id="myDropdown3" class="dropdown-content">
+    <a href="">Math</a>
+    <a href="">Science</a>
+    <a href="">Business</a>
+  </div>
+</div>
+    </div>
+    <div id="box2" align="left">
+    <form action="/SearchPage.php">
+        Course Number: <input type="text" name ="CourseName" value=" "><br>
+        
+        <input type="submit" value="Search">
+    </form>
+    </div>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+function myFunction2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
+function myFunction3() {
+  document.getElementById("myDropdown3").classList.toggle("show");
+}
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>

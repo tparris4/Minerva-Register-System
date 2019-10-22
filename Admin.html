@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    
+        <title>Admin Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style type="text/css">
+             *{
+	box-sizing: border-box;
+}
+
+header{background-color: rgb(54,69,30);
+      		padding:10px;}
+footer{background: rgb(54,69,30);
+			padding: 5px;}
+/*Creates a border around the entire homepage of 10 pixels*/
+body{
+	font-family: Arial;
+	padding:10px;
+	background:lightgrey;
+}
+            #box1{
+                width:450px;
+                border:1px solid black;
+                padding:50px 50px;
+                margin:50px 50px;
+                align-content: middle;
+                background-color: lightgray;
+               
+            }
+            
+            .btn {
+                border: none;
+                background-color: activeborder;
+                padding: 14px 28px;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 200dx;
+                    display: block;
+                    
+                    
+            }
+            
+            .one {
+                padding: 14dx 28dx;
+            }
+            
+            body{
+                padding: 0px;
+                background-color: lightgray;
+            }
+            </style>
+    </head>
+    <body>
+                <header>
+        <p><a href="Minerva University3.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
+        </header>
+        <h2>Welcome</h2>
+                
+        
+        <script>
+            function AddtoCatalog(){
+                window.location.href="AddCourse.html";
+            }
+            
+            function ClassSearch(){
+                window.location.href="ClassSearch.html";
+            }
+            
+            function AddSection(){
+                window.location.href="AddSection.html";
+            }
+            </script>
+      
+        <div align="center">
+            <div id="box1" align="left">
+              
+        <button onclick="AddtoCatalog()">Add Course to Catalog</button>
+        <button onclick="AddSemester()">Add Semester</button>
+        <button onclick="AddSection()">Add Section</button>
+        <button onclick="AddHold()">Add Hold to Student Account</button>
+        <button onclick="AssignAdvisor()">Assign Advisor</button>
+        <button onclick="DropSection()">Drop Section from Course</button>
+        <button onclick="AssignMjrReq()">Assign Major Requirements</button>
+        <button onclick="MessageFacStu()">Message Faculty or Student</button>
+        <button onclick="AccessTranscripts()">Access Transcripts</button>
+        
+      
+        
+        
+            </div>
+        </div>
+    
+    </body>
+</html>
