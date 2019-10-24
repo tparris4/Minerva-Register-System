@@ -1,13 +1,9 @@
 *{
-	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
-header{background-color: rgb(54,69,30);
-      		padding:.2em;}
-footer{background: rgb(54,69,30)
-			padding:.1em;}
+ 
 /*Creates a border around the entire homepage of 10 pixels*/
 html, body {
 	height: 100%;
@@ -22,17 +18,21 @@ html, body {
 /* Creates the navigation bar*/
 nav{
 	width: 100%;
-	height: 101px;
+	height: 120px;
 	background-color: rgb(54,69,30);
 }
 /* Move the content of the navigation along with the logo to left of the screen*/
 nav p a{
 	float: left;
-	padding: 0px;
+	padding-top: 10px;
+	padding-left: 10px;
+	
 }
 /* Move the actual navigation bar e.g Admission to the left*/
 nav ul{
-	float:left;
+	float:right;
+	padding-top:25px;
+	position: relative; 
 
 }
 /*Flots the navbar to the left*/
@@ -57,6 +57,9 @@ nav ul li ul{
 	background-color: rgb(54,69,30);
 	padding: 10px;
 }
+nav a:hover{
+	color: lightgrey;
+}
 /*Make sure when the mouse is hovered the list it displays the actual drop down menu on the navigation*/
 nav ul li:hover ul{
 	display: block;
@@ -74,47 +77,42 @@ nav ul li ul li a{
 nav ul li ul li a:hover{ 
 	color: lightgrey;
 }
-/*Float the colunm based on its position in relation to the screen width*/
-.leftcolumn{
-	float: left;
-	width: 70%; 
+
+h1{
+	color:orange;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 30px
 }
-/*Float the colunm based on its position in relation to the screen width*/
-.rightcolumn{
-	float: left;
-	width: 30%;
+p{
+	color:orange;
+	font-family: Arial;
+	font-weight: normal;
+	font-size: 20px;
+	display: inline-block;
 }
-/*It is a card fuction which give you the posibility to place information anywhere you'd like on the website*/
-.card{
-	background-color: none;
-	padding: 2px;
-	margin-top: 5px; 
+a{
+	list-style-type: none;
 }
-/*Put a space right after and before each card which contains information*/
-.row:after{
-	display: table;
-	clear:both;
-}
-/* It is a fake image to represent a place holder for the calendar as well as the current semester catalog we will need to have on the homepage*/
-.fakeimg{
-	background-color: orange;
-	width: 100%;
-	padding: 10px;
-}
-/* Make the scree width versatile for devices screen based on the capacity of the device to view the homepage full screen and minimized*/
-@media screen and (max-width: 1080px){
-	.leftcolumn, .rightcolumn{
-		width: 100%;
-		padding: 0;
-	}
-} 
 
 .wrapper{
 	margin:0 auto;
 	width: 1000px;
 }
+.wrapper2{
+	margin: 0 auto;
+	width:1300px;
+	padding:20px; 
+}
+.wrapper3{
+	margin: 0 auto;
+	width:800px;
+	padding:20px; 
+}
+
+
 #container{
-	min-height: 100%;
+	min-height: 200%;
 }
 #main{
 	overflow: auto;
@@ -126,4 +124,71 @@ nav ul li ul li a:hover{
 	height: 100px;
 	margin-top: -100px;
 	clear: both;
+	padding:10px;
 }
+.home-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('HomeBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+.art-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ArtBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+.biology-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BiologyBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+.business-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BusinessBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+.computerscience-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ScienceBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+.english-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('EnglishBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+
+.math-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MathBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	
+}
+
+
