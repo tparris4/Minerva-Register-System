@@ -38,10 +38,11 @@ body{
                
             }
             
-            .btn {
+            .button {
                 border: none;
-                background-color: activeborder;
+                background-color: #4CAF50;
                 padding: 14px 28px;
+                color: green;
                 font-size: 20dx;
                     cursor:pointer;
                     display: inline-block;
@@ -59,13 +60,28 @@ body{
                 padding: 0px;
                 background-color: lightgray;
             }
+
+            .Welcome{
+                align-content: middle;
+            }
+
+            .geninfo{
+                align-content: middle;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 200dx;
+                    display: block;
+                    text-align:center;
+            }
             </style>
     </head>
     <body>
                 <header>
         <p><a href="Minerva University3.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
         </header>
-        <h2>Welcome</h2>
+        <div class ="Welcome"><h2>Welcome</h2> 
+            <p>Student</p></div>
                 
         
         <script>
@@ -113,22 +129,43 @@ body{
         <div align="center">
             <div id="box1" align="center">
               
-        <button onclick="AddCourse()">Add Course</button>
-        <button onclick="DropCourse()">Drop Course</button>
-        <button onclick="ClassSearch()">Search Courses</button>
-        <button onclick="LookUpTranscript()">Look Up Transcript</button>
-        <button onclick="LookUpHolds()">Look Up Holds</button>
-        <button onclick="ViewCatalog()">View Catalog</button>
-        <button onclick="ViewGrades()">View Grades</button>
-        <button onclick="ChangeMajor()">Change Major</button>
-        <button onclick="DegreeAudit()">Degree Audit</button>
-        <button onclick="ViewSchedule()">View Schedule</button>
+        <button class = "button" onclick="AddCourse()">Add Course</button>
+        <button class = "button" onclick="DropCourse()">Drop Course</button>
+        <button class = "button" onclick="ClassSearch()">Search Courses</button>
+        <button class = "button" onclick="LookUpTranscript()">Look Up Transcript</button>
+        <button class = "button" onclick="LookUpHolds()">Look Up Holds</button>
+        <button class = "button" onclick="ViewCatalog()">View Catalog</button>
+        <button class = "button" onclick="ViewGrades()">View Grades</button>
+        <button class = "button" onclick="ChangeMajor()">Change Major</button>
+        <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
+        <button class = "button" onclick="ViewSchedule()">View Schedule</button>
+
+        </div>
+
+
+        </div>
+
+        <div class="schedule">
+            <div id = "box1" align="left">
+
+
+
         
       
         
         
             </div>
         </div>
+            <footer id="footer">
+            <div class ="geninfo">
+          <p><a href="Minerva University.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>  
+          <p>Phone Number: 812-522-3917 <br>
+          Street: 4038 Minerva University <br>
+          City, State, Zip: Seymour, Indiana, 47274 <br>
+          Inquiries: generalminervauniversity@msc.edu <br>
+      </p></div>
+    </footer>     
+   
     
     </body>
 </html>
