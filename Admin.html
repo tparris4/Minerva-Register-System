@@ -11,10 +11,146 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <style type="text/css">
-             *{
-	box-sizing: border-box;
+        <style type ="text/css">
+    div.b {
+  text-align: justify; /* For Edge */
+  -moz-text-align-last: center; /* For Firefox prior 58.0 */
+  text-align-last: center;
 }
+     *{
+  box-sizing: border-box;
+}
+header{background-color: rgb(54,69,30);
+          padding:10px;}
+footer{background: rgb(54,69,30);
+      padding: 5px;}
+/*Creates a border around the entire homepage of 10 pixels*/
+body{
+  font-family: Arial;
+  padding:10px;
+  background:lightgrey;
+}
+    
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.dropbtn {
+  background-color: #339933;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #339933;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+/* Add a black background color to the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav input[type=text] {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+
+
+  }
+
+
+}
+.geninfo{
+                align-content: middle;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 200dx;
+                    display: block;
+                    text-align:center;
+            }
+
+.show {display: block;}
+
+
 
 header{background-color: rgb(54,69,30);
       		padding:10px;}
@@ -83,21 +219,31 @@ body{
         <div align="center">
             <div id="box1" align="left">
               
-        <button onclick="AddtoCatalog()">Add Course to Catalog</button>
-        <button onclick="AddSemester()">Add Semester</button>
-        <button onclick="AddSection()">Add Section</button>
-        <button onclick="AddHold()">Add Hold to Student Account</button>
-        <button onclick="AssignAdvisor()">Assign Advisor</button>
-        <button onclick="DropSection()">Drop Section from Course</button>
-        <button onclick="AssignMjrReq()">Assign Major Requirements</button>
-        <button onclick="MessageFacStu()">Message Faculty or Student</button>
-        <button onclick="AccessTranscripts()">Access Transcripts</button>
+        <button class = "button" onclick="AddtoCatalog()">Add Course to Catalog</button>
+        <button class = "button" onclick="AddSemester()">Add Semester</button>
+        <button class = "button" onclick="AddSection()">Add Section</button>
+        <button class = "button" onclick="AddHold()">Add Hold to Student Account</button>
+        <button class = "button" onclick="AssignAdvisor()">Assign Advisor</button>
+        <button class = "button" onclick="DropSection()">Drop Section from Course</button>
+        <button class = "button" onclick="AssignMjrReq()">Assign Major Requirements</button>
+        <button class = "button" onclick="MessageFacStu()">Message Faculty or Student</button>
+        <button class = "button" onclick="AccessTranscripts()">Access Transcripts</button>
         
       
         
         
             </div>
         </div>
+
+            <footer id="footer">
+            <div class ="geninfo">
+          <p><a href="Minerva University.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>  
+          <p>Phone Number: 812-522-3917 <br>
+          Street: 4038 Minerva University <br>
+          City, State, Zip: Seymour, Indiana, 47274 <br>
+          Inquiries: generalminervauniversity@msc.edu <br>
+      </p></div>
+    </footer>  
     
     </body>
 </html>
