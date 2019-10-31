@@ -357,6 +357,19 @@ tr:nth-child(even) {
                     
                     
             }
+            .button {
+                border: none;
+                background-color: #4CAF50;
+                padding: 14px 28px;
+                color: green;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 200dx;
+                    display: block;
+                    
+                    
+            }
             
             .one {
                 padding: 14dx 28dx;
