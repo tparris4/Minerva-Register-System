@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+  <?php
+session_start();
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+      exit();
+}
+
+$username = $_SESSION['username'];
+
+   if(! $conn ) {
+      die('Could not connect: ' . mysqli_error());
+   }
+   echo 'Connected successfully</br>';
+?>
 <html>
 <head>
     <meta charset = "utf-8">
