@@ -321,7 +321,12 @@ INSERT INTO `user` (`User_ID`, `First_Name`, `Last_Name`, `Phone_Number`, `Home_
 (33520, 'Katherine', 'Moreland', '219-367-3656', '3955 Glenwood Avenue,Garfield Heights ,Ohio ,44128 ', 'Kmoreland', 'Kmoreland@msc.edu'),
 
 (44441, 'Patricia ', 'Brown', '860-309-9554', '2516 Hart Street, Austin, Texas, 78723', 'PBrown', 'PBrown@msc.edu'),
-(44442, 'Eveett', 'Freddy','432-567-8990','2321 Camber Street, Farmingdale, New York, 11234', 'Efreddy','aidan1998@gmail.com');
+(44442, 'Eveett', 'Freddy','432-567-8990','2321 Camber Street, Farmingdale, New York, 11234', 'Efreddy','aidan1998@gmail.com'),
+(44443, 'braddy' 'moll', '432-980-9990','2471 Mumbo Street, valley stream, New york, 1580','BMoll','BMoll@msc.edu'),
+(44444, 'Patrick','Henderson','503-679-5293','4334 Mattson Street,Portland, Oregon, 97204','PHenderson','PHenderson@msc.edu'),
+(44445, 'Thomas','Byrd','414-429-4821','4788 Hartland Avenue, Milwaukee, Wisconsin, 53202','TByrd','TByrd@msc.edu'),
+(44446, 'Dennis','Wenner','347-793-4781','504 Briercliff Road,Brooklyn, New York, 11208','DWenner','DWenner@msc.edu')
+(,
 
 --
 -- Indexes for dumped tables
