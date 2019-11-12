@@ -1,0 +1,129 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 12, 2019 at 09:38 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `register_system`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room`
+--
+
+CREATE TABLE `room` (
+  `Room_ID` int(11) NOT NULL,
+  `R_Num` int(11) NOT NULL,
+  `R_Capacity` int(11) NOT NULL,
+  `RBuild_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`Room_ID`, `R_Num`, `R_Capacity`, `RBuild_ID`) VALUES
+(88810, 100, 30, 77771),
+(88811, 102, 25, 77771),
+(88812, 104, 25, 77771),
+(88813, 101, 25, 77772),
+(88814, 103, 25, 77772),
+(88815, 101, 25, 77773),
+(88816, 103, 25, 77773),
+(88817, 105, 25, 77771),
+(88818, 106, 25, 77771),
+(88819, 201, 25, 77771),
+(88820, 202, 25, 77771),
+(88821, 203, 25, 77771),
+(88822, 204, 25, 77771),
+(88823, 205, 25, 77771),
+(88824, 206, 25, 77771),
+(88825, 102, 30, 77772),
+(88826, 104, 30, 77772),
+(88827, 105, 30, 77772),
+(88828, 201, 25, 77772),
+(88829, 202, 25, 77772),
+(88830, 203, 25, 77772),
+(88831, 204, 30, 77772),
+(88832, 205, 30, 77772),
+(88833, 102, 25, 77773),
+(88834, 104, 30, 77773),
+(88835, 105, 25, 77773),
+(88836, 106, 30, 77773),
+(88837, 201, 25, 77773),
+(88838, 202, 25, 77773),
+(88839, 203, 25, 77773),
+(88840, 204, 25, 77773),
+(88841, 101, 25, 77774),
+(88842, 102, 25, 77774),
+(88843, 103, 25, 77774),
+(88844, 104, 25, 77774),
+(88845, 105, 25, 77774),
+(88846, 201, 30, 77774),
+(88847, 202, 25, 77774),
+(88848, 203, 30, 77774),
+(88849, 204, 25, 77774),
+(88850, 205, 30, 77774),
+(88851, 101, 25, 77775),
+(88852, 102, 25, 77775),
+(88853, 103, 25, 77775),
+(88854, 104, 25, 77775),
+(88855, 105, 25, 77775),
+(88856, 201, 25, 77775),
+(88857, 202, 25, 77775),
+(88858, 203, 25, 77775),
+(88859, 204, 25, 77775),
+(88860, 205, 30, 77775),
+(88861, 101, 25, 77776),
+(88862, 102, 25, 77776),
+(88863, 103, 30, 77776),
+(88864, 104, 30, 77776),
+(88865, 105, 25, 77776),
+(88866, 201, 25, 77776),
+(88867, 202, 30, 77776),
+(88868, 203, 30, 77776),
+(88869, 204, 25, 77776),
+(88870, 205, 30, 77776);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`Room_ID`,`RBuild_ID`),
+  ADD KEY `rbuild_id` (`RBuild_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `room`
+--
+ALTER TABLE `room`
+  ADD CONSTRAINT `rbuild_id` FOREIGN KEY (`RBuild_ID`) REFERENCES `building` (`Build_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
