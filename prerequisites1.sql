@@ -1,0 +1,179 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 12, 2019 at 05:38 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `register_system`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prerequisites1`
+--
+
+CREATE TABLE `prerequisites1` (
+  `Prerequ_ID` int(11) NOT NULL,
+  `P_CourseID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `prerequisites1`
+--
+
+INSERT INTO `prerequisites1` (`Prerequ_ID`, `P_CourseID`) VALUES
+(90000, 90001),
+(90000, 90002),
+(90002, 90003),
+(90001, 90004),
+(90004, 90005),
+(90002, 90006),
+(90004, 90007),
+(90005, 90007),
+(90007, 90008),
+(90007, 90009),
+(90008, 90010),
+(90008, 90011),
+(90003, 90012),
+(90008, 90013),
+(90003, 90014),
+(90011, 90015),
+(90012, 90015),
+(90013, 90016),
+(90014, 90016),
+(80000, 80002),
+(80000, 80003),
+(80000, 80004),
+(80000, 80005),
+(80002, 80006),
+(80003, 80006),
+(80006, 80007),
+(80004, 80008),
+(80006, 80009),
+(80007, 80010),
+(80006, 80011),
+(80008, 80012),
+(80009, 80013),
+(80009, 80014),
+(80006, 80014),
+(80006, 80015),
+(80009, 80015),
+(80006, 80016),
+(80009, 80016),
+(80014, 80017),
+(80015, 80017),
+(90000, 70001),
+(90001, 70001),
+(70001, 70002),
+(70002, 70003),
+(70002, 70004),
+(70003, 70005),
+(70003, 70006),
+(70003, 70007),
+(70003, 70008),
+(70003, 70009),
+(70003, 70010),
+(90003, 70010),
+(70007, 70011),
+(70008, 70011),
+(70007, 70012),
+(70008, 70012),
+(70008, 70013),
+(70007, 70013),
+(70007, 70014),
+(70008, 70014),
+(70007, 70015),
+(70008, 70015),
+(90001, 50000),
+(90001, 50001),
+(90001, 50002),
+(50000, 50003),
+(50000, 50004),
+(50003, 50005),
+(50003, 50006),
+(50004, 50007),
+(50004, 50008),
+(50004, 50009),
+(50004, 50010),
+(50008, 50011),
+(50007, 50011),
+(50008, 50012),
+(50008, 50013),
+(50004, 50014),
+(50004, 50015),
+(50004, 50016),
+(50014, 50017),
+(50014, 50018),
+(50014, 50019),
+(50016, 50020),
+(50016, 50021),
+(50016, 50022),
+(50019, 50023),
+(60000, 60003),
+(60000, 60004),
+(60000, 60005),
+(60000, 60006),
+(60001, 60006),
+(60002, 60006),
+(60003, 60009),
+(60004, 60009),
+(60003, 60010),
+(60004, 60010),
+(60003, 60011),
+(60004, 60011),
+(60010, 60013),
+(60003, 60014),
+(60007, 60014),
+(60009, 60015),
+(60010, 60015),
+(70007, 60016),
+(60009, 60016),
+(60010, 60016),
+(60013, 60016),
+(60009, 60017),
+(60010, 60017),
+(60009, 60018),
+(60010, 60018);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `prerequisites1`
+--
+ALTER TABLE `prerequisites1`
+  ADD KEY `Prerequ_ID` (`Prerequ_ID`),
+  ADD KEY `P_CourseID` (`P_CourseID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `prerequisites1`
+--
+ALTER TABLE `prerequisites1`
+  ADD CONSTRAINT `prerequisites1_ibfk_1` FOREIGN KEY (`Prerequ_ID`) REFERENCES `course` (`Course_ID`),
+  ADD CONSTRAINT `prerequisites1_ibfk_2` FOREIGN KEY (`P_CourseID`) REFERENCES `course` (`Course_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
