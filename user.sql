@@ -126,7 +126,16 @@ INSERT INTO `user` (`User_ID`, `First_Name`, `Last_Name`, `Phone_Number`, `Home_
 (22297, 'John', 'Jacob', '718-472-1880', '2867 Chruch Street, Queens ,New York , 11101', 'Jjacob', 'Jjacob@msc.edu'),
 (22298, 'Stephanie', 'Erti', '612-709-1244', '3470 Jewell Road,Minneapolis ,Missesota ,55404 ', 'Serti', 'Serti@msc.edu'),
 (22299, 'Christopher', 'Parrott', '703-998-4408', '231 Broadcast Drive,Arlington ,Virginia , 22206', 'Cparrott', 'Cparrott@msc.edu'),
-(22300, 'Tina', 'Chambers', '405-691-2675', '969 Hott Street,Oklahoma City ,Oklahoma , ', 'Tchambers', 'Tchambers@msc.edu'),
+(22300, 'Tina', 'Chambers', '405-691-2675', '969 Hott Street,Oklahoma City ,Oklahoma ,87788 ', 'Tchambers', 'Tchambers@msc.edu'),
+(22301, 'Edith', 'Percy','313-337-4283','1893 Prudence Street, Dearborn, Michigan, 48126','Epercy','EPercy@msc.edu',
+(22302, 'Barbara','Lee','507-200-1890','1109 Bryan Avenue,Owatonna, Minnesota, 55060','bLee','Blee@msc.edu',
+(22303, 'Nicolas','Ham','601-826-2653','3625 Brownton Road,Jackson, Mississippi, 39211','Nham','Nham@msc.edu',
+(22304, 'Antonio','Allison','430-969-5005','4216 Hall Place,Trinidad, Texas, 75862','Aallison','Aallison@msc.edu',
+(22305, 'Edwin','Burkhart','641-201-9802','3616 Centennial Farm Road,Struble, Iowa, 51057','Eburkhart','Eburkhart@msc.edu',
+(22306, 'Charles','Reed','601-201-0358','290 Kelley Road, Biloxi, Mississippi, 39530','Creed','Creed@msc.edu',
+(22307, 'Richard','Huerta','818-640-8456','1590 Ella Street,Menlo Park, California, 94025','Rhuerta','Rhuerta@msc.edu',
+(22308, 'Theresa','Chapman,'917-537-4832','3491 Stanley Avenue,Great Neck, New York, 11021','Tchapman','Tchapman.edu',
+(22309, 'Robert',' Wagner,'803-348-3176',3966 Wexford Way,Columbia, South Carolina, 29210','Rwagner','Rwagner@msc.edu',
 
 (33331, 'Carylon ', 'Forsyth', '850-891-6934', '3474 American Drive, Bloomfield Township, Michigan, 48302', 'CForsyth', 'CForsyth@msc.edu'),
 (33332, 'Irene', 'Getz', '936-563-9932', '1021 Mulberry Street, Bloomfield Township, Michigan, 48302', 'IGetz', 'IGetz@msc.edu'),
@@ -321,12 +330,12 @@ INSERT INTO `user` (`User_ID`, `First_Name`, `Last_Name`, `Phone_Number`, `Home_
 (33520, 'Katherine', 'Moreland', '219-367-3656', '3955 Glenwood Avenue,Garfield Heights ,Ohio ,44128 ', 'Kmoreland', 'Kmoreland@msc.edu'),
 
 (44441, 'Patricia ', 'Brown', '860-309-9554', '2516 Hart Street, Austin, Texas, 78723', 'PBrown', 'PBrown@msc.edu'),
-(44442, 'Eveett', 'Freddy','432-567-8990','2321 Camber Street, Farmingdale, New York, 11234', 'Efreddy','aidan1998@gmail.com'),
+(44442, 'Eveett', 'Freddy','432-567-8990','2321 Camber Street, Farmingdale, New York, 11234', 'Efreddy','Efreddy@msc.edu'),
 (44443, 'braddy' 'moll', '432-980-9990','2471 Mumbo Street, valley stream, New york, 1580','BMoll','BMoll@msc.edu'),
 (44444, 'Patrick','Henderson','503-679-5293','4334 Mattson Street,Portland, Oregon, 97204','PHenderson','PHenderson@msc.edu'),
 (44445, 'Thomas','Byrd','414-429-4821','4788 Hartland Avenue, Milwaukee, Wisconsin, 53202','TByrd','TByrd@msc.edu'),
-(44446, 'Dennis','Wenner','347-793-4781','504 Briercliff Road,Brooklyn, New York, 11208','DWenner','DWenner@msc.edu')
-(,
+(44446, 'Dennis','Wenner','347-793-4781','504 Briercliff Road,Brooklyn, New York, 11208','DWenner','DWenner@msc.edu'),;
+
 
 --
 -- Indexes for dumped tables
