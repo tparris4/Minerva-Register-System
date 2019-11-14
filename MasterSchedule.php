@@ -10,6 +10,7 @@
       die('Could not connect: ' . mysqli_error());
    }
    echo 'Connected successfully</br>';
+   session_start();
    ?>
 <html>
 <head>
@@ -173,56 +174,45 @@
   </tr>
 </tbody>
 </table>
-<h3><u>Medical</u></h3>
-<table>
-    <thead>
-        <th>Professor</th>
-      <th>8:00 - 9:30</th>
-      <th>10:00 - 11:30</th>
-      <th>Noon</th>
-    <th>12:00 - 1:30</th>
-    <th>2:00 - 3:30</th>
-    <th>4:00 - 5:30</th>
-    <th>Evening</th>
-    <th>6:00 - 7:30</th>
-    <th>8:00 - 9:30</th>
-</thead>
-<tbody>
-    <tr>
-        <td>Lewis, E.</td>
+<h3><u>Biology</u></h3>
+
         <?php 
-            'SELECT s.*, c.*, t.*, r.*, b.* FROM section AS s
-            JOIN course AS a, timeslot AS t, room AS r, building AS b ON s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlot_ID AND s.S_Num = r.R_NUM AND s.S_BuildID = b.Build_ID
-             WHERE s.S_FacuID = 22225'
-
-            if (&result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows(&result) > 0){
-                    echo "<table>";
-                    echo "<tr>";
-                    echo"<th>C_Name<th>";
-                    echo"<th>C_Description</th>";
-                    echo"<th>C_Code</th>";
-                    echo"<th>C_CreditAmt</th>";
-                    echo"<th>S_Num</th>";
-                    echo"<th>B_Name</th>";
-                    echo"<th>R_Num</th>";
-                    echo"<th>Period<th>";
+           // $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
+            $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.* FROM section AS s
+            JOIN course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
+            AND u.User_ID = f.Facu_ID AND s.S_FacuID = '22224' AND s.S_SemesterYearID = '50001' AND s.S_FacuID = f.Facu_ID";
+            if ($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+            
+                    echo "<table>"; 
+                    echo"<th>Professor Name</th>";
+                    echo"<th>Course_Name</th>";            
+                    echo"<th>Course_Description</th>";
+                    echo"<th>Course_Code</th>";
+                    echo"<th>Course_Credit Amount</th>";
+                    echo"<th>Section_Num</th>";
+                    echo"<th>Building_Name</th>";
+                    echo"<th>Room_Num</th>";
+                    echo"<th>Period</th>";
                     echo"<th>Day</th>";
-                    echo"</tr>";
+                    echo"</th>";
+                    
+                   
 
-                    while($row = mysqli_fetch_array(&result)){
+                   while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
+                    echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>";
                     echo"<td>" . $row['C_Name'] . "</td>";
                     echo"<td>" . $row['C_Description'] . "</td>";
                     echo"<td>" . $row['C_Code'] . "</td>";
-                    echo"<td>" . $row['C_CreditAm'] . "</td>";
+                    echo"<td>" . $row['C_CreditAmt'] . "</td>";
                     echo"<td>" . $row['S_Num'] . "</td>";
                     echo"<td>" . $row['B_Name'] . "</td>";
                     echo"<td>" . $row['R_Num'] . "</td>";
                     echo"<td>" . $row['Period'] . "</td>";
                     echo"<td>" . $row['Day'] . "</td>";
                     echo"</tr>";
-
+                    }
                 echo "</table>";
       mysqli_free_result($result);
     } else {
@@ -231,9 +221,9 @@
    } else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
-   mysqli_close($conn)
+   mysqli_close($conn);
 ?>
-
+<table>
     </tr>
     <tr>
     <td>Lewis, E.</td>
