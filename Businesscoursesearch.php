@@ -1,39 +1,22 @@
- 
-
-
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset = "utf-8">
-    <title>Art</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</style>
-</head>
-   <body>
-    <header><nav>
-	    <p><a href="Minerva University.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
-      
-
 <?php
 session_start();
 if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
       exit();
+      
+
 }
 
-$username = $_SESSION['username'];
+?>
+<?php
+require "header2.php";
+?>
 
- $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = '';
-   $dbname = 'register_system';
-   $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-   
-   if(! $conn ) {
-      die('Could not connect: ' . mysqli_error());
-   }
-   echo 'Connected successfully</br>';
-
-   $sql = "SELECT * FROM course WHERE course.C_DeptName = 'Business'";
+<body>
+<?php
+   $sql = "SELECT c.*, p.*, s.*, h.*  FROM course AS c 
+           JOIN prerequisites1 AS p AND section AS s AND history AS s
+           WHERE c.CDeptID= '126'";
 
    $rownumber = 0;
    if ($result = mysqli_query($conn, $sql)){
@@ -64,12 +47,13 @@ $username = $_SESSION['username'];
        echo "</tr>";
       
       }
-      echo "</table";
+      echo "</table>";
       
-      if (isset($_POST['checkbox[$.rownumber]'])){
-          $_SESSION['h'] = $_POST['S'];
+     if (isset($_POST['Submit'])){
+          $_SESSION['coursechosen'] = $_POST['Checkbox'];
           
-          echo ($_SESSION['h']);
+          echo ("{$_SESSION['coursechosen']}");
+          header("Location: Courseadd.php");
       }
       mysqli_free_result($result);
        } else {
@@ -81,28 +65,17 @@ $username = $_SESSION['username'];
    mysqli_close($conn)
 ?>
 
-            <form method ="post">
-                <input type="checkbox" name="S" value="item1">
-                <input type ="SUBMIT" value="Submit">
+    <form action ="Biologycoursesearch.php" method ="post">
+                <input type="checkbox" name="S" id="Checkbox" value="item1">
+                <input type ="SUBMIT" name="Add" id="Submit" value="Submit">
                 
-                
-       <footer id="footer">
-            <div class ="geninfo" align ="center">
-          <p><a href="Minerva University.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>  
-          <p>Phone Number: 812-522-3917 <br>
-          Street: 4038 Minerva University <br>
-          City, State, Zip: Seymour, Indiana, 47274 <br>
-          Inquiries: generalminervauniversity@msc.edu <br>
-      </p></div>
-    </footer>     
+ <?php
+           require "footer.php";
+           ?>
+   
    </body>
 
 
 </html>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

@@ -16,7 +16,7 @@ require "header2.php";
 <?php
    $sql = "SELECT c.*, p.*, s.*, h.*  FROM course AS c 
            JOIN prerequisites1 AS p AND section AS s AND history AS s
-           WHERE c.CDeptID= '129'";
+           WHERE c.CDeptID= '130'";
 
    $rownumber = 0;
    if ($result = mysqli_query($conn, $sql)){
