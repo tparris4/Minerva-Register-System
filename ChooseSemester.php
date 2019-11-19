@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <?php
-session_start();
-if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
-      exit();
-      
-
-}
-
-?>
-<?php
 require "header2.php";
 ?>
     <h2>Choose Semester</h2>
 
+    
+    
+    <a href="ChooseDepartment.php">Fall 2019</a>
 <div class="dropdown">
   <button onclick="myFunction()" class="dropbtn">Semesters</button>
   <div id="myDropdown" class="dropdown-content">
       
     <a href="">2018</a>
     <a href="ChooseDepartment.php">Fall 2019</a>
-    <a href ="ChooseDepartment.php">Spring 2020</a>
+    <a href="ChooseDepartment.php">Spring 2020</a>
   </div>
 </div>
 
@@ -44,6 +38,7 @@ window.onclick = function(event) {
   }
 }
 </script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <?php
            require "footer.php";
            ?>

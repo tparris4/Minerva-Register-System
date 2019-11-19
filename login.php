@@ -20,9 +20,10 @@
       if($count == 1) {
          $_SESSION['Username'] = $myusername;
          $_SESSION['Password'] = $mypassword;
-         
+         $_SESSION['login_user'] = $myusername;
          $_SESSION['user_id'] = $row['User_ID'];
          $_SESSION['undergradid'] = $row['User_ID'];
+         $_SESSION['phone'] = $row['Phone_Number'];
          $_SESSION['FirstName'] = $row['First_Name'];
          $_SESSION['LastName'] = $row['Last_Name'];
          

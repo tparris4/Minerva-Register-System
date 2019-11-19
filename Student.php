@@ -5,13 +5,6 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
-session_start();
-if (!isset($_SESSION['Username']) || empty($_SESSION['Username'])) {
-      exit();
-   ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-}
 
 ?>
 <?php
@@ -20,10 +13,9 @@ require "header2.php";
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
                 
-
 <table>
     <tr><td>Major: <?php 
-    echo $_SESSION['user_id'];
+
     $major = "SELECT m.M_Name FROM major AS m JOIN undergraduate AS u WHERE m.Major_ID = u.MajorID
             AND u.UG_StudentID = {$_SESSION['user_id']}";
    if($result = mysqli_query($conn, $major)){
@@ -46,7 +38,7 @@ require "header2.php";
    {
     while($row = mysqli_fetch_array($result)){
         
-    $_SESSION['MinorName'] = $row['M_Name'];
+    $_SESSION['MinorName'] = $row['MinorName'];
     echo $_SESSION['MinorName'];
     }
    }
@@ -54,6 +46,7 @@ require "header2.php";
    }?></td></tr>
     
 </table>
+
         
         <script>
             function AddCourse(){
@@ -93,25 +86,44 @@ require "header2.php";
             }
             
             </script>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+
                         
            
             <?php
+            /*
+             *        if($result = mysqli_query($conn, $minor)){
+   if(mysqli_num_rows($result) > 0)
+   {
+    while($row = mysqli_fetch_array($result)){
+        
+    $_SESSION['MinorName'] = $row['MinorName'];
+    echo $_SESSION['MinorName'];
+    }
+   }
             
+   }?>
+             */
             //check if student is full time or part time to check credits
             if (isset($_SESSION['undergradid'])){
-            $result = mysqli_query($conn, "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = '{$_SESSION['undergradid']}");
-            $credittotal = mysqli_fetch_assoc($result);
+            $sql11 = "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = {$_SESSION['undergradid']}";
+            if($result = mysqli_query($conn,$sql11)){
+              if(mysqli_num_rows($result) > 0)
+   {
+            $row = mysqli_fetch_array($result);
+            
+                while( $row = mysqli_fetch_assoc($result) ){
+                    extract($row);
+                    $credittotal = $row['CreditNum'];
+                    echo $credittotal;
+            }}}
+            
+            //$credittotal = mysqli_fetch_assoc($result);
             
             }
             else if(isset($_SESSION['undergradftid']))
             {
                 $result = mysqli_query($conn, "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = '{$_SESSION['undergradftid']}");
-            $credittotal = mysqli_fetch_assoc($result);
+            $credittotal = mysqli_fetch_assoc($result, MYSQLI_ASSOC);
                 
                 }
             else{
@@ -122,25 +134,27 @@ require "header2.php";
              * JOIN section AS s AND faculty AS f AND course AS c AND user AS u 
                 AND timeslot AS t AND building AS b AND room AS r 
              */
+            $_SESSION['user_id'] = 2222;
             $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
-                FROM history AS h
-               JOIN section AS s
-               JOIN faculty AS f
-               JOIN course AS c
-               JOIN user AS u
-               JOIN timeslot AS t
-               JOIN building AS b
-               JOIN room AS r
-                WHERE h.Stud_ID = '{$_SESSION['user_id']}' AND s.S_Section_ID = h.Sec_ID
+                FROM history AS h,
+               section AS s,
+               faculty AS f,
+               course AS c,
+               user AS u,
+               timeslot AS t,
+               building AS b,
+               room AS r
+                WHERE h.Stud_ID = '".$_SESSION['user_id']."' AND s.S_Section_ID = h.Sec_ID
+                   AND  u.User_ID = f.Facu_ID
                     AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-                    AND c.Course_ID = s.S_Course_ID AND h.SemesterYearID = '50001'
-                    AND f.Facu_ID = u.User_ID AND t.TimeSlotID = s.S_TimeSlotID
+                    AND c.Course_ID = s.S_CourseID AND h.SemesterYearID = '50001'
+                    AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
             ORDER BY h.Sec_ID ";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
             
                     echo "<table>"; 
-                    echo"<th>";
+                    
                     echo"<th>Course Name</th>";
                     echo"<th>Professor Name</th>";
                     echo"<th>Room Number</th>";
@@ -148,7 +162,7 @@ require "header2.php";
                     echo"<th>Day</th>";                   
                     echo"<th>Credits</th>";
                     echo"<th>Section Number</th>";
-                    echo"<th>";
+                    
                     $rownumber = 0;
                    
 
@@ -173,12 +187,12 @@ require "header2.php";
                 echo "</table>";
                 if($credittotal <= 6){
                     //update credits
-                    $url_id = mysqli_real_escape_string($_SESSION['undergradid']);
+                    $url_id = $_SESSION['undergradid'];
                     $checkid = "SELECT UndergradPartTime_ID FROM undergradparttime WHERE UndergradPartTime_ID='$url_id'";
-                    $result = mysql_query($checkid);
+                    $result = mysqli_query($conn, $checkid);
                         //if id exists
-                        if(mysql_num_rows($result) >0){
-                           $updatetid = "UPDATE undergradparttime SET Credits_Num='$credittotal' UndergradPartTime_ID='$url_id'";
+                        if(mysqli_num_rows($result) >0){
+                           $updateid = "UPDATE undergradparttime SET Credits_Num='$credittotal' WHERE UndergradPartTime_ID='$url_id'";
                             //update record
                     if ($conn->query($updateid) === TRUE) {
                         echo "Record updated successfully";
@@ -255,10 +269,12 @@ require "header2.php";
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
    mysqli_close($conn);
-?>?>
+?>
                       <br>
             <br>
             <br>
+            
+
             <br>
             <br>
         <div align="center">
