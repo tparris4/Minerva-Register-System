@@ -1,5 +1,11 @@
 <?php
 session_start();
+require_once "config.php";
+
+   ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 ?>
 
 <html>
@@ -15,35 +21,17 @@ session_start();
                 <header>
         <p><a href="Minerva University3.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
         <ul>
-            <li><a href = "ind.php">Home</a></li>
+            <li><a href = "index.php">Home</a></li>
+            <div align="right">
+                <a href="logout.php" class="button">Logout</a><br>
+            <p id="date"></p>
+<p>
+<script> document.write(new Date().toLocaleDateString()); </script>
+</p>
+            </div>
             
         </ul>
-        <div class = "login-sys">
-            <?php
-            if (isset($_SESSION['email_add'])){
-                echo '<form action="logout.php" method = "post">
-                <button type="submit" name="login-submit>Submit</button>
-                </form>';
-            }
-            else{
-                
-            
-         echo   '<form action ="login.php" method="POST">
-                <input type ="text" name="email_address" placeholder="Email Address">
-                 <input type ="password" name="password" placeholder="Password">
-                 <button type ="submit" name="login-submit" class="btn" value="login-submit">Submit</button>
-            </form>';
-                    
-            }
-            ?>
-            <br>
-            <br>
-            <br>
-            <br>
-            <form action ="logout.php" method ="post">
-                 <button type ="submit" name="logout-submit">Logout</button>
-            </form>
-        </div>
-                
-                </header>
+
+
+        </header>
         

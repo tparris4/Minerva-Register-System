@@ -4,6 +4,8 @@ require "header2.php";
 ?>
 
 <?php
+
+if(isset($_SESSION['addcourse'])){
    $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.* FROM section AS s
             JOIN course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
             AND u.User_ID = f.Facu_ID AND s.S_BuildID = '77772' AND s.S_SemesterYearID = '50001' AND s.S_FacuID = f.Facu_ID
@@ -53,8 +55,17 @@ require "header2.php";
    }  else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
-   mysqli_close($conn)
+   mysqli_close($conn);
+   unset($_SESSION['addcourse']);
+}
+else if(isset($_SESSION['searchcourse'])){
+    echo "test";
+}
+else{
+    echo "not found";
+}
 ?>
+
 
     <form action ="Biologycoursesearch.php" method ="post">
                 <input type="checkbox" name="S" id="Checkbox" value="item1">

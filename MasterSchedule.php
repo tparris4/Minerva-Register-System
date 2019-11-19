@@ -14,7 +14,7 @@
 <html>
 <head>
 <?php 
-require "header2.php";
+require "header.php";
 
 if(isset($_POST['redirect'])){
     header('Location: '.$_POST['redirect']);
@@ -54,9 +54,7 @@ if(isset($_POST['redirect'])){
     
     
  
-</body>
 <?php
 require 'footer.php'
 ?>
-</html>
 

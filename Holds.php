@@ -1,22 +1,15 @@
-<?php
-session_start();
-if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
-      exit();
-      
 
-}
-
-?>
 <?php
 require "header2.php";
 ?>
 
 <?php
-   $sql = "SELECT * 
+   $sql = "SELECT student.Stud_ID, user.First_Name, user.Last_Name,  holds.Hold_Type, holds.Hold_Description, holdstatus.HoldStatus
        FROM holds,holdstatus,student, user
-       WHERE holdstatus.HS_HoldID = holds.Holds_ID 
-       AND student.Stud_ID = holdstatus.HS_StudentID
-       AND student.Stud_ID = user.User_ID";
+       WHERE user.user_ID = '" . $_SESSION['user_id'] . "'
+           AND user.user_ID = student.Stud_ID AND
+       holdstatus.HS_HoldID = holds.Holds_ID 
+       AND student.Stud_ID = holdstatus.HS_StudentID";
 
    $rownumber = 0;
    if ($result = mysqli_query($conn, $sql)){
@@ -28,7 +21,7 @@ require "header2.php";
       echo "<th>Name</th>";
       echo "<th>Hold Type</th>";
       echo "<th>Description</th>";
-      
+      echo "<th>Hold Status</th>";
       
     $rownumber = $rownumber + 1;
     
@@ -38,6 +31,7 @@ require "header2.php";
         echo "<td>" . $row['First_Name'] . " " .  $row['Last_Name'] . "</td>";
         echo "<td>" . $row['Hold_Type'] . "</td>";
        echo "<td>" . $row['Hold_Description'] . "</td>";
+           echo "<td>" . $row['HoldStatus'] . "</td>";
        
 
        echo "</tr>";

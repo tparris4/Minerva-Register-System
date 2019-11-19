@@ -1,13 +1,4 @@
-<?php
-session_start();
-if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
-      exit();
-      
 
-}
-
-?>
-<head>
 <?php
 require "header2.php";
 ?>
@@ -38,7 +29,9 @@ window.onclick = function(event) {
     
         <p>Current Major: <?php
         if(isset($_SESSION['undergradid'])){
-        $sql = "SELECT u.MajorID, m.M_Name FROM undergraduate AS u AND major AS m WHERE {$_SESSION['user_id']} = {$_SESSION['graduateid']}
+            echo $_SESSION['MajorName'];
+        }
+        /*$sql = "SELECT u.MajorID, m.M_Name FROM undergraduate AS u AND major AS m WHERE {$_SESSION['user_id']} = 
                  AND m.Major_ID = u.MajorID";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
@@ -50,7 +43,9 @@ window.onclick = function(event) {
                echo "Major not found";
            }
                 
-        }else if(isset($_SESSION['graduateid'])){
+        }
+         */ else if(isset($_SESSION['graduateid'])){
+         
         $sql = "SELECT u.MajorID, m.M_Name FROM graduate AS u AND major AS m WHERE {$_SESSION['user_id']} = {$_SESSION['graduateid']}
                  AND m.Major_ID = u.MajorID";
         $result = $conn->query($sql);
@@ -96,5 +91,3 @@ window.onclick = function(event) {
            ?>
    
     
-    </body>
-</html>

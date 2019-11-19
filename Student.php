@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<?php
 
-?>
 <?php
 require "header2.php";
 ?>
@@ -51,18 +43,21 @@ require "header2.php";
         <script>
             function AddCourse(){
                 window.location.href="ChooseSemester.php";
+                
             }
             
             function DropCourse(){
                 window.location.href="DropCourse.php";
+                
             }
             
             function ClassSearch(){
-                window.location.href="SearchPage.html";
+                window.location.href="SearchCourse.php";
+               
             }
             
             function LookUpTranscript(){
-                window.location.href="Transcript.html";
+                window.location.href="Transcript.php";
             }
             
             function LookUpHolds(){
@@ -70,7 +65,7 @@ require "header2.php";
             }
             
             function ViewCatalog(){
-                window.location.href="CrsCatalog.php";
+                window.location.href="CrsCatalogLogin.php";
             }
             
             function ViewGrades(){
@@ -90,19 +85,7 @@ require "header2.php";
                         
            
             <?php
-            /*
-             *        if($result = mysqli_query($conn, $minor)){
-   if(mysqli_num_rows($result) > 0)
-   {
-    while($row = mysqli_fetch_array($result)){
-        
-    $_SESSION['MinorName'] = $row['MinorName'];
-    echo $_SESSION['MinorName'];
-    }
-   }
-            
-   }?>
-             */
+ 
             //check if student is full time or part time to check credits
             if (isset($_SESSION['undergradid'])){
             $sql11 = "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = {$_SESSION['undergradid']}";
@@ -122,10 +105,17 @@ require "header2.php";
             }
             else if(isset($_SESSION['undergradftid']))
             {
-                $result = mysqli_query($conn, "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = '{$_SESSION['undergradftid']}");
-            $credittotal = mysqli_fetch_assoc($result, MYSQLI_ASSOC);
-                
-                }
+                $sql12 = "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = '{$_SESSION['undergradftid']}";
+            if($result = mysqli_query($conn,$sql12)){
+              if(mysqli_num_rows($result) > 0)
+   {
+            $row = mysqli_fetch_array($result);
+            
+                while( $row = mysqli_fetch_assoc($result) ){
+                    extract($row);
+                    $credittotal = $row['CreditNum'];
+                    echo $credittotal;
+            }}}}
             else{
                 echo "something happened";
             }
@@ -134,7 +124,7 @@ require "header2.php";
              * JOIN section AS s AND faculty AS f AND course AS c AND user AS u 
                 AND timeslot AS t AND building AS b AND room AS r 
              */
-            $_SESSION['user_id'] = 2222;
+            
             $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
                 FROM history AS h,
                section AS s,
@@ -282,7 +272,7 @@ require "header2.php";
               
         <button class = "button" onclick="AddCourse()">Add Course</button>
         <button class = "button" onclick="DropCourse()">Drop Course</button>
-        <button class = "button" onclick="ClassSearch()">Search Courses</button>
+        <button class = "button" onclick="ClassSearch()" >Search Courses</button>
         <button class = "button" onclick="LookUpTranscript()">Look Up Transcript</button>
         <button class = "button" onclick="LookUpHolds()">Look Up Holds</button>
         <button class = "button" onclick="ViewCatalog()">View Catalog</button>
@@ -305,15 +295,7 @@ require "header2.php";
 
            <?php
            require "footer.php";
+           
            ?>
    
-    <!--
-/**
-$sql2 = "INSERT INTO `undergradfulltime` (`UndergradFullTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) 
-                        VALUES ('{$_SESSION['undergradid']}', '$rownumber', 'Good', '$credittotal', '50001')";
-*/
-    $rownumber = $rownumber + $row['C_CreditAmt']; 
-                    $credittotal = $credittotal + $rownumber;
--->
-    </body>
-</html>
+ 
