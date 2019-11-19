@@ -391,6 +391,24 @@ tr:nth-child(even) {
                     display: inline-block;
                     width: 500dx;
                     display: block;
+                    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+                    
+            }
+            a.button {
+                border: none;
+                background-color: #4CAF50;
+                padding: 14px 28px;
+                color: green;
+                font-size: 20dx;
+                    cursor:pointer;
+                    display: inline-block;
+                    width: 500dx;
+                    display: block;
+                   -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
                     
                     
             }

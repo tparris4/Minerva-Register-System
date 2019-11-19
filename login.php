@@ -1,81 +1,79 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-session_start();
-
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-    
-}
-
-require_once "config.php";
-
-$email_address = $password = "";
-$email_address_err = $password_err = "";
-
-//process form
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    
- //username empty
-    if(empty(trim($_POST["username"]))){
-        $email_address_err = "Enter email";
-    }else {
-        $email_address = trim($_POST["username"]);
-    }
-    
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Enter password";
-    }else{
-        $password = trim($_POST["password"]);
-    }
-    
-    if(empty($email_address_err) && empty($password_err)){
-        $sql = "SELECT id, email_address, password FROM User WHERE email_address = ?";
-    }
-    
-    if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "s", $param_email_address);
-        
-        //set para
-        $param_email_address = $email_address_err;
-        
-        //attempt
-        if(mysqli_stmt_execute($stmt)){
-            //result
-            mysqli_stmt_store_result($stmt);
-            
-            //check username exists
-            if(mysqli_stmt_num_rows($stmt) == 1){
-                //bind results
-                mysqli_stmt_bind_result($stmt, $id, $email_address, $hashed_password);
-                if(mysqli_stmt_fetch($stmt)){
-                    if(password_verify($password, $sql))
-                {
-    session_start();
-    
-    $_SESSION["loggedin"] = true;
-    $_SESSION["id"] = $id;
-    $_SESSION["email_address"] = $email_address;
-    
-    //redirect
-                header("location: homepage.php");}
-                else{
-                    $password_err = "The password you entered was not valid.";
-                }
-                }
-            }else{
-                echo "Please try again later.";
-            }
-            }
-            mysqli_stmt_close($stmt);
-        }
-        mysqli_close($link);
-        }
+   include "config.php";
+   session_start();
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+      
+      $myusername = mysqli_real_escape_string($conn,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
+      
+      $sql = "SELECT * FROM user WHERE email_address = '$myusername' and password = '$mypassword'";
+      $result = mysqli_query($conn,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $active = $row['active'];
+      
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+		
+      if($count == 1) {
+         $_SESSION['Username'] = $myusername;
+         $_SESSION['Password'] = $mypassword;
+         $_SESSION['user_id'] = $row['user_ID'];
+         $_SESSION['FirstName'] = $row['First_Name'];
+         $_SESSION['LastName'] = $row['Last_Name'];
+         
+         header("Location: welcome.php");
+      }else {
+         $error = "Your Login Name or Password is invalid";
+      }
+   }
 ?>
+<html>
+   
+   <head>
+      <title>Login Page</title>
+      
+      <style type = "text/css">
+         body {
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:14px;
+         }
+         label {
+            font-weight:bold;
+            width:100px;
+            font-size:14px;
+         }
+         .box {
+            border:#666666 solid 1px;
+         }
+      </style>
+      
+   </head>
+   
+   <body bgcolor = "#FFFFFF">
+	
+      <div align = "center">
+         <div style = "width:300px; border: solid 1px #333333; " align = "left">
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+				
+            <div style = "margin:30px">
+               
+               <form action = "" method = "post">
+                  <label>UserName  :</label><input type = "Username" id ="Username" name = "username" class = "box"/><br /><br />
+                  <label>Password  :</label><input type = "password" id ="Password" name = "password" class = "box" /><br/><br />
+                  <input type = "submit" value = " Submit "/><br />
+               </form>
+               
+               <div style = "font-size:11px; color:#cc0000; margin-top:10px"></div>
+					
+            </div>
+				
+         </div>
+			
+      </div>
+
+   </body>
+</html>
+
