@@ -60,6 +60,7 @@ require "header2.php";
                         if($saltedpassword)
                         {
                                 echo "Correct Login";
+                                
                                 header("Location:Student.php");
                                 /**
                                 $q = $conn->prepare("SELECT user_id FROM user WHERE email_address = '$username'");

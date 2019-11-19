@@ -20,22 +20,38 @@ require "header2.php";
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
                 
+
 <table>
     <tr><td>Major: <?php 
-    $major = mysqli_query($conn, "SELECT m.M_Name FROM major AS m JOIN undergraduate AS u WHERE m.Major_ID = u.MajorID"
-            . "AND u.Stud_ID = {$_SESSION['user_id']}");
-    while($row = $major -> fetch_assoc()){
+    echo $_SESSION['user_id'];
+    $major = "SELECT m.M_Name FROM major AS m JOIN undergraduate AS u WHERE m.Major_ID = u.MajorID
+            AND u.UG_StudentID = {$_SESSION['user_id']}";
+   if($result = mysqli_query($conn, $major)){
+   if(mysqli_num_rows($result) > 0)
+   {
+    while($row = mysqli_fetch_array($result)){
         
     $_SESSION['MajorName'] = $row['M_Name'];
     echo $_SESSION['MajorName'];
     }
-    
-    
+   }
+            
+   }
     ?> </td></tr>
-    <tr><td>Minor: <?php $minor = mysqli_query($conn, "SELECT m.MinorName FROM minor AS m JOIN undergraduate AS u "
-            . "WHERE m.Minor_ID = u.MinorID");
-    while($row = $minor ->fetch_assoc()){
-    echo $_SESSION['MinorName'] = $row['MinorName'];}?></td></tr>
+    <tr><td>Minor: <?php 
+    $minor = "SELECT m.MinorName FROM minor AS m JOIN undergraduate AS u 
+            WHERE m.Minor_ID = u.MinorID AND u.UG_StudentID = {$_SESSION['user_id']}";
+       if($result = mysqli_query($conn, $minor)){
+   if(mysqli_num_rows($result) > 0)
+   {
+    while($row = mysqli_fetch_array($result)){
+        
+    $_SESSION['MinorName'] = $row['M_Name'];
+    echo $_SESSION['MinorName'];
+    }
+   }
+            
+   }?></td></tr>
     
 </table>
         
@@ -77,34 +93,49 @@ require "header2.php";
             }
             
             </script>
-      
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                         
            
             <?php
-            //just to test
-            $studentid = '33332';
+            
             //check if student is full time or part time to check credits
             if (isset($_SESSION['undergradid'])){
-            $credittotal = mysqli_query($conn, "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = 'undergradid'");
+            $result = mysqli_query($conn, "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = '{$_SESSION['undergradid']}");
+            $credittotal = mysqli_fetch_assoc($result);
+            
             }
             else if(isset($_SESSION['undergradftid']))
             {
-                $credittotal = mysqli_query($conn, "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = 'undergradftid'");
-            }
+                $result = mysqli_query($conn, "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = '{$_SESSION['undergradftid']}");
+            $credittotal = mysqli_fetch_assoc($result);
+                
+                }
             else{
                 echo "something happened";
             }
             //print schedule
-            $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.FacuID, c.Course_ID, c.C_Name, c.C_CreditAmt
-                FROM history AS h
-                JOIN section AS s AND faculty AS f AND course AS c AND user AS u 
+            /*
+             * JOIN section AS s AND faculty AS f AND course AS c AND user AS u 
                 AND timeslot AS t AND building AS b AND room AS r 
-                WHERE h.StudID = '{$_SESSION['user_id']}' AND s.S_Section_ID = h.SecID
+             */
+            $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
+                FROM history AS h
+               JOIN section AS s
+               JOIN faculty AS f
+               JOIN course AS c
+               JOIN user AS u
+               JOIN timeslot AS t
+               JOIN building AS b
+               JOIN room AS r
+                WHERE h.Stud_ID = '{$_SESSION['user_id']}' AND s.S_Section_ID = h.Sec_ID
                     AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
                     AND c.Course_ID = s.S_Course_ID AND h.SemesterYearID = '50001'
-                    AND f.FacuID = u.User_ID AND t.TimeSlotID = s.S_TimeSlotID
-            ORDER BY h.SecID
-             AND t.Day";
+                    AND f.Facu_ID = u.User_ID AND t.TimeSlotID = s.S_TimeSlotID
+            ORDER BY h.Sec_ID ";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
             
@@ -225,7 +256,11 @@ require "header2.php";
    }
    mysqli_close($conn);
 ?>?>
-            
+                      <br>
+            <br>
+            <br>
+            <br>
+            <br>
         <div align="center">
             <div id="box1" align="center">
               
@@ -245,7 +280,11 @@ require "header2.php";
         </div>
 
             
-            
+                      <br>
+            <br>
+            <br>
+            <br>
+            <br>
             
 
            <?php
