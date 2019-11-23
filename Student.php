@@ -4,7 +4,12 @@ require "header2.php";
 ?>
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
-                
+<?php
+if(isset($_SESSION['HoldSet'])){
+    echo "Cannot add course due to hold conflict";
+    unset($_SESSION['Holdset']);
+}
+                ?>
 <table>
     <tr><td>Major: <?php 
 
@@ -80,6 +85,8 @@ require "header2.php";
                 window.location.href="DegreeAudit.html";
             }
             
+
+            
             </script>
 
                         
@@ -87,44 +94,50 @@ require "header2.php";
             <?php
  
             //check if student is full time or part time to check credits
-            if (isset($_SESSION['undergradid'])){
-            $sql11 = "SELECT CreditNum FROM undergradparttime WHERE undergradparttime_ID = {$_SESSION['undergradid']}";
+            if (isset($_SESSION['undergradptid'])){
+            $sql11 = "SELECT Credits_Num FROM undergradparttime WHERE UndergradPartTime_ID = {$_SESSION['undergradptid']}";
             if($result = mysqli_query($conn,$sql11)){
-              if(mysqli_num_rows($result) > 0)
+              if(mysqli_num_rows($result) > 0){
+              echo "Part Time";
    {
-            $row = mysqli_fetch_array($result);
+            /*$row = mysqli_fetch_array($result);
             
                 while( $row = mysqli_fetch_assoc($result) ){
                     extract($row);
                     $credittotal = $row['CreditNum'];
                     echo $credittotal;
-            }}}
+            }}/*/
+              }
+             
             
             //$credittotal = mysqli_fetch_assoc($result);
             
+            }}
             }
             else if(isset($_SESSION['undergradftid']))
             {
-                $sql12 = "SELECT CreditNum FROM undergradfulltime WHERE undergradfulltime_ID = '{$_SESSION['undergradftid']}";
+                $sql12 = "SELECT Credits_Num FROM undergradfulltime WHERE UndergradFullTime_ID = '{$_SESSION['undergradftid']}";
             if($result = mysqli_query($conn,$sql12)){
               if(mysqli_num_rows($result) > 0)
-   {
-            $row = mysqli_fetch_array($result);
+              {
+                  echo "Full Time";
             
-                while( $row = mysqli_fetch_assoc($result) ){
+             /*   while( $row = mysqli_fetch_assoc($result) ){
                     extract($row);
                     $credittotal = $row['CreditNum'];
                     echo $credittotal;
-            }}}}
+            }*/
+                  
+              }}}
             else{
-                echo "something happened";
+                echo "something happened or student not in database";
             }
             //print schedule
             /*
              * JOIN section AS s AND faculty AS f AND course AS c AND user AS u 
                 AND timeslot AS t AND building AS b AND room AS r 
              */
-            
+            $credittotal = 0;
             $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
                 FROM history AS h,
                section AS s,
@@ -165,19 +178,21 @@ require "header2.php";
                     echo"<td>" . $row['Day'] . "</td>";
                     echo"<td>" . $row['C_CreditAmt'] . "</td>";
                     echo"<td>" . $row['S_Num'] . "</td>";
+                    
                     echo"</tr>";
                     
+                    $credittotal = $credittotal + $row['C_CreditAmt'];
                     }
                 echo "</table>";
                 
                 echo "<table>";
-                echo "<tr>";
-                echo "<td>" . "Total Credits: " . var_dump($credittotal) . "</td>";
+                echo "<td>" . "Credit Number: " . $credittotal . "</td>";
                 echo "</tr>";
                 echo "</table>";
+                //if student is pt
                 if($credittotal <= 6){
                     //update credits
-                    $url_id = $_SESSION['undergradid'];
+                    $url_id = mysqli_real_escape_string($_SESSION['undergradptid']);
                     $checkid = "SELECT UndergradPartTime_ID FROM undergradparttime WHERE UndergradPartTime_ID='$url_id'";
                     $result = mysqli_query($conn, $checkid);
                         //if id exists
@@ -193,7 +208,7 @@ require "header2.php";
                         //if record does not exist, insert
                         else{
                             $insert1 = "INSERT INTO `undergradparttime` (`UndergradPartTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) 
-                        VALUES ('{$_SESSION['undergradid']}', '$rownumber', 'Good', '$credittotal', '50001' LIMIT 1)";
+                        VALUES ('{$_SESSION['undergradptid']}', '$credittotal', 'Good', '$credittotal', '50001' LIMIT 1)";
                if (mysqli_query($conn, $insert1)) {
                echo "New record created successfully";
                }else{
@@ -201,12 +216,29 @@ require "header2.php";
             }
  
                         }
+                        //remove from ft if exists
+                                  $url_id4 = mysqli_real_escape_string($_SESSION['undergradftid']);
+                    $checkid4 = "SELECT UndergradFullTime_ID FROM UndergradFulltime WHERE UndergradFullTime_ID='$url_id'";
+                    $result4 = mysql_query($checkid4);
+                        //if id exists
+                        if(mysql_num_rows($result4) >0){
+                     $del2 = "DELETE FROM `undergradfulltime` (`UndergradFullTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) VALUES "
+                             . "('{$_SESSION['undergradftid']}', '$credittotal', 'Good', '$credittotal', '50001')";
+                              $_SESSION['undergradptid'] = $_SESSION['undergradftid'];
+                             unset($_SESSION['undergradptid']);
+                             
+        if ($conn->query($del2) === TRUE) {
+          echo "Record deleted successfully";
+           } else {
+          echo "Error deleting record: " . $conn->error;
                 }
+                }
+                        }
                    
                 //if student is full time
                 else if($credittotal > 6){
                                     //update credits
-                    $url_id2 = mysqli_real_escape_string($_SESSION['undergradid']);
+                    $url_id2 = mysqli_real_escape_string($_SESSION['user_id']);
                     $checkid2 = "SELECT UndergradFullTime_ID FROM undergradfulltime WHERE UndergradFullTime_ID='$url_id2'";
                     $result2 = mysql_query($checkid2);
                         //if id exists
@@ -231,16 +263,16 @@ require "header2.php";
                echo "Error: " . $insert1 . "" . mysqli_error($conn);
                         }
  
-                        
-                    $url_id = mysqli_real_escape_string($_SESSION['undergradid']);
-                    $checkid = "SELECT UndergradPartTime_ID FROM undergradparttime WHERE UndergradPartTime_ID='$url_id'";
-                    $result3 = mysql_query($checkid);
+                        //delete pt row if ft student
+                    $url_id3 = mysqli_real_escape_string($_SESSION['undergradptid']);
+                    $checkid3 = "SELECT UndergradPartTime_ID FROM undergradparttime WHERE UndergradPartTime_ID='$url_id3'";
+                    $result3 = mysql_query($checkid3);
                         //if id exists
                         if(mysql_num_rows($result3) >0){
                      $del1 = "DELETE FROM `undergradparttime` (`UndergradPartTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) VALUES "
-                             . "('{$_SESSION['undergradid']}', '$credittotal', 'Good', '$credittotal', '50001')";
-                              $_SESSION['undergradftid'] = $_SESSION['undergradid'];
-                             unset($_SESSION['undergradid']);
+                             . "('{$_SESSION['undergradptid']}', '$credittotal', 'Good', '$credittotal', '50001')";
+                              $_SESSION['undergradftid'] = $_SESSION['undergradptid'];
+                             unset($_SESSION['undergradptid']);
                              
         if ($conn->query($del1) === TRUE) {
           echo "Record deleted successfully";
@@ -260,6 +292,40 @@ require "header2.php";
    }
    mysqli_close($conn);
 ?>
+            
+            <?php 
+            $sql = "SELECT u.First_Name, u.Last_Name, r.R_Num, b.B_Name, b.B_Address, f.F_OfficeHrs, d.D_Name"
+                    . "FROM user AS u, room AS r, building AS b, faculty AS f, advisor AS a, student AS s, department AS d"
+                    . "WHERE a.A_Stud_ID = '".$_SESSION['user_id']."' AND u.user_id = f.Facu_id AND b.BuildID = r.RoomID "
+                    . "AND a.A_Facu_ID = f.Facu_ID";
+                      
+            if ($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+            
+                    echo "<table>"; 
+                    
+                    echo"<th>Advisor Name</th>";
+                    echo"<th>Room Number</th>";
+                    echo"<th>Office Hours</th>";
+                    echo"<th>Department</th>";
+                          
+                    $rownumber = 0;
+                   
+
+                   while($row = mysqli_fetch_array($result)){
+                    echo "<tr>";
+                    echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
+                    echo"<td>" . $row['R_Num'] . ',' . $row['B_Name'] .  'at' . $row['B_Address'] . "</td>";
+                    
+                    echo"<td>" . $row['F_OfficeHrs'] . "</td>";
+                    echo"<td>" . $row['D_Name'] . "</td>";            
+                    echo"</tr>";
+                    
+                    }
+                echo "</table>";
+                }
+            }
+            ?>
                       <br>
             <br>
             <br>

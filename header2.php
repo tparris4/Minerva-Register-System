@@ -19,12 +19,19 @@ include "session.php";
 
     </head>
     <body>
-                <header>
-        <p><a href="Minerva University3.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
+        <header><nav>
+        <p><a href="#"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
         <ul>
-            <li><a href = "index.php">Home</a></li>
+            <li><a href = "Index1.php">Home</a></li>
+            
+            </nav>
             <div align="right">
+                
                 <a href="logout.php" class="button">Logout</a><br>
+                <br>
+                <h4> <?php echo " {$_SESSION['user_id']} \n
+                       \n<br> {$_SESSION['LastName']}, {$_SESSION['FirstName']} ";
+                       ?><br><h4>
             <p id="date"></p>
 <p>
 <script> document.write(new Date().toLocaleDateString()); </script>

@@ -1,20 +1,6 @@
-<?php
- $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = '';
-   $dbname = 'register_system';
-   $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-   
-   if(! $conn ) {
-      die('Could not connect: ' . mysqli_error());
-   }
-   echo 'Connected successfully</br>';
-   session_start();
-   ?>
-<html>
-<head>
+
 <?php 
-require "header.php";
+require 'header.php';
 
 if(isset($_POST['redirect'])){
     header('Location: '.$_POST['redirect']);
@@ -36,6 +22,9 @@ if(isset($_POST['redirect'])){
     </script>
 </head>
 <body>
+    
+    <div id="MasterScheduleContainer">
+    <div id="main">
 
     <form method="post" id="MSchedule">
     <select name="redirect" id="pages">
@@ -46,6 +35,9 @@ if(isset($_POST['redirect'])){
     </select>
         <input type="submit" value="Submit"/>
     </form>
+        
+    </div>
+    </div>
     <br>
     <br>
     <br><br><br><br><br>

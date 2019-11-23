@@ -16,12 +16,13 @@
 <?php 
 require 'header.php';
 ?>
-</head>
-<body>
-           
-<h2>Master Schedule</h2>
 
+           
+<h2 align=center>Master Schedule</h2>
+<div id="MasterScheduleContainer">
+    <div id="main">
 <h3><u>Mathematics</u></h3>
+
  <?php 
            $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
             $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.*, e.*, a.* FROM section AS s
@@ -489,6 +490,9 @@ require 'header.php';
    }
    mysqli_close($conn);
 ?>
+
+    </div>
+</div>
 <?php
 require 'footer.php'
 ?>

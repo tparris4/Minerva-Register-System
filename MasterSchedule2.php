@@ -1,37 +1,18 @@
-<!DOCTYPE html>
-<?php
- $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = '';
-   $dbname = 'register_system';
-   $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-   
-   if(! $conn ) {
-      die('Could not connect: ' . mysqli_error());
-   }
-   echo 'Connected successfully</br>';
-   session_start();
-   ?>
-<html>
-<head>
-
-    <meta charset = "utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
-</style>
 <?php 
-require 'header2.php';
+require 'header.php';
 ?>
-</head>
-<body>
+
            
-<h2>Master Schedule</h2>
+<h2 align=center>Master Schedule</h2>
 
 <h3><u>Mathematics</u></h3>
  <?php 
            $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-            $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.* FROM section AS s
-            JOIN course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-            AND u.User_ID = f.Facu_ID AND s.S_BuildID = '77771' AND s.S_SemesterYearID = '50003' AND s.S_FacuID = f.Facu_ID
+            $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.*, e.*, a.* FROM section AS s
+            JOIN course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b, lectureroom AS e, labroom AS a
+            WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
+            AND u.User_ID = f.Facu_ID AND s.S_BuildID = '77771' AND s.S_SemesterYearID = '50003' AND s.S_FacuID = f.Facu_ID 
+            AND (a.La_Room_ID = r.Room_ID OR e.Le_Room_ID = r.Room_ID)
             ORDER BY s.S_CourseID";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
@@ -487,5 +468,6 @@ require 'header2.php';
 <?php
 require 'footer.php'
 ?>
+</body>
 </html>
 
