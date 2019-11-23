@@ -44,10 +44,17 @@ require "header2.php";
            
        echo ("{$_SESSION['coursechosen']}");
           $coursetoadd2 = mysqli_real_escape_string($conn, $_POST['C']);
-          $coursetoadd3 = mysqli_real_escape_string($conn, "SELECT C_Name ")
+          $coursetoadd3 = mysqli_real_escape_string($conn, "SELECT C_Name ");
           
-          $sql2 = "INSERT INTO `history` (`Transcript_ID`, `Stud_ID`, `Sec_ID`, `CourseDump`, `SemesterYearID`) VALUES ('', '{$_SESSION['userid']', '', '', '50001')";
-      }
+          $sql2 = "INSERT INTO `history` (`Stud_ID`, `Sec_ID`, `CourseDump`, `SemesterYearID`) VALUES ('{$_SESSION['userid']', '$_SESSION['coursetoadd']', '0', '50001')";
+      if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+}
       mysqli_free_result($result);
        } else {
       echo "Not found";

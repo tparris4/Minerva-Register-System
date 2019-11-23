@@ -18,6 +18,7 @@ require "header2.php";
             ORDER BY h.SecID
              AND t.Day";
             if ($result = mysqli_query($conn, $sql)){
+               $credittotal = 0;
                 if(mysqli_num_rows($result) > 0){
             
                     echo "<table>"; 
@@ -45,13 +46,14 @@ require "header2.php";
                     echo"<td>" . $row['C_CreditAmt'] . "</td>";
                     echo"<td>" . $row['S_Num'] . "</td>";
                     echo"</tr>";
-                    $subcredits = $row['C_CreditAmt'];
                     
+                    $credittotal = $credittotal + $row['C_CreditAmt'];
                     }
                 echo "</table>";
                 
                 echo "<table>";
-                echo "<tr>" . "Total Credits: " . var_dump($credittotal) . "</td>";
+                echo "<td>" . "Credit Number: " . $credittotal . "</td>";
+                echo "</tr>";
                 echo "</table>";
                 
                 //drop course
@@ -64,12 +66,12 @@ require "header2.php";
           $delcourse = $_POST['Checkbox'];
           $listCheck = "'" . implode("','", $delcourse) . "'";
           //match section number with course name
-          $sql4 = mysqli_query($conn, "SELECT s.S_Section_ID FROM section AS s JOIN course AS c WHERE s.S_Section_ID = c.Course_ID");
+          $sql4 = mysqli_query($conn, "SELECT s.S_Section_ID FROM section AS s JOIN course AS c WHERE s.S_Course_ID = c.Course_ID");
           //delete from history
           $sql3 = "DELETE FROM 'history' WHERE history.StudID = '{$_SESSION['user_id']}' AND section.S_Section_ID = history.SecID AND section.S_Section_ID = '$sql4' AND course.C_Name IN ($listcheck)";
           $delete = mysqli_query($conn, $sql3);
     if($delete){
-        echo " Records deleted Successfully.";
+        echo " Records deleted successfully.";
         
        header("Location: Student.php");
     }
