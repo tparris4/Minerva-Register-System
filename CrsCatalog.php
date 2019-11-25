@@ -5,22 +5,6 @@ require "header3.php";
    
 
 <h2>Course Catalog</h2>
-
-<div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Courses</button>
-  <div id="myDropdown" class="dropdown-content">
-      <a href="CrsCatalogHumanities.php">Humanities</a>
-    <a href="CrsCatalogMath.php">Math</a>
-    <a href="CrsCatalogCompSci.php">Computer Science</a>
-    <a href="CrsCatalogBusiness.php">Business</a>
-    <a href="CrsCatalogArt.php">Art</a>
-    <a href="CrsCatalogBiology.php">Biology</a>
-    <a href="CrsCatalogMedical.php">Medical</a>
-    <a href="CrsCatalogEnglish.php">English</a>
-    <a href="CrsCatalogMusic.php">Music</a>
-
-  </div>
-</div>
 <div class="topnav">
   <div class="search-container">
   <form action="CrsCatalog.php">
@@ -30,12 +14,27 @@ require "header3.php";
 </div>
 </div>
 
+        <ul>  
+            <li><a href="CrsCatalogHumanities.php">Humanities</a></li>
+    <li><a href="CrsCatalogMath.php">Math</a></li>
+    <li><a href="CrsCatalogCompSci.php">Computer Science</a></li>
+    <li><a href="CrsCatalogBusiness.php">Business</a></li>
+    <li><a href="CrsCatalogArt.php">Art</a></li>
+    <li><a href="CrsCatalogBiology.php">Biology</a></li>
+    <li><a href="CrsCatalogMedical.php">Medical</a></li>
+    <li><a href="CrsCatalogEnglish.php">English</a></li>
+   <li> <a href="CrsCatalogMusic.php">Music</a></li>
+        </ul> </li>
+
+
+
+
  <?php 
            // $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
             $sql = "SELECT DISTINCT c.C_DeptName, c.C_Name, c.C_Code, c.C_CreditAmt, c.C_Description 
                 FROM course AS c 
                 
-                ORDER BY c.C_Code";
+                GROUP BY c.C_Code";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
             
