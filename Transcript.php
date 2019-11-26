@@ -3,6 +3,21 @@
 require "header2.php";
 ?>
 
+<?php 
+
+$checkhold = "SELECT s.*, h.*, a.* FROM student AS s, "
+        . "JOIN holds AS h, holdstatus AS a"
+        . "WHERE s.Stud_ID = '".$_SESSION['user_id']."' AND h.Holds_ID = a.HS_HoldID "
+        . "AND a.HS_StudentID = s.Stud_ID";
+
+ if ($result = mysqli_query($conn, $checkhold)){
+     while($row = mysqli_fetch_array($result)){
+         $_SECTION['HoldSet'] = 1;
+         header("Location: Student.php");
+     }
+     
+ }
+?>
 
 <?php
  
@@ -52,7 +67,7 @@ require "header2.php";
             <p class="wrapper" align="center">
             <?php
             //print all sections w/ studid
-$sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
+$sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
                 FROM history AS h,
                section AS s,
                faculty AS f,
@@ -60,12 +75,17 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_C
                user AS u,
                timeslot AS t,
                building AS b,
-               room AS r
+               room AS r,
+               enrollment1 AS e
                 WHERE h.Stud_ID = '".$_SESSION['user_id']."' AND s.S_Section_ID = h.Sec_ID
-                   AND  u.User_ID = f.Facu_ID
+                     
+                   AND e.Stud_ID = h.Stud_ID
+                   AND e.E_Sec_ID = h.Sec_ID
+AND  u.User_ID = f.Facu_ID
                     AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
                     AND c.Course_ID = s.S_CourseID 
                     AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
+                    AND NOT h.SemesterYearID = '50001';
             ORDER BY h.SemesterYearID ASC ";
                 
             if ($result = mysqli_query($conn, $sql)){
@@ -80,9 +100,11 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_C
                     echo"<th>Day</th>";                   
                     echo"<th>Credits</th>";
                     echo"<th>Section Number</th>";
+                    echo"<th>Grade</th>";
                    
                     $rownumber = 0;
-                   
+                    $gradetotal = 0;
+                   $gradecount = 0;
 
                    while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
@@ -93,14 +115,29 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_C
                     echo"<td>" . $row['Day'] . "</td>";
                     echo"<td>" . $row['C_CreditAmt'] . "</td>";
                     echo"<td>" . $row['S_Num'] . "</td>";
+                    $gradetotal = $gradetotal + $row['Grade'];
+                    $gradecount = $gradecount + 1;
+                          
                     echo"</tr>";
                     
                     
                     }
                 echo "</table>";
+                /*function avg($sum=0,$count=0){
+    return ($count)? $sum / $count: NAN;
+}
+var_dump( avg(array_sum($values),count($values)) );*/
                 
                 echo "<table>";
                 echo "<tr>";
+                echo "<td>" . "Total Credits: " . var_dump($credittotal) . "</td>";
+                echo "</tr>";
+                echo "</table>";
+                
+                echo "<table>";
+                echo "<tr>";
+                $gradepoint = $gradetotal / $gradecount;
+                echo "<td>" .  "grades" . var_dump($gradepoint) . "</td>";
                 echo "<td>" . "Total Credits: " . var_dump($credittotal) . "</td>";
                 echo "</tr>";
                 echo "</table>";

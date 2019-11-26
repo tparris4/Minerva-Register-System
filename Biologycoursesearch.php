@@ -2,35 +2,28 @@
 <?php
 require "header2.php";
 ?>
-<!--
-Check holds
--->
-<?php 
 
-$checkhold = "SELECT s.*, h.*, a.* FROM student AS s, "
-        . "JOIN holds AS h, holdstatus AS a"
-        . "WHERE s.Stud_ID = '".$_SESSION['user_id']."' AND h.Holds_ID = a.HS_HoldID "
-        . "AND a.HS_StudentID = s.Stud_ID";
-
- if ($result = mysqli_query($conn, $checkhold)){
-     while($row = mysqli_fetch_array($result)){
-         $_SECTION['HoldSet'] = 1;
-         header("Location: Student.php");
-     }
-     
- }
-?>
 
 <!--
 Add course w/ checkbox
 -->
 <?php
 
-if(isset($_SESSION['addcourse'])){
-   $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.* FROM section AS s
-            JOIN course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-            AND u.User_ID = f.Facu_ID AND s.S_BuildID = '77772' AND s.S_SemesterYearID = '50001' AND s.S_FacuID = f.Facu_ID
-            ORDER BY s.S_CourseID";
+if(isset($_SESSION['Fall2019'])){
+   $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.*, p.* 
+            FROM section AS s
+            JOIN prerequisites1 AS p, course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b 
+            WHERE s.S_CourseID = c.Course_ID AND s.S_TimeSlotID = t.TimeSlotID 
+            AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID AND p.P_CourseID = c.Course_ID
+            AND u.User_ID = f.Facu_ID AND 
+            s.S_BuildID = '77772' 
+            AND s.S_RoomNum = r.Room_ID
+            AND s.S_BuildID = b.Build_ID
+            AND
+            s.S_SemesterYearID = '50001'
+            
+AND s.S_FacuID = f.Facu_ID
+            GROUP BY s.S_CourseID";
 
    $rownumber = 0;
    if ($result = mysqli_query($conn, $sql)){
@@ -42,8 +35,11 @@ if(isset($_SESSION['addcourse'])){
      echo "<th> </th>";
       echo "<th>C_Name</th>";
       echo "<th>C_Description</th>";
+      echo "<th>Professor</th>";
       echo "<th>CRN</th>";
+      echo "<th>Building</th>";
       echo "<th>C_CreditAmt</th>";
+      echo "<th>Section Num</th>";
       echo "<th>C_DeptName</th>";
       echo "<th>CourseLevel</th>";
       //testing
@@ -56,25 +52,54 @@ if(isset($_SESSION['addcourse'])){
         echo "<tr>";
         echo "<td><input type='checkbox' name='checkbox[" . $rownumber . "]' value='". $rownumber . "' </td>";
         echo "<td>" . $row['C_Name'] . "</td>";
-       echo "<td>" . $row['C_Description'] . "</td>";
+       echo "<td>" . $row['C_Description'] . "</td>";      
+                    echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
        echo "<td>" . $row['Course_ID'] . "</td>";
+       echo"<td> Room " . $row['R_Num'] . ',' . $row['B_Name'] . "</td>";
        echo "<td>" . $row['C_CreditAmt'] . "</td>";
+       echo"<td>" . $row['S_Num'] . "</td>";
        echo "<td>" . $row['C_DeptName'] . "</td>";
        echo "<td>" . $row['CourseLevel'] . "</td>";
        //testing
        echo"<td>" . $row['Prerequ_ID'] . "</td>";
-       echo "</tr>";
-      
+       $checkbox1[] = $row['S_Section_ID'];       
+       
+       
+       echo "</tr>";    
        
       }
       echo "</table>";
       //if checkbox was selected to add
      if (isset($_POST['Submit'])){
+         $checkbox3 = implode(",", $checkbox1);
+          //$checkbox2 = $_POST['checkbox'];
+          //$_SESSION['coursechosen'] = $row['Sec_ID'];
+                    //add course
+          for ($i=0; $i<sizeof ($checkbox1);$i++) {
+          if ($checkbox1[$i] == $rownumber){
+  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['user_id']."', '".$checkbox3."', '0', '50001')";
           
-          $_SESSION['coursechosen'] = $row['Sec_ID'];
           
           
-          $_SESSION['prereq'] = $row['Prerequ_ID'];
+  if ($conn->query($sql2) === TRUE) {
+    echo "New record created successfully";
+} else if(empty(mysqli_num_rows($result))){
+    echo "prereq not fulfilled" . $_SESSION['prereq'];
+
+}
+          }
+          }
+
+     }
+    }
+   }
+   }
+
+
+
+
+          
+          //$_SESSION['prereq'] = $row['Prerequ_ID'];
           //check prerequsites
           /*
           $check = "SELECT p.Prerequ_ID, p.P_CourseID, h.*, c.*, s.* FROM prerequsites1 AS p"
@@ -84,6 +109,7 @@ if(isset($_SESSION['addcourse'])){
                   . "AND '".S_SESSION['prereq']."' = h.Sec_ID AND (h.Sec_ID NOT IN "
                   . "(SELECT Course_ID FROM course))";
           */
+          /*
          $check2 = "SELECT p.*, h.*, c.*, s.*  FROM prerequsites1 AS p"
                   . "JOIN history AS h AND course AS c AND section AS s"
                   . "WHERE p.Prerequ_ID = c.Course_ID AND h.Sec_ID = s.S_Section_ID"
@@ -95,44 +121,30 @@ if(isset($_SESSION['addcourse'])){
           
           if ($result = mysqli_query($conn, $check2)){     
                if(mysqli_num_rows($result) > 0) {
-          //add course
-  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['userid']."', '".$_SESSION['coursechosen']."', '0', '50001')";
-      if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} elseif(mysqli_num_rows($result = 0)){
-    echo "prereq not fulfilled" . $_SESSION['prereq'];
-}
+
 
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-      }
-      }
-           //add course
-           $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['userid']."', '".$_SESSION['coursechosen']."', '0', '50001')";
-      if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-      }
+      
+      
+         
+      unset($_SESSION['addcourse']);
       mysqli_free_result($result);
-       } else {
+       } 
+       
+      else {
       echo "Not found";
     }
    }  else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
-   mysqli_close($conn);
-   unset($_SESSION['addcourse']);
+   
 }
-else if(isset($_SESSION['searchcourse'])){
-    echo "test";
-}
-else{
-    echo "not found";
-}
+//mysqli_close($conn);
+           * 
+           */
 ?>
 
 
