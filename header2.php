@@ -23,8 +23,7 @@ include "session.php";
         <p><a href="#"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
         <ul>
             <li><a href = "Index1.php">Home</a></li>
-            
-            </nav>
+            <li><a href ="Student.php">Main Page</a></li>
             <div align="right">
                 
                 <a href="logout.php" class="button">Logout</a><br>
