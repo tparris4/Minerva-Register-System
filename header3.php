@@ -34,14 +34,14 @@ include "session.php";
     		</ul></li>
     		<li><a href = "#"> Department</a>
     		<ul>
-          <li><a href = "Art.html"> Art</a></li>
-    			<li><a href = "Biology.html"> Biology</a></li>
-    			<li><a href = "Business.html"> Business</a></li>
-    			<li><a href = "Computer Science.html"> Computer Science</a></li>
-            <li><a href= "Humanities.html"> Humanities</a></li>
-    			<li><a href = "Math.html"> Math</a></li>
-            <li><a href = "Medical.html"> Medical</a></li>
-            <li><a href = "Music.html"> Music</a></li>
+          <li><a href = "Art.php"> Art</a></li>
+    			<li><a href = "Biology.php"> Biology</a></li>
+    			<li><a href = "Business.php"> Business</a></li>
+    			<li><a href = "Computer Science.php"> Computer Science</a></li>
+            <li><a href= "Humanities.php"> Humanities</a></li>
+    			<li><a href = "Math.php"> Math</a></li>
+            <li><a href = "Medical.php"> Medical</a></li>
+            <li><a href = "Music.php"> Music</a></li>
     		</ul></li>
     		<li><a href = "#"> About</a>
     		<ul>
