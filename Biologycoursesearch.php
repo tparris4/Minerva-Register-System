@@ -67,8 +67,11 @@ AND s.S_FacuID = f.Facu_ID
        
        echo "</tr>";    
        
+       
       }
       echo "</table>";
+      $listCheck = implode(",", $checkbox1);
+                var_dump($listCheck);
       //if checkbox was selected to add
      if (isset($_POST['Submit'])){
          $checkbox3 = implode(",", $checkbox1);
@@ -77,7 +80,8 @@ AND s.S_FacuID = f.Facu_ID
                     //add course
           for ($i=0; $i<sizeof ($checkbox1);$i++) {
           if ($checkbox1[$i] == $rownumber){
-  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['user_id']."', '".$checkbox3."', '0', '50001')";
+              $chkbox = $checkbox1[$i];
+  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['user_id']."', '".$chkbox."', '0', '50001')";
           
           
           

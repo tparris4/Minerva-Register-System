@@ -17,6 +17,7 @@ require "header2.php";
                     AND f.Facu_ID = u.User_ID AND t.TimeSlotID = s.S_TimeSlotID
             ORDER BY h.Sec_ID
              AND t.Day";*/
+            $subcredits = 0;
             $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
                 FROM history AS h,
                section AS s,
@@ -79,27 +80,34 @@ require "header2.php";
                 $listCheck = implode(",", $checkbox1);
                 var_dump($listCheck);
                 
-      if (isset($_POST['Delete'])){
+      if (isset($_POST['delete'])){
+          
           $subcredits = $credittotal - $subcredits;
+          $chkbox = $_POST['checkbox'];
           $listCheck = implode(",", $checkbox1);
+         /*
           $cnt = array();
           $cnt = count($_POST['checkbox']);
+          * 
+          */
           //match section number with course name
           for ($i=0; $i<sizeof ($checkbox1);$i++) {
-          if ($checkbox1[$i] == $rownumber){
+         // if ($checkbox1[$i] == $rownumber){
+             $chkbox1 = $chkbox[$i];
+           
           //$sql4 = mysqli_query($conn, "SELECT s.S_Section_ID FROM section AS s JOIN course AS c WHERE s.S_Course_ID = c.Course_ID"); section.S_Section_ID = '$sql4' AND section.S_Section_ID = history.Sec_ID AND
           //delete from history
-              $del_id = $_POST['checkbox'][$i];
-          $sql3 = "DELETE FROM 'history' WHERE history.Stud_ID = '{$_SESSION['user_id']}' AND history.Sec_ID IN '".$listCheck."'";
+              //$del_id = $_POST['checkbox'][$i];
+          $sql3 = "DELETE FROM 'history' WHERE history.Stud_ID = '{$_SESSION['user_id']}' AND history.Sec_ID IN '".$chkbox1."'";
           $delete = mysqli_query($conn, $sql3);
     if($delete){
         echo " Records deleted successfully.";
         
       // header("Location: Student.php");
-          }}
+      }}}
 
-          }
-      }
+          
+      
                 
          
       
