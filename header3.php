@@ -21,12 +21,12 @@ include "session.php";
 
        	<header>
         <nav>
-        <p><a href="Index.html"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
+        <p><a href="Index1.php"><img src="Minerva University Logoo.png" height="100" width="100" alt="background"></a></p>
     	  <ul>
     	  	<li><a href = "#"> Admission</a>
     		<ul>
-    			<li><a href = "Undergraduate.html"> Undergraduate</a></li>
-    			<li><a href = "Graduate.html"> Graduate</a></li>
+    			<li><a href = "Undergraduate.php"> Undergraduate</a></li>
+    			<li><a href = "Graduate.php"> Graduate</a></li>
     			<li><a href = "Academic Calendar.html"> Academic Calendar</a></li>
                         <li><a href="MasterSchedule.php">Master Schedule</a></li>
                         <li><a href="CrsCatalog.php">Course Catalog</a></li>
