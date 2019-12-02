@@ -1,0 +1,471 @@
+*{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+
+
+
+/*Creates a border around the entire homepage of 10 pixels*/
+html, body {
+	height: 100%;
+	font-family: Arial;
+	padding:0;
+	background: url("background.jpg") no-repeat center center fixed;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size: cover;
+}
+/* Creates the navigation bar*/
+nav{
+	width: 100%;
+	height: 120px;
+	background-color: rgb(54,69,30);
+}
+/* Move the content of the navigation along with the logo to left of the screen*/
+nav p a{
+	float: left;
+	padding-top: 10px;
+	padding-left: 10px;
+
+}
+/* Move the actual navigation bar e.g Admission to the left*/
+nav ul{
+	float:right;
+	padding-top:25px;
+	width: fit-content;
+
+}
+/*Floats the navbar to the left*/
+nav ul li{
+	float: left;
+	list-style: none;
+	position: relative;
+}
+/* Changes the font of the navigation bar to arial and as well as the color of the letters*/
+nav ul li a{
+	font-family: arial;
+	display: block;
+	color:orange;
+	font-size: 14px;
+	padding: 24px 40px;
+	text-decoration: none;
+}
+/*Turn the navigition color to the school original color*/
+nav ul li ul{
+	display: none;
+	position: absolute;
+	background-color: rgb(54,69,30);
+	padding: 10px;
+}
+nav a:hover{
+	color: lightgrey;
+}
+/*Make sure when the mouse is hovered the list it displays the actual drop down menu on the navigation*/
+nav ul li:hover ul{
+	display: block;
+}
+/*Give the drop down menu a width of 180pixels and a border radius of 4 pixels*/
+nav ul li ul li{
+	width: 180px;
+	border-radius: 4px;
+}
+/*Make sure the drop down menu have a paddig of 8 pixels from the left and right and 14 pixels from the top and down*/
+nav ul li ul li a{
+	padding: 8px 14px;
+}
+/* Make sure there a color change of lightgrey as soon the mouse is hovered over the letter individually*/
+nav ul li ul li a:hover{
+	color: lightgrey;
+}
+
+h1{
+	color:black;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 40px
+}
+h2{
+	color: black;
+	font-family: Arial;
+	font-weight:normal;
+	font-size: 30px;
+}
+h3{
+	color:black;
+	font-family: Arial;
+	font-weight: normal;
+	font-size: 25px;
+}
+h4{
+	color:black;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 20px;
+}
+h5{
+	color:black;
+	font-family: arial;
+	font-weight: normal;
+	font-size: 15px;
+}
+h6{
+	color: black;
+	font-family:arial;
+	font-size: 10px;
+	float: center;
+	display: inline-block;
+}
+p{
+	color:black;
+	font-family: Arial;
+	font-weight: normal;
+	font-size: 20px;
+}
+a{
+	list-style-type: none;
+	text-decoration: none;
+}
+
+/* Login Page codes */
+#box1{
+		width:500px;
+		height: 500px;
+		border:2px solid black;
+		margin:0 auto;
+		align-content: middle;
+}
+/* Login Page Code Ends here*/
+
+.wrapper{
+	margin:0 auto;
+	width: 1500px;
+	padding: 20px;
+	overflow: hidden;
+}
+.wrapper2{
+	margin: 0 auto;
+	width:1300px;
+	padding:20px;
+	overflow: hidden;
+}
+.wrapper3{
+	margin: 0 auto;
+	width:800px;
+	padding:20px;
+	overflow: hidden;
+}
+.wrapper4{
+margin: 0 auto;
+width: 700px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper5{
+margin: 0 auto;
+width: 600px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper6{
+margin: 0 auto;
+width: 500px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper7{
+margin: 0 auto;
+width: 400px;
+padding: 20px;
+overflow: hidden;
+}
+
+/* Pages height codes*/
+#HomepageContainer{min-height: 100%;}
+#UndergraduateContainer{min-height: 100%;}
+#GraduateContainer{min-height: 100%;}
+#AcademicCalendarContainer{min-height: 150%;}
+#MasterScheduleContainer{min-height: 130%;}
+#ArtContainer{min-height: 110%;}
+#BiologyContainer{min-height: 120%;}
+#BusinessContainer{min-height: 120%;}
+#ComputerScienceContainer{min-height: 130%;}
+#EnglishContainer{min-height: 100%;}
+#HumanitiesContainer{min-height: 100%;}
+#MathContainer{min-height: 120%;}
+#MedicalContainer{min-height: 100%;}
+#MusicContainer{min-height: 90%;}
+#PresidentContainer{min-height: 120%;}
+#StaffContainer{min-height: 180%;}
+#MissionContainer{min-height: 85%;}
+#ITDepartmentContainer{min-height: 100%;}
+
+/*Page height codes ends here*/
+
+
+#main{
+	overflow: auto;
+	padding-bottom:100px;
+}
+footer{
+	background-color: rgb(54,69,30);
+	position: relative;
+	margin-top: 10px;
+	margin-top: -100px;
+	clear: both;
+	padding:10px;
+}
+footer a {
+	float: left;
+	display: block;
+}
+
+.home-banner{
+	width:100%;
+	height:	50vh;
+	background-image: url('HomeBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow: hidden;
+
+}
+.art-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ArtBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.biology-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BiologyBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.business-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BusinessBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.computerscience-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ScienceBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.english-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('EnglishBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+
+.humanities-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('HumanitiesBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.math-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MathBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.medical-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MedicalBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.music-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MusicBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.president-banner{
+	width: 250px;
+	height: 250px;
+	background-image: url('Empty Contact Picture.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: center;
+}
+.itdepartment-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ITDepartmentBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: center;
+}
+
+.address{
+	color: black;
+	font-family:arial;
+	font-size: 20px;
+	float: center;
+	width: 200dx;
+	display: block;
+}
+.copyright{
+	color: black;
+	font-family:arial;
+	font-size: 10px;
+	align-content: middle;
+	display: block;
+}
+
+/* Academic Calendar Code*/
+
+table {
+		margin-top: 100px;
+		font-family: arial, sans-serif;
+  	border-collapse: collapse;
+  	width: 100%;
+  	position: center;
+  	background-color: #E8E8E8;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+/* Academic Calendar Code end*/
+div.b {
+text-align: justify; /* For Edge */
+-moz-text-align-last: center; /* For Firefox prior 58.0 */
+text-align-last: center;
+}
+div.a {
+text-align: justify; /* For Edge */
+-moz-text-align-last: left; /* For Firefox prior 58.0 */
+text-align-last: left;
+}
+
+
+.geninfo{
+	align-content: center;
+  font-size: 20dx;
+  cursor:pointer;
+	width: 200dx;
+  text-align:center;
+}
+/* Academic Calendar Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  background: none;
+  box-shadow: none;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+}
+.label {
+  width: 100%;
+  padding: 20px 30px;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  color: none;
+  transition:none;
+}
+.label:hover {
+  background:none;
+}
+.label:active {
+  background: none;
+}
+.input:focus + .label {
+  box-shadow: none;
+  z-index: 1;
+}
+.input:checked + .label {
+  background:none;
+  color: none;
+}
+@media (min-width: 600px) {
+  .label {
+    width: auto;
+  }
+}
+.panel {
+  display: none;
+  padding: 20px 30px 30px;
+  background: none;
+}
+
+@media (min-width: 600px) {
+  .panel {
+    order: 99;
+  }
+}
+.input:checked + .label + .panel {
+  display: block;
+}
+/* Academinc Calendar Tab codes end here*/
+/* Uses Cases Buttons navigation bar starts here */
+.btn-group button {
+	background-color: rgb(54,69,30);
+	border: 2px solid black;
+	color: orange;
+	padding: 10px 24px;
+	cursor: pointer;
+	float: left;
+}
+.btn-group button a {
+	text-decoration: none;
+	color: orange;
+
+}
+.btn-group::after{
+	content: "";
+	clear: both;
+	display: inline-block;
+}
+.btn-group button:not(:last-child){
+	border-right: none;
+}
+.btn-group button:hover{
+	background-color: lightgrey;
+}
+/*Use Cases Buttons Codes ends here*/
