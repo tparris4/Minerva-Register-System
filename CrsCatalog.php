@@ -134,8 +134,6 @@ function search_department(){
 }
 </script>
 
-<?
+<?php
 include "footer.php";
 ?>
-</body>
-</html>
