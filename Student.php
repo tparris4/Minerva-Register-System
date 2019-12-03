@@ -2,8 +2,67 @@
 <?php
 require "header2.php";
 ?>
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  display: none;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: darkgreen;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="ChooseSemester.php">Add Course</a>
+  <a href="DropCourse.php">Drop Course</a>
+  <a href="SearchCourse.php">Search Course</a>
+  <a href="Transcript.php">Transcript</a>
+   <a href="Holds.php">Holds</a>
+    <a href="CrsCatalogLogin.php">Course Catalog</a>
+     <a href="ViewGrades.php">View Grades</a>
+      <a href="ChangeMajor.php">Change Major Request</a>
+      <a href="DegreeAudit.php">Degree Audit</a>
+</div>
+
+
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Student Menu</span>
 <?php
 if(isset($_SESSION['HoldSet'])){
     echo "Cannot add courses due to hold conflict(s)";
@@ -46,6 +105,14 @@ if(isset($_SESSION['HoldSet'])){
 
         
         <script>
+            
+            function openNav() {
+  document.getElementById("mySidenav").style.display = "block";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.display = "none";
+}
             function AddCourse(){
                 window.location.href="ChooseSemester.php";
                 
@@ -194,8 +261,8 @@ if(isset($_SESSION['HoldSet'])){
                     
                     $credittotal = $credittotal + $row['C_CreditAmt'];
                     
-                    
                     }
+                    
                 echo "<td>" . "Credit Number: " . $credittotal . "</td>";
                 echo "</tr>";
                 echo "</table>";
@@ -423,9 +490,9 @@ if(isset($_SESSION['HoldSet'])){
             <br>
             <br>
         <div align="center">
-            <div id="box1" align="center">
-              
-        <button class = "button" onclick="AddCourse()">Add Course</button>
+            
+             <div class="w3-panel" style="width:30%">
+        <button class = "w3-btn w3-block w3-teal" onclick="AddCourse()">Add Course</button>
         <button class = "button" onclick="DropCourse()">Drop Course</button>
         <button class = "button" onclick="ClassSearch()" >Search Courses</button>
         <button class = "button" onclick="LookUpTranscript()">Look Up Transcript</button>
@@ -434,17 +501,24 @@ if(isset($_SESSION['HoldSet'])){
         <button class = "button" onclick="ViewGrades()">View Grades</button>
         <button class = "button" onclick="ChangeMajor()">Change Major</button>
         <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
-
+             </div>
+       
+             
         </div>
-
-
-        </div>
-
+<div class="w3-panel" style="width:30%">
+            <button class="w3-btn w3-block w3-teal">Button</button>
+             </div>
             
                       <br>
             <br>
             <br>
+            
+            
+                
+            </div>
             <br>
+            
+
             <br>
             
 

@@ -86,6 +86,7 @@ AND  u.User_ID = f.Facu_ID
                     AND c.Course_ID = s.S_CourseID 
                     AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
                     AND NOT h.SemesterYearID = '50001';
+                    GROUP BY h.Sec_ID
             ORDER BY h.SemesterYearID ASC ";
                 
             if ($result = mysqli_query($conn, $sql)){
