@@ -1,0 +1,92 @@
+SELECT CreditTotal FROM undergradparttime WHERE undergradparttime.undergradparttime_id = 2222;
+
+//UPDATE undergradparttime SET CreditTotal='$allcredits' WHERE UndergradPartTime_ID='$url_id'";
+
+
+$select1 = $conn->prepare("SELECT major.M_Name FROM major,undergraduate WHERE major.Major_ID = undergraduate.MajorID AND undergraduate.UG_StudentID = ?");
+$select1->bindParam(1,$_SESSION['user_id']);
+$major = $select1->execute();
+$majors =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//echo $majors[0];
+
+if(major)
+{
+	for($i =0; $i< count(majors); $i++)
+	{
+		echo $majors[$i];
+	}
+}
+
+$select2 = $conn->prepare("SELECT minor.MinorName FROM minor, undergraduate WHERE minor.Minor_ID = undergraduate.MinorID AND undergraduate.UG_StudentID = ?");
+$select2->bindParam(1,$_SESSION['user_id']);
+$minor = $select2->execute();
+$minors =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//echo $minors[0];
+
+if(minor)
+{
+	for($i =0; $i< count(minors); $i++)
+	{
+		echo $minors[$i];
+	}
+}
+
+$select3 = $conn->prepare("SELECT Credits_Num FROM undergradparttime WHERE UndergradPartTime_ID = ?");
+$select3->bindParam(1,$_SESSION['user_id']);
+$underGradPartCredit = $select3->execute();
+$underGradPartCredits =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+echo $underGradPartCredits[0];
+
+if(underGradPartCredit)
+{
+	echo "Part time";
+}
+
+$select4 = $conn->prepare("SELECT Credits_Num FROM undergradfulltime WHERE undergradfulltime.u_undergradfulltime_id = ?");
+$select4->bindParam(1,$_SESSION['user_id']);
+$underGradFullCredit = $select4->execute();
+$underGradFullCredits =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+echo $underGradFullCredits[0];
+
+if(underGradFullCredit)
+{
+	echo "Full time";
+}
+
+$select = $conn->prepare("SELECT history.*,section.*, person.*,timeslot.*,building.*,room.*, faculty.Facu_ID, course.Course_ID, course.C_Name, course.C_CreditAmt
+			  FROM history,section,faculty,course,person,timeslot,building,room                                                   
+	  		  WHERE history.Stud_ID = ? AND section.S_Section_ID = history.Sec_ID
+			  AND  person.User_ID = faculty.Facu_ID
+			  AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
+			  AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
+			  AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
+			  ORDER BY history.Sec_ID;");
+$select->bindParam(1,$_SESSION['user_id']);
+$ = $select->execute();
+$ =  $select->fetchALL(PDO::FETCH_COLUMN,0);
+//echo $[0];
+
+
+echo "<table>"; 
+echo"<th>Course Name</th>";
+echo"<th>Professor</th>";
+echo"<th>Room Number</th>";
+echo"<th>Time</th>";
+echo"<th>Day</th>";                   
+echo"<th>Credits</th>";
+echo"<th>Section Number</th>";
+
+for()
+{
+	echo "<tr>";
+        echo"<td>" . $row['C_Name'] . "</td>";
+        echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
+        echo"<td>" . $row['R_Num'] . ',' . $row['B_Name'] . "</td>";
+        echo"<td>" . $row['Period'] . "</td>";
+        echo"<td>" . $row['Day'] . "</td>";
+        echo"<td>" . $row['C_CreditAmt'] . "</td>";
+        echo"<td>" . $row['S_Num'] . "</td>";
+        echo"</tr>";
+                    
+        $credittotal = $credittotal + $row['C_CreditAmt'];
+}
