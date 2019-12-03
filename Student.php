@@ -56,6 +56,7 @@ body {
      <a href="ViewGrades.php">View Grades</a>
       <a href="ChangeMajor.php">Change Major Request</a>
       <a href="DegreeAudit.php">Degree Audit</a>
+      <a href="ViewAdvisor.php">View Advisor List</a>
 </div>
 
 
@@ -150,6 +151,9 @@ function closeNav() {
             
             function DegreeAudit(){
                 window.location.href="DegreeAudit.php";
+            }
+            function ViewAdvisor(){
+                window.location.href="ViewAdvisor.php";
             }
             
 
@@ -501,6 +505,7 @@ function closeNav() {
         <button class = "button" onclick="ViewGrades()">View Grades</button>
         <button class = "button" onclick="ChangeMajor()">Change Major</button>
         <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
+        <button class ="button" onclick="ViewAdvisor()">View Advisor</button>
              </div>
        
              
