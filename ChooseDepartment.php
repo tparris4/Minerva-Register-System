@@ -3,6 +3,15 @@
 <?php
 require "header2.php";
 ?>
+
+<!--
+search bar to have parameters
+e.g. text box for course name
+e.g. drop down for section number's
+e.g. text box for professor name, put in $id's
+e.g. dropdown for times
+use search with $ids
+-->
     <h2>Choose Department</h2>
 
     <ul><li>
