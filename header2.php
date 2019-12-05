@@ -28,30 +28,11 @@ include "session.php";
  
         
         <ul>
-           <div id="Homepagecontainer">
-      <div id="main">
-      <section class="wrapper">
-      <div class="btn-group" style="width:100%">
-          <button style="width:11.11%"><a href="ChooseSemester.php">Add Course</a></button>
-      <button style="width:11.11%"><a href="DropCourse.php">Drop Course</a></button>
-      <button style="width:11.11%"><a href="SearchPage.php">Look up course</a></button>
-      <button style="width:11.11%"><a href="Transcript.php">View Transcript</a></button>
-      <button style="width:11.11%"><a href="Holds.php">View Holds</a></button>
-      <button style="width:11.11%"><a href="ViewGrades.php">View Grades</a></button>
-      <button style="width:11.11%"><a href="CrsCatalogLogin.php">View Catalog</a></button>
-      <button style="width:11.11%"><a href="ChangeMajor.php">Declare Major</a></button>
-      <button style="width:11.11%"><a href="DegreeAudit.php">Degree Audit</a></button>
-      <button style="width:11.11%"><a href="ViewAccount.php">View Account Info</a></button>
-      <button style="width:11.11%"><a href="Index1.php">Home</a></button>
-      <button style="width:11.11%"><a href="Student.php">MainPage</a></button>
-      <button style="width:11.11%"><a href="logout.php">Log Out</a></button>
-      </div>
-      </section>
-      </div>
-                </div>
+      
             
             
             <div align="right">
+                
                 <br>
                 <h4> <?php echo " {$_SESSION['user_id']} \n
                        \n<br> {$_SESSION['LastName']}, {$_SESSION['FirstName']} ";
@@ -63,8 +44,35 @@ include "session.php";
             </div>
              
         </ul>
-
-
-        </header>
+            </nav>
+            <br>
+            <ul></ul>
+            </nav>
+            <div id="Homepagecontainer">
+      <div id="main">
+      <section class="wrapper">
+      <div class="btn-group" style="width:100%">
+      <button style="width:16.66%"><a href="ChooseSemester.php">Add Course</a></button>
+      <button style="width:16.66%"><a href="DropCourse.php">Drop Course</a></button>
+      <button style="width:16.66%"><a href="SearchPage.php">Look up course</a></button>
+      <button style="width:16.66%"><a href="Transcript.php">View Transcript</a></button>
+      <button style="width:16.66%"><a href="Holds.php">View Holds</a></button>
+      <button style="width:16.66%"><a href="ViewGrades.php">View Grades</a></button>
+      
+      </div>
+          <div class="btn-group" style="width:100%">
+      <button style="width:16.66%"><a href="ChangeMajor.php">Declare Major</a></button>
+      <button style="width:16.66%"><a href="DegreeAudit.php">Degree Audit</a></button>
+      <button style="width:16.66%"><a href="ViewAccount.php">View Account Info</a></button>
+      <button style="width:16.66%"><a href="Index1.php">Home</a></button>
+      <button style="width:16.66%"><a href="Student.php">MainPage</a></button>
+      <button style="width:16.66%"><a href="logout.php">Log Out</a></button>
+      </div>
+      <div class="btn-group" style="width:50%">
+      <button style="width:50%"><a href="CrsCatalogLogin.php">View Catalog</a></button>
+      </div>
+      </section>
+      </div>
+      </div>
     <body><html>
         

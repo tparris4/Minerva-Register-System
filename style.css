@@ -184,7 +184,7 @@ a{
 
 .wrapper{
 	margin:0 auto;
-	width: 1000px;
+	width: 1500px;
 }
 .wrapper2{
 	margin: 0 auto;
@@ -573,3 +573,136 @@ tr:nth-child(even) {
   background-color: #339933;
 }
 */
+
+.wrapper4{
+margin: 0 auto;
+width: 700px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper5{
+margin: 0 auto;
+width: 600px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper6{
+margin: 0 auto;
+width: 500px;
+padding: 20px;
+overflow: hidden;
+}
+.wrapper7{
+margin: 0 auto;
+width: 400px;
+padding: 20px;
+overflow: hidden;
+}
+.home-banner{
+	width:100%;
+	height:	50vh;
+	background-image: url('HomeBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow: hidden;
+
+}
+.art-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ArtBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.biology-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BiologyBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.business-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('BusinessBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.computerscience-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ScienceBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.english-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('EnglishBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+
+.humanities-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('HumanitiesBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.math-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MathBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+
+}
+.medical-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MedicalBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.music-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('MusicBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.president-banner{
+	width: 250px;
+	height: 250px;
+	background-image: url('Empty Contact Picture.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: center;
+}
+.itdepartment-banner{
+	width: 100%;
+	height: 50vh;
+	background-image: url('ITDepartmentBanner.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: center;
+}
