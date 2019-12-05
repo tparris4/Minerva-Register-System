@@ -25,6 +25,7 @@ error_reporting(E_ALL);
 				<li><a href = "Graduate.php"> Graduate</a></li>
 				<li><a href = "Academic Calendar.html"> Academic Calendar</a></li>
 				<li><a href = "MasterSchedule.php"> Master Schedule</a></li>
+                                <li><a href="CrsCatalog.php"> Course Catalog</a></li>
 			</ul></li>
 			<li><a href = "#"> Department</a>
 			<ul>
