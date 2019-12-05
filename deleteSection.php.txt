@@ -1,0 +1,156 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+//Connect to DB
+session_start();
+try
+{
+        $dbh = new PDO('pgsql:dbname=minerva');
+        //echo "IN DBMS";
+}
+catch(PDOException $e)
+{
+        echo "Error: ".$$e->getMessage()."br/>";
+        die();
+}
+
+$select1 = $dbh->prepare("SELECT section_id FROM Section");
+$succ1 = $select1->execute();
+//echo "I did this <br>";
+$sectionID =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($sectionID[0]);
+//echo $sectionID[0];
+
+$select2 = $dbh->prepare("SELECT section.course_id FROM Course,Section WHERE section.course_id = course.course_id"$
+$succ2 = $select2->execute();
+//echo "I did this <br>";
+$courseID =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courseID[0]);
+//echo $courseID[0];
+
+$select3 = $dbh->prepare("SELECT course_name FROM Course,Section WHERE section.course_id = course.course_id");
+$succ3 = $select3->execute();
+//echo "I did this <br>";
+$courseName =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courseName[0]);
+//echo $courseName[0];
+$select4 = $dbh->prepare("SELECT day_slot FROM Day,Period,TimeSlot,Section WHERE section.period_id = period.period$
+$succ4 = $select4->execute();
+//echo "I did this <br>";
+$day1 =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($day1[0]);
+//echo $day1[0];
+
+$select5 = $dbh->prepare("SELECT day_slot FROM Day,Period,TimeSlot,Section WHERE section.period_id = period.period$
+$succ5 = $select5->execute();
+//echo "I did this <br>";
+$day2 =  $select5->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($day2[0]);
+//echo $day2[0];
+
+$select6 = $dbh->prepare("SELECT time_period FROM Time,Period,TimeSlot,Section WHERE section.period_id = period.pe$
+$succ6 = $select6->execute();
+//echo "I did this <br>";
+$startTime =  $select6->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($startTime[0]);
+//echo $startTime[0];
+
+$select7 = $dbh->prepare("SELECT time_period FROM Time,Period,TimeSlot,Section WHERE section.period_id = period.pe$
+$succ7 = $select7->execute();
+//echo "I did this <br>";
+$endTime =  $select7->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($endTime[0]);
+//echo $endTime[0];
+
+$select8 = $dbh->prepare("SELECT room_num FROM Room,Section WHERE section.room_id = room.room_id;");
+$succ8 = $select8->execute();
+//echo "I did this <br>";
+$rooms =  $select8->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($rooms[0]);
+//echo $rooms[0];
+
+$select9 = $dbh->prepare("SELECT first_name FROM Person,Section,Faculty WHERE section.instructor_id = faculty.facu$
+$succ9 = $select9->execute();
+//echo "I did this <br>";
+$firstName =  $select9->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($firstName[$i][0]);
+//echo $firstName[$i][0];
+
+$select10 = $dbh->prepare("SELECT last_name FROM Person,Section,Faculty WHERE section.instructor_id = faculty.facu$
+$succ10 = $select10->execute();
+//echo "I did this <br>";
+$lastName =  $select10->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($lastName[$i][0]);
+//echo $lastName[$i][0];
+
+echo '<div id="form-rapper">';
+echo '<form method="post" action="/scripts/deleteSection.php">';
+
+echo '<table>';
+echo '<tr>';
+echo '<th>SECTION ID</th>';
+echo '<th>COURSE ID</th>';
+echo '<th>COURSE NAME</th>';
+echo '<th>Day</th>';
+echo '<th>Time</th>';
+echo '<th>Room</th>';
+echo '<th>Instructor</th>';
+echo '</tr>';
+
+for($i=0;$i<count($sectionID);$i++)
+{
+        echo '<tr>';
+        echo '<td><input type="radio" name="SectionID" value="'
+                .$sectionID[$i].'">'.$sectionID[$i].'</input></td>';
+        echo '<td>'.$courseID[$i].'</td>';
+        echo '<td>'.$courseName[$i].'</td>';
+        echo '<td>'.$day1[$i].','.$day2[$i].'</td>';
+        echo '<td>'.$startTime[$i].'-'.$endTime[$i].'</td>';
+        echo '<td>'.$rooms[$i].'</td>';
+        echo '<td>'.$firstName[$i].' '.$lastName[$i].'</td>';
+        echo '</tr>';
+}
+echo '</table>';
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>';
+
+        if(isset($_POST["SectionID"]))
+        {
+                $sectionID = $_POST["SectionID"];
+                $flag1 = true;
+                //echo $sectionID;
+        }
+        else
+        {
+                //echo "Invalid Section to delete<br>";
+                $flag1 = false;
+        }
+        if($flag1)
+        {
+                //echo "made it <br>";
+
+                $delete1 = $dbh->prepare("DELETE FROM Section WHERE section_id = ?");
+                $delete1->bindParam(1,$sectionID);
+                $sectionDeleted = $delete1->execute();
+
+                if($sectionDeleted)
+                {
+                        //echo "Inserted <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        //header('Location: ../addSection.php');
+                }
+                else
+                {
+                        //echo "Not inserted <br>";
+                }
+        }
+        else
+        {
+                //echo "Something went wrong";
+    //header('Location: ../addSection.php');
+        }
+
+
+?>

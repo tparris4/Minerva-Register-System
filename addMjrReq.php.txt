@@ -1,0 +1,114 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+//Connect to DB
+session_start();
+try
+{
+        $dbh = new PDO('pgsql:dbname=minerva');
+        //echo "IN DBMS";
+}
+catch(PDOException $e)
+{
+        echo "Error: ".$$e->getMessage()."br/>";
+        die();
+}
+
+echo '<div id="form-rapper">';
+echo '<form method="post" action="/scripts/addMjrReq.php">';
+
+$select1 = $dbh->prepare("SELECT course_Name FROM Course ORDER BY course_Name ASC");
+$succ1 = $select1->execute();
+//echo "I did this <br>";
+$courses =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courses[0]);
+//echo $courses[0];
+
+$select4 = $dbh->prepare("SELECT course_id FROM Course ORDER BY course_Name ASC");
+$succ4 = $select4->execute();
+//echo "I did this <br>";
+$courseID =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courseID[0]);
+//echo $courseID[0];
+
+echo '<p><label>Course Name:</label>';
+echo '<select name="CourseName">';
+        for($i=0;$i<count($courses);$i++)
+        {
+  echo "<option value=".$courseID[$i].">".$courses[$i]."</option>";
+        }
+echo '</select></p>';
+
+$select2 = $dbh->prepare("SELECT major_name  FROM Major");
+$succ2 = $select2->execute();
+//echo "I did this <br>";
+$majors =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($majors[0]);
+//echo $majors[0];
+
+$select3 = $dbh->prepare("SELECT major_id FROM Major");
+$succ3 = $select3->execute();
+//echo "I did this <br>";
+$majorID =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($majorID[0]);
+//echo $majorID[0];
+echo '<p><label>Major:</label>';
+echo '<select name="Major">';
+        for($i=0;$i<count($majors);$i++)
+        {
+                echo "<option value=".$majorID[$i].">".$majors[$i]."</option>";
+        }
+echo '</select></p>';
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>';
+
+        if(isset($_POST['Major']))
+        {
+                $majorInputed = $_POST['Major'];
+                $flag1 = true;
+                //echo $majorInputed;
+        }
+        else
+        {
+                //echo "Invalid Major ID<br>";
+                $flag1 = false;
+ }
+        if(isset($_POST['CourseName']))
+        {
+                $courseInputed = $_POST['CourseName'];
+                $flag2 = true;
+                //echo $courseInputed;
+        }
+        else
+        {
+                //echo "Invalid Course Name<br>";
+                $flag2 = false;
+        }
+        if($flag1 && $flag2)
+        {
+                //echo "made it <br>";
+
+                $insert1 = $dbh->prepare("INSERT INTO MajorReq VALUES(DEFAULT,?,?)");
+                $insert1->bindParam(1,$majorInputed);
+                $insert1->bindParam(2,$courseInputed);
+                $mjrReqAdded = $insert1->execute();
+
+                if($mjrReqAdded)
+                {
+                        //echo "Inserted <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        //header('Location: ../addMjrReq.php');
+                }
+                else
+                {
+                        //echo "Not inserted <br>";
+                }
+        }
+        else
+        {
+                //echo "Something went wrong";
+                //header('Location: ../addMjrReq.php');
+        }
+?>

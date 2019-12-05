@@ -1,0 +1,106 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+//Connect to DB
+session_start();
+try
+{
+        $dbh = new PDO('pgsql:dbname=minerva');
+        //echo "IN DBMS";
+}
+catch(PDOException $e)
+{
+        echo "Error: ".$$e->getMessage()."br/>";
+
+        die();
+}
+
+echo '<div name= form-rapper>';
+echo '<form method="post" action="/scripts/addAdvisor.php">';
+echo '<p><label>Student ID:</label>';
+echo '<input type="StudentID" name="StudentID"';
+echo 'placeholder="49"/></p>';
+
+$select1 = $dbh->prepare("SELECT first_name FROM Faculty, Person WHERE faculty_id = person_id");
+$succes1 = $select1->execute();
+//echo "I did this <br>";
+$firstNames =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($firstNames[0]);
+//echo $firstNames[0];
+
+$select2 = $dbh->prepare("SELECT last_name FROM Faculty, Person WHERE faculty_id = person_id");
+$succes2 = $select2->execute();
+//echo "I did this <br>";
+$lastNames =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($lastNames[0]);
+//echo $lastNames[0];
+
+$select3 = $dbh->prepare("SELECT faculty_id FROM Faculty");
+$succes3 = $select3->execute();
+//echo "I did this <br>";
+$facultyID =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($facultyID[0]);
+//echo $facultyID[0];
+
+echo '<p><label>Advisor:</label>';
+echo '<select name="Advisor">';
+for($i = 0; $i < count($lastNames); $i++)
+{
+        echo "<option value=".$facultyID[$i].">".$firstNames[$i]." ".$lastNames[$i]."</option>";
+}
+echo '</select></p>';
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>';
+
+        if(isset($_POST['StudentID']))
+        {
+                $studentID = $_POST['StudentID'];
+                $flag1 = true;
+                //echo $studentID;
+        }
+        else
+        {
+                //echo "Invalid Student ID<br>";
+                $flag1 = false;
+        }
+        if(isset($_POST['Advisor']))
+        {
+                $advisor = $_POST['Advisor'];
+                $flag2 = true;
+                //echo $advisor;
+        }
+        else
+        {
+ //echo "Invalid Advisor Name<br>";
+                $flag2 = false;
+        }
+
+        if($flag1 && $flag2)
+        {
+                //echo 'Made it';
+                $update1 = $dbh->prepare("UPDATE Student SET advisorid = ? WHERE student_id = ?");
+                $update1->bindParam(1,$advisor);
+                $update1->bindParam(2,$studentID);
+                $advisorAdded = $update1->execute();
+
+                if($advisorAdded)
+                {
+                        //echo "Updated <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        //header('Location: ../scripts/addAdvisor.php');
+                }
+                else
+                {
+                        //echo "Not updated <br>";
+                }
+        }
+        else
+        {
+                //echo "Something went wrong";
+                //header('Location: ../scripts/addAdvisor.php');
+        }
+
+?>
