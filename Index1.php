@@ -1,5 +1,6 @@
 <?php
 include "header3.php";
+unset($_SESSION['user_id']);
 ?>
 
         <div id="container">

@@ -9,7 +9,8 @@ require "header2.php";
 
  <?php 
            // $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-            $sql = "SELECT DISTINCT c.C_DeptName, c.C_Name, c.C_Code, c.C_CreditAmt, c.C_Description 
+            $sql = "SELECT DISTINCT c.C_DeptName, c.C_Name, 
+                c.C_Code, c.C_CreditAmt, c.C_Description 
                 FROM course AS c 
                 
                 ORDER BY c.C_Code";

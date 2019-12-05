@@ -58,8 +58,8 @@ $degreecheck = "SELECT s.*, h.*, c.*, e.*, m.*, r.*, u.* "
         . "  AND h.Sec_ID = e.S_Section_ID "
         . "AND e.S_CourseID = c.Course_ID"
         . " AND m.M_Name = '".$_SESSION['MajorName']."'
-            AND r.Major_ID = u.MajorID
-             AND (r.MR_CourseID NOT IN (SELECT c.Course_ID FROM Course))
+            AND r.Major_ID = '".$_SESSION['MajorName']."'
+             AND (r.MR_CourseID NOT IN (SELECT Cour_ID FROM history WHERE history.Stud_ID = '".$_SESSION['user_id']."'))
              
 ";
 

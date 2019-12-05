@@ -16,18 +16,24 @@ html, body {
 	background-size: cover;
 }
 
-.dropbtn {
-  background-color: #339933;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #339933;
-}
+#HomepageContainer{min-height: 100%;}
+#UndergraduateContainer{min-height: 100%;}
+#GraduateContainer{min-height: 100%;}
+#AcademicCalendarContainer{min-height: 150%;}
+#MasterScheduleContainer{min-height: 130%;}
+#ArtContainer{min-height: 110%;}
+#BiologyContainer{min-height: 120%;}
+#BusinessContainer{min-height: 120%;}
+#ComputerScienceContainer{min-height: 130%;}
+#EnglishContainer{min-height: 100%;}
+#HumanitiesContainer{min-height: 100%;}
+#MathContainer{min-height: 120%;}
+#MedicalContainer{min-height: 100%;}
+#MusicContainer{min-height: 90%;}
+#PresidentContainer{min-height: 120%;}
+#StaffContainer{min-height: 180%;}
+#MissionContainer{min-height: 85%;}
+#ITDepartmentContainer{min-height: 100%;}
 
 .dropdown {
   position: relative;
@@ -93,7 +99,7 @@ html, body {
 /* Creates the navigation bar*/
 nav{
 	width: 100%;
-	height: 120px;
+	height: 150px;
 	background-color: rgb(54,69,30);
 }
 /* Move the content of the navigation along with the logo to left of the screen*/
@@ -317,6 +323,89 @@ div.b {
      *{
   box-sizing: border-box;
 }
+
+/* Academic Calendar Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  background: none;
+  box-shadow: none;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+}
+.label {
+  width: 100%;
+  padding: 20px 30px;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  color: none;
+  transition:none;
+}
+.label:hover {
+  background:none;
+}
+.label:active {
+  background: none;
+}
+.input:focus + .label {
+  box-shadow: none;
+  z-index: 1;
+}
+.input:checked + .label {
+  background:none;
+  color: none;
+}
+@media (min-width: 600px) {
+  .label {
+    width: auto;
+  }
+}
+.panel {
+  display: none;
+  padding: 20px 30px 30px;
+  background: none;
+}
+
+@media (min-width: 600px) {
+  .panel {
+    order: 99;
+  }
+}
+.input:checked + .label + .panel {
+  display: block;
+}
+/* Academinc Calendar Tab codes end here*/
+/* Uses Cases Buttons navigation bar starts here */
+.btn-group button {
+	background-color: rgb(54,69,30);
+	border: 2px solid black;
+	color: orange;
+	padding: 10px 24px;
+	cursor: pointer;
+	float: left;
+}
+.btn-group button a {
+	text-decoration: none;
+	color: orange;
+
+}
+.btn-group::after{
+	content: "";
+	clear: both;
+	display: inline-block;
+}
+.btn-group button:not(:last-child){
+	border-right: none;
+}
+.btn-group button:hover{
+	background-color: lightgrey;
+}
+/*Use Cases Buttons Codes ends here*/
 /* Academic Calendar Code*/
 tr:nth-child(even){
     background-color: #f2f2f2;
@@ -376,7 +465,48 @@ tr:nth-child(even) {
                
             }
             
-            .btn {
+           
+            
+            .one {
+                padding: 14dx 28dx;
+            }
+            
+            body{
+                padding: 0px;
+                background-color: lightgray;
+            }
+
+             .Welcome{
+                align-content: middle;
+            }
+
+            #MasterScheduleContainer{min-height: 130%;
+            }
+            
+.show {display: block;}
+
+.vertical-menu {
+  width: 200px; /* Set a width if you like */
+}
+
+.vertical-menu a {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50; /* Add a green color to the "active/current" link */
+  color: white;
+}
+/*
+ .btn {
                 border: none;
                 background-color: activeborder;
                 padding: 14px 28px;
@@ -388,19 +518,28 @@ tr:nth-child(even) {
                     
                     
             }
+            
+            div button{
+                float:left;
+            }
             .button {
-                border: none;
+               
                 background-color: #4CAF50;
                 padding: 14px 28px;
                 color: green;
                 font-size: 20dx;
-                    cursor:pointer;
+                   
+                    
                     display: inline-block;
-                    width: 500dx;
+                    width: 120px;
+                    transform: translateY(-50%);
+                    position: absolute;
+                    top: 5px;
+                    margin-left: auto;
+                    margin-right: 0;
+                    left: 10px;
                     display: block;
-                    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
+                    
                     
             }
             a.button {
@@ -419,21 +558,18 @@ tr:nth-child(even) {
                     
                     
             }
-            
-            .one {
-                padding: 14dx 28dx;
-            }
-            
-            body{
-                padding: 0px;
-                background-color: lightgray;
-            }
 
-             .Welcome{
-                align-content: middle;
-            }
 
-            #MasterScheduleContainer{min-height: 130%;}
-            
-.show {display: block;}
+.dropbtn {
+  background-color: #339933;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
 
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #339933;
+}
+*/

@@ -52,7 +52,7 @@ require "header2.php";
 */
                 if ($flag1 && $flag2)
                 {
-                        echo "Querry succesful.\n";
+                        echo "Query succesful.\n";
                         $saltedpassword = $password;
                         echo $saltedpassword;
 
@@ -60,8 +60,8 @@ require "header2.php";
                         if($saltedpassword)
                         {
                                 echo "Correct Login";
-                                $_SESSION['undergradptid'] = $_SESSION['user_id'];
-                                header("Location:Student.php");
+                                //$_SESSION['undergradptid'] = $_SESSION['user_id'];
+                                header("Location: Student.php");
                                 /**
                                 $q = $conn->prepare("SELECT user_id FROM user WHERE email_address = '$username'");
                                 

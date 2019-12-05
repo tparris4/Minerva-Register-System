@@ -3,6 +3,7 @@
 require "header2.php";
 ?>
 
+
 <?php
    $sql = "SELECT student.Stud_ID, user.First_Name, user.Last_Name,  holds.Hold_Type, holds.Hold_Description, holdstatus.HoldStatus
        FROM holds,holdstatus,student, user

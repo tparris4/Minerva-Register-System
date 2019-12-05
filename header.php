@@ -21,8 +21,8 @@ error_reporting(E_ALL);
 		  <ul>
 		  	<li><a href = "#"> Admission</a>
 			<ul>
-				<li><a href = "Undergraduate.html"> Undergraduate</a></li>
-				<li><a href = "Graduate.html"> Graduate</a></li>
+				<li><a href = "Undergraduate.php"> Undergraduate</a></li>
+				<li><a href = "Graduate.php"> Graduate</a></li>
 				<li><a href = "Academic Calendar.html"> Academic Calendar</a></li>
 				<li><a href = "MasterSchedule.php"> Master Schedule</a></li>
 			</ul></li>

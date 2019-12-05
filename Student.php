@@ -2,8 +2,69 @@
 <?php
 require "header2.php";
 ?>
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  display: none;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: darkgreen;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="ChooseSemester.php">Add Course</a>
+  <a href="DropCourse.php">Drop Course</a>
+  <a href="SearchCourse.php">Search Course</a>
+  <a href="Transcript.php">Transcript</a>
+   <a href="Holds.php">Holds</a>
+    <a href="CrsCatalogLogin.php">Course Catalog</a>
+     <a href="ViewGrades.php">View Grades</a>
+      <a href="ChangeMajor.php">Change Major Request</a>
+      <a href="DegreeAudit.php">Degree Audit</a>
+      <a href="ViewAdvisor.php">View Advisor List</a>
+      <a href="ViewAccount.php">View Account Information</a>
+</div>
+ 
+
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Student Menu</span>
 <?php
 if(isset($_SESSION['HoldSet'])){
     echo "Cannot add courses due to hold conflict(s)";
@@ -46,6 +107,14 @@ if(isset($_SESSION['HoldSet'])){
 
         
         <script>
+            
+            function openNav() {
+  document.getElementById("mySidenav").style.display = "block";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.display = "none";
+}
             function AddCourse(){
                 window.location.href="ChooseSemester.php";
                 
@@ -83,6 +152,9 @@ if(isset($_SESSION['HoldSet'])){
             
             function DegreeAudit(){
                 window.location.href="DegreeAudit.php";
+            }
+            function ViewAdvisor(){
+                window.location.href="ViewAdvisor.php";
             }
             
 
@@ -139,7 +211,14 @@ if(isset($_SESSION['HoldSet'])){
              */
             $credittotal = 0;
             
-            $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
+            /* undergraduate AS x,
+               undergradparttime AS y,
+               undergradfulltime AS z 
+             * 
+             */
+            
+            $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, y.UndergradPartTime_ID, z.U_UndergradFullTime_ID,
+                f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
                 FROM history AS h,
                section AS s,
                faculty AS f,
@@ -147,13 +226,16 @@ if(isset($_SESSION['HoldSet'])){
                user AS u,
                timeslot AS t,
                building AS b,
+                undergraduate AS x,
+               undergradparttime AS y,
+               undergradfulltime AS z,
                room AS r
                 WHERE h.Stud_ID = '".$_SESSION['user_id']."' AND s.S_Section_ID = h.Sec_ID
                    AND  u.User_ID = f.Facu_ID
                     AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
                     AND c.Course_ID = s.S_CourseID AND h.SemesterYearID = '50001'
                     AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
-            ORDER BY h.Sec_ID ";
+            GROUP BY h.Sec_ID ";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
             
@@ -184,8 +266,8 @@ if(isset($_SESSION['HoldSet'])){
                     
                     $credittotal = $credittotal + $row['C_CreditAmt'];
                     
-                    
                     }
+                    
                 echo "<td>" . "Credit Number: " . $credittotal . "</td>";
                 echo "</tr>";
                 echo "</table>";
@@ -215,7 +297,7 @@ if(isset($_SESSION['HoldSet'])){
                             $allcredits = "SELECT CreditTotal FROM undergradparttime WHERE UnderGradPartTime = '{$_SESSION['user_id']}'";
                     
                             $insert1 = "INSERT INTO `undergradparttime` (`UndergradPartTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) 
-                        VALUES ('{$_SESSION['undergradptid']}', '$credittotal', 'Good', '$allcredits', '50001' LIMIT 1)";
+                        VALUES ('{$_SESSION['undergradptid']}', '".$credittotal."', 'Good', '".$credittotal."', '50001')";
                if (mysqli_query($conn, $insert1)) {
                echo "New record created successfully";
                }else{
@@ -271,7 +353,7 @@ if(isset($_SESSION['HoldSet'])){
                         else{
                             if (isset($_SESSION['undergradptid'])){
                    // ($allcredits) $allcredits = "SELECT CreditTotal FROM undergradparttime WHERE UnderGradPartTime_ID = '{$_SESSION['user_id']}'";
-                    
+                    if(empty($row['U_UndergradFullTime_ID'])){
                             $insert1 = "INSERT INTO `undergradfulltime` (`U_UndergradFullTime_ID`, `Credits_Num`, `Status`, `CreditTotal`, `SemesterYearID`) 
                         VALUES ('{$_SESSION['user_id']}', '$credittotal', 'Good', '$credittotal', '50001' )";
                         
@@ -281,8 +363,8 @@ if(isset($_SESSION['HoldSet'])){
                }else{
                echo "Error: " . $insert1 . "" . mysqli_error($conn);
                         }
-                            }
-                            else
+                            
+                    }  else{
                                 echo "1";
                         }
                         //delete pt row if ft student
@@ -301,6 +383,8 @@ if(isset($_SESSION['HoldSet'])){
                 }
                 }
                 }
+                        }
+                }
                 
            
       
@@ -314,6 +398,45 @@ if(isset($_SESSION['HoldSet'])){
    } else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
+   //check if student is full time or part time to check credits
+            if (isset($_SESSION['undergradptid'])){
+            $sql11 = "SELECT Credits_Num FROM undergradparttime WHERE UndergradPartTime_ID = {$_SESSION['undergradptid']}";
+            if($result = mysqli_query($conn,$sql11)){
+              if(mysqli_num_rows($result) > 0){
+              echo "Part Time";
+   {
+            /*$row = mysqli_fetch_array($result);
+            
+                while( $row = mysqli_fetch_assoc($result) ){
+                    extract($row);
+                    $credittotal = $row['CreditNum'];
+                    echo $credittotal;
+            }}/*/
+              }
+             
+            
+            //$credittotal = mysqli_fetch_assoc($result);
+            
+            }}
+            }
+            else if(isset($_SESSION['undergradftid']))
+            {
+                $sql12 = "SELECT Credits_Num FROM undergradfulltime WHERE UndergradFullTime_ID = '{$_SESSION['undergradftid']}";
+            if($result = mysqli_query($conn,$sql12)){
+              if(mysqli_num_rows($result) > 0)
+              {
+                  echo "Full Time";
+            
+             /*   while( $row = mysqli_fetch_assoc($result) ){
+                    extract($row);
+                    $credittotal = $row['CreditNum'];
+                    echo $credittotal;
+            }*/
+                  
+              }}}
+            else{
+                echo "something happened or student not in database";
+            }
 ?>
             
             <?php 
@@ -371,9 +494,12 @@ if(isset($_SESSION['HoldSet'])){
 
             <br>
             <br>
+            <div id="Homepagecontainer">
+      <div id="main">
+      <section class="wrapper">
+      <div class="btn-group" style="width:100%">
         <div align="center">
-            <div id="box1" align="center">
-              
+            
         <button class = "button" onclick="AddCourse()">Add Course</button>
         <button class = "button" onclick="DropCourse()">Drop Course</button>
         <button class = "button" onclick="ClassSearch()" >Search Courses</button>
@@ -383,17 +509,26 @@ if(isset($_SESSION['HoldSet'])){
         <button class = "button" onclick="ViewGrades()">View Grades</button>
         <button class = "button" onclick="ChangeMajor()">Change Major</button>
         <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
-
+        <button class ="button" onclick="ViewAdvisor()">View Advisor</button>
+             </div>
+      </div>
+             
         </div>
-
-
-        </div>
-
+            </div>
+<div class="w3-panel" style="width:30%">
+            <button class="w3-btn w3-block w3-teal">Button</button>
+             </div>
             
                       <br>
             <br>
             <br>
+            
+            
+                
+            </div>
             <br>
+            
+
             <br>
             
 

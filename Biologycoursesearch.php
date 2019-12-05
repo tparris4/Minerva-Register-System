@@ -8,8 +8,9 @@ require "header2.php";
 Add course w/ checkbox
 -->
 <?php
-
+//add date function 
 if(isset($_SESSION['Fall2019'])){
+    
    $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.*, p.* 
             FROM section AS s
             JOIN prerequisites1 AS p, course AS c, faculty AS f, user AS u, timeslot AS t, room AS r, building AS b 
@@ -23,7 +24,7 @@ if(isset($_SESSION['Fall2019'])){
             s.S_SemesterYearID = '50001'
             
 AND s.S_FacuID = f.Facu_ID
-            GROUP BY s.S_CourseID";
+            GROUP BY s.S_Section_ID";
 
    $rownumber = 0;
    if ($result = mysqli_query($conn, $sql)){
@@ -50,7 +51,9 @@ AND s.S_FacuID = f.Facu_ID
       while($row = mysqli_fetch_array($result)){
           $rownumber = $rownumber + 1;
         echo "<tr>";
-        echo "<td><input type='checkbox' name='checkbox[" . $rownumber . "]' value='". $rownumber . "' </td>";
+        //echo "<td><input type='checkbox' name='checkbox[" . $rownumber . "]' value='". $rownumber . "' </td>";
+        echo "<td><form method='POST' action='Biologycoursesearch.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
+                    
         echo "<td>" . $row['C_Name'] . "</td>";
        echo "<td>" . $row['C_Description'] . "</td>";      
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
@@ -62,26 +65,28 @@ AND s.S_FacuID = f.Facu_ID
        echo "<td>" . $row['CourseLevel'] . "</td>";
        //testing
        echo"<td>" . $row['Prerequ_ID'] . "</td>";
-       $checkbox1[] = $row['S_Section_ID'];       
+       $checkbox1[] = $row['S_Section_ID'];   
+       var_dump($row['S_Section_ID']);
        
        
        echo "</tr>";    
        
-       
+       //use buttons
       }
-      echo "</table>";
+      echo "</table>";/*
       $listCheck = implode(",", $checkbox1);
                 var_dump($listCheck);
+       * 
+       */
       //if checkbox was selected to add
-     if (isset($_POST['Submit'])){
-         $checkbox3 = implode(",", $checkbox1);
+     if (isset($_POST['addcourse'])){
+         //$checkbox3 = implode(",", $checkbox1);
           //$checkbox2 = $_POST['checkbox'];
           //$_SESSION['coursechosen'] = $row['Sec_ID'];
                     //add course
-          for ($i=0; $i<sizeof ($checkbox1);$i++) {
-          if ($checkbox1[$i] == $rownumber){
-              $chkbox = $checkbox1[$i];
-  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID) VALUES ('".$_SESSION['user_id']."', '".$chkbox."', '0', '50001')";
+          $id = mysqli_real_escape_string($conn, $_POST['add']);
+          $id2 = mysqli_real_escape_string($conn, $_POST['addc']);
+  $sql2 = "INSERT INTO history (Stud_ID, Sec_ID, CourseDump, SemesterYearID, Cour_ID) VALUES ('".$_SESSION['user_id']."', '".$id."', '0', '50001', '".$id2."')";
           
           
           
@@ -91,13 +96,13 @@ AND s.S_FacuID = f.Facu_ID
     echo "prereq not fulfilled" . $_SESSION['prereq'];
 
 }
-          }
-          }
-
+     
+          
      }
-    }
-   }
-   }
+     
+     
+    
+   
 
 
 
@@ -126,7 +131,7 @@ AND s.S_FacuID = f.Facu_ID
           if ($result = mysqli_query($conn, $check2)){     
                if(mysqli_num_rows($result) > 0) {
 
-
+?
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
@@ -137,25 +142,27 @@ else {
       unset($_SESSION['addcourse']);
       mysqli_free_result($result);
        } 
-       
+       */
+     }
+   
+
       else {
       echo "Not found";
-    }
-   }  else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
+    
+    
    }
+   }
+     else{
+    echo "Error: could not execute $sql. " . mysqli_error($conn);
+     }
    
+mysqli_close($conn);
+
 }
-//mysqli_close($conn);
-           * 
-           */
+   
 ?>
 
 
-    <form action ="Biologycoursesearch.php" method ="post">
-                <input type="checkbox" name="Checkbox" id="Checkbox" value="">
-                <input type ="SUBMIT" name="Submit" id="Submit" value="Submit">
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
  <?php
            require "footer.php";
            ?>

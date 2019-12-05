@@ -1,20 +1,6 @@
-<?php
- $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = '';
-   $dbname = 'register_system';
-   $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
-   
-   if(! $conn ) {
-      die('Could not connect: ' . mysqli_error());
-   }
-   echo 'Connected successfully</br>';
-   session_start();
-   ?>
-<html>
-<head>
+
 <?php 
-require "header2.php";
+require "header3.php";
 ?>
     <meta charset = "utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -22,7 +8,7 @@ require "header2.php";
 <body>
 
 
-<h2>Biology Course Catalog</h2>
+<h2>Computer Science Course Catalog</h2>
 
  <?php 
            // $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
