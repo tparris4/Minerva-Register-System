@@ -45,6 +45,7 @@ error_reporting(E_ALL);
 				<li><a href = "Staff.html"> Staff</a></li>
 				<li><a href = "Mission.html"> Mission</a></li>
 				<li><a href = "IT Department.html"> IT Department</a></li>
+                                
                         </ul>
                         <li><a href ="Index1.php">Home</a></li>
                         <li><a href="login.php" class="button">Login</a></li>
