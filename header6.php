@@ -32,16 +32,28 @@ include "session.php";
       <div id="main">
       <section class="wrapper">
       <div class="btn-group" style="width:100%">
-          <button style="width:40%"><a href="addtoclass.php">Add Class Info</a></button>
-      <button style="width:20%"><a href="selectclass.php">View Class Info</a></button>
-      <button style="width:20%"><a href="SearchPage.php">Look Up Course</a></button>
-      <button style="width:20%"><a href="message.php">Message User</a></button>
+          <button style="width:16.66%"><a href="addAdvisor1.php">Add Advisor</a></button>
+      <button style="width:16.66%"><a href="addHold1.php">Add Hold</a></button>
+      <button style="width:16.66%"><a href="addMjrReq.php">Add Major Requirements</a></button>
+      <button style="width:16.66%"><a href="addSection1.php">Add Section</a></button>
+      
       </div>
-           <div class="btn-group" style="width:100%">
-      <button style="width:40%"><a href="ViewAccount.php">View Account Info</a></button>
-      <button style="width:20%"><a href="Index1.php">Home</a></button>
-      <button style="width:20%"><a href="faculty.php">Main Page</a></button>
-      <button style="width:20%"><a href="logout.php">Log Out</a></button>
+          
+          <div class="btn-group" style="width:100%">
+              
+      <button style="width:16.66%"><a href="addCourse.php">Add Course</a></button>
+      
+      <button style="width:16.66"><a href="addSemester.php">Add Semester</a></button>
+      <button style="width:16.66%"><a href="deleteSection.php">Delete Section</a></button>
+      
+      <button style="width:16.66"><a href="viewSection.php">View Section</a></button>
+          </div>
+           <div class="btn-group" style="width:125%">
+               <button style="width:25%"><a href="message.php">Message User</a></button>
+      <button style="width:25%"><a href="ViewAccount.php">View Account Info</a></button>
+      <button style="width:25%"><a href="Index1.php">Home</a></button>
+      <button style="width:25%"><a href="Researcher.php">Main Page</a></button>
+      <button style="width:25%"><a href="logout.php">Log Out</a></button>
       </div>
       </section>
       </div>
@@ -68,4 +80,5 @@ include "session.php";
 
 
         </header>
-        
+ 
+      

@@ -16,8 +16,11 @@ include "header4.php";
                     . "section.S_CourseID = course.Course_ID AND attendance.Att_Sec_ID = '".$_SESSION['roster']."'"
                     . "ORDER BY attendance.Att_Sec_ID";
                       
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+            $statement=$conn->prepare($sql);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     echo"<th>Section</th>";
@@ -30,7 +33,7 @@ include "header4.php";
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['C_Name'] . ", Section " . $row['S_Num'] . "</td>";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
@@ -44,15 +47,11 @@ include "header4.php";
                 echo "</table>";
                 
             
-      mysqli_free_result($result);
                 }else {
       echo "Not found";
     }
     
-            }else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
-   mysqli_close($conn);
+            
 ?>
  
 

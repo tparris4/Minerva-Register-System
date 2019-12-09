@@ -32,16 +32,20 @@ include "session.php";
       <div id="main">
       <section class="wrapper">
       <div class="btn-group" style="width:100%">
-          <button style="width:40%"><a href="addtoclass.php">Add Class Info</a></button>
-      <button style="width:20%"><a href="selectclass.php">View Class Info</a></button>
-      <button style="width:20%"><a href="SearchPage.php">Look Up Course</a></button>
-      <button style="width:20%"><a href="message.php">Message User</a></button>
+          <button style="width:16.66%"><a href="ResHold.php">View Holds</a></button>
+      <button style="width:16.66%"><a href="ResMajorGpa.php">View Major/GPA</a></button>
+      <button style="width:16.66%"><a href="ResRoster.php">View Roster</a></button>
+      <button style="width:16.66%"><a href="ResMidFinal.php">View Midterm/Final</a></button>
+      
+      <button style="width:16.66%"><a href="ResFacuSche.php">View Faculty Schedules</a></button>
+      <button style="width:16.66"><a href="message.php">Message User</a></button>
       </div>
+         
            <div class="btn-group" style="width:100%">
-      <button style="width:40%"><a href="ViewAccount.php">View Account Info</a></button>
-      <button style="width:20%"><a href="Index1.php">Home</a></button>
-      <button style="width:20%"><a href="faculty.php">Main Page</a></button>
-      <button style="width:20%"><a href="logout.php">Log Out</a></button>
+      <button style="width:25%"><a href="ViewAccount.php">View Account Info</a></button>
+      <button style="width:25%"><a href="Index1.php">Home</a></button>
+      <button style="width:25%"><a href="Researcher.php">Main Page</a></button>
+      <button style="width:25%"><a href="logout.php">Log Out</a></button>
       </div>
       </section>
       </div>
@@ -68,4 +72,6 @@ include "session.php";
 
 
         </header>
+    </head>
+<body>
         

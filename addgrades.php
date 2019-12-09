@@ -5,20 +5,23 @@ include "header4.php";
 
 
   <?php 
-            $sql = "SELECT u.*,  f.*, a.*, s.*, c.*, e.*"
+            $sql = "SELECT user.*,  faculty.*, attendance.*, section.*, course.*, enrollment1.*"
                     
-                    . "FROM user AS u "
+                    . "FROM user"
                     . "JOIN "
-                    . "faculty AS f, attendance AS a, section AS s, course AS c, enrollment1 AS e"
-                    . " WHERE a.A_StudId = u.User_ID"
-                    . " AND a.Facu_ID = f.Facu_ID AND"
-                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND a.Att_Sec_ID = s.S_Section_ID AND "
-                    . "s.S_CourseID = c.Course_ID AND e.E_Sec_ID = '".$_SESSION['addgrade']."' AND "
-                    . "e.E_SemesterYearID = '50001' AND e.Facu_ID = f.Facu_ID "
-                    . "ORDER BY e.E_Sec_ID";
+                    . "faculty , attendance , section , course, enrollment1"
+                    . " WHERE attendance.A_StudId = user.User_ID"
+                    . " AND attendance.Facu_ID = faculty.Facu_ID AND"
+                    . " '".$_SESSION['user_id']."' = faculty.Facu_ID AND attendance.Att_Sec_ID = section.S_Section_ID AND "
+                    . "section.S_CourseID = course.Course_ID AND enrollment1.E_Sec_ID = '".$_SESSION['addgrade']."' AND "
+                    . "enrollment1.E_SemesterYearID = '50001' AND enrollment1.Facu_ID = faculty.Facu_ID "
+                    . "ORDER BY enrollment1.E_Sec_ID";
                       
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+            $statement=$conn->prepare($sql);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     
@@ -31,7 +34,7 @@ include "header4.php";
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
                     echo"<td>" . $row['A_StudId'] . "</td>";
@@ -78,13 +81,7 @@ echo"<td><input type='submit' name='save' value='Submit'></form></td>";
     
     
    }
-   }
    
-     else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-     }
-   
-mysqli_close($conn);
 
 
 ?>

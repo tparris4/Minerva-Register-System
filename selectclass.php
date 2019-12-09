@@ -24,8 +24,11 @@ include "header4.php";
                     AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
                     AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
             GROUP BY facuschedule.Facu_sec_id ";
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+            $statement=$conn->prepare($sql);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     echo"<th></th>";
@@ -42,7 +45,7 @@ include "header4.php";
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                      echo "<td><form method='POST' action='selectclass.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='viewr'  value='".$row['S_Section_ID']."'><input type='submit' name='viewroster' value='View Roster'></form></td>";
         echo "<td><form method='POST' action='selectclass.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='viewg'  value='".$row['S_Section_ID']."'><input type='submit' name='viewgrade' value='View Grade'></form></td>";
@@ -77,15 +80,11 @@ include "header4.php";
                         header("Location: studentattendance.php");
      }
                       
-      mysqli_free_result($result);
                 }else {
       echo "Not found";
     }
     
-            }else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
-   mysqli_close($conn);
+            
    ?>
 
  

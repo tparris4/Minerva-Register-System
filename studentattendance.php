@@ -16,9 +16,11 @@ include "header4.php";
                     . "section.S_CourseID = course.Course_ID AND enrollment1.E_Sec_ID = '".$_SESSION['att']."' AND "
                     . "enrollment1.E_SemesterYearID = '50001' AND enrollment1.Facu_ID = faculty.Facu_ID "
                     . "ORDER BY enrollment1.E_Sec_ID";
-                      
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+            $statement=$conn->prepare($sql);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     
@@ -30,7 +32,7 @@ include "header4.php";
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
                     echo"<td>" . $row['A_StudId'] . "</td>";
@@ -42,15 +44,11 @@ include "header4.php";
                 echo "</table>";
                 
             
-      mysqli_free_result($result);
                 }else {
       echo "Not found";
     }
     
-            }else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
-   mysqli_close($conn);
+            
 ?>
  
 

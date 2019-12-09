@@ -3,28 +3,31 @@ include "header2.php";
 ?>
 
 <?php 
-$sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, f.Facu_ID, c.Course_ID, c.C_Name, c.C_CreditAmt
-                FROM history AS h,
-               section AS s,
-               faculty AS f,
-               enrollment1 AS e,
-               course AS c,
-               user AS u,
-               timeslot AS t,
-               building AS b,
-               room AS r
-                WHERE h.Stud_ID = '".$_SESSION['user_id']."'
-                    AND s.S_Section_ID = h.Sec_ID
-                   AND  u.User_ID = f.Facu_ID
-                   AND e.Stud_ID = h.Stud_ID
-                   AND e.E_Sec_ID = h.Sec_ID
-                   AND e.E_SemesterYearID = '50001'
-                    AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-                    AND c.Course_ID = s.S_CourseID AND h.SemesterYearID = '50001'
-                    AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
-            ORDER BY h.Sec_ID ";
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+$sql = "SELECT history.*,section.*, user.*,timeslot.*,building.*,room.*, enrollment1.*, faculty.Facu_ID, course.Course_ID, course.C_Name, course.C_CreditAmt
+                FROM history JOIN
+               section,
+               faculty,
+               enrollment1,
+               course,
+               user,
+               timeslot,
+               building,
+               room
+                WHERE history.Stud_ID = '".$_SESSION['user_id']."'
+                    AND section.S_Section_ID = history.Sec_ID
+                   AND  user.User_ID = faculty.Facu_ID
+                   AND enrollment1.Stud_ID = history.Stud_ID
+                   AND enrollment1.E_Sec_ID = history.Sec_ID
+                   AND enrollment1.E_SemesterYearID = '50001'
+                    AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
+                    AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
+                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
+            ORDER BY history.Sec_ID ";
+            $statement=$conn->prepare($sql);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     
@@ -36,7 +39,7 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, f.Facu_ID, c.Course_ID, c.C_Name, 
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['C_Name'] . "</td>";
                     
@@ -54,10 +57,7 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, f.Facu_ID, c.Course_ID, c.C_Name, 
             else {
       echo "Not found";
     }
-   } else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
-
+   
 
 ?>
 
@@ -66,6 +66,4 @@ $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, f.Facu_ID, c.Course_ID, c.C_Name, 
 <?php
 include "footer.php";
 ?>
-    </body>
-</html>
 

@@ -53,7 +53,7 @@ include "header2.php";
                     
                 </select>
                 
-                
+               
                 <input type="Submit" name="Submit" title="Submit"/></form>
     
     <?php
@@ -92,10 +92,11 @@ include "header2.php";
                     AND faculty.Facu_ID = section.S_FacuID AND
                     timeslot.TimeSlotID = section.S_TimeSlotID"; 
         
-                if ($result = mysqli_query($conn, $sql1)){
-        
-                
-                if(mysqli_num_rows($result) > 0){
+                $statement=$conn->prepare($sql1);
+            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->execute();
+            $result=$statement->get_result();
+            if ($result ->num_rows > 0){
             
                     echo "<table>"; 
                     
@@ -110,7 +111,7 @@ include "header2.php";
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['C_Name'] . "</td>";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
@@ -128,9 +129,7 @@ include "header2.php";
             else {
       echo "Not found";
     }
-   } else{
-    echo "Error: could not execute $sql1. " . mysqli_error($conn);
-   }
+   
     
     ?>
     

@@ -71,27 +71,33 @@ function closeNav() {
 </script>
 <?php
 //teaching schedule
- $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, c.*, f.*
+ $sql = "SELECT history.*,section.*, user.*,timeslot.*,building.*,room.*, facuschedule.*, course.*, faculty.*
               
-                FROM history AS h,
+                FROM history
+                JOIN
                
-               section AS s,
-               course AS c,
-               faculty AS f,
-               facuschedule AS e,
-               user AS u,
-               timeslot AS t,
-               building AS b,
-               room AS r
-                WHERE f.Facu_ID = '".$_SESSION['user_id']."' AND s.S_Section_ID = e.Facu_sec_id
-                    AND e.Facu_id = f.Facu_ID
-                   AND  u.User_ID = f.Facu_ID
-                    AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-                    AND c.Course_ID = s.S_CourseID AND h.SemesterYearID = '50001'
-                    AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
-            GROUP BY e.Facu_sec_id ";
-            if ($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
+               section,
+               course,
+               faculty,
+               facuschedule,
+               user,
+               timeslot,
+               building,
+               room
+                WHERE faculty.Facu_ID = '".$_SESSION['user_id']."' AND section.S_Section_ID = facuschedule.Facu_sec_id
+                    AND facuschedule.Facu_id = faculty.Facu_ID
+                   AND  user.User_ID = faculty.Facu_ID
+                    AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
+                    AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
+                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
+            GROUP BY facuschedule.Facu_sec_id ";
+ $statement=$conn->prepare($sql);
+ $statement->bind_param(1, $_SESSION['user_id']);
+ $statement->execute();
+ $result = $statement->get_result();
+ 
+            if ($result -> num_rows > 0){
+                
             
                     echo "<table>"; 
                     
@@ -106,7 +112,7 @@ function closeNav() {
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result->fetch_assoc()){
                     echo "<tr>";
                    // echo "<td><form method='POST' action='Biologycoursesearch.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
                     echo"<td>" . $row['C_Name'] . "</td>";
@@ -122,32 +128,32 @@ function closeNav() {
                     
                     
                     }
-                      
-      mysqli_free_result($result);
+         
                 }else {
       echo "Not found";
     }
     
-            }else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
+            
    ?>
 
  
             <?php 
             //advising students
-            $sql1 = "SELECT u.*, b.*, f.*, d.*, a.* "
+            $sql1 = "SELECT user.*, building.*, faculty.*, department.*, attendance.* "
                     
-                    . "FROM user AS u, "
+                    . "FROM user JOIN "
                     
-                    . " building AS b, faculty AS f, advisor AS a, department AS d"
-                    . " WHERE a.A_Stud_ID = u.User_ID AND"
-                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND a.A_Facu_ID = f.Facu_ID AND"
-                    . " b.B_Dept_ID = d.Department_ID "
-                    . "AND  f.F_Dept_ID = d.Department_ID";
-                      
-            if ($result = mysqli_query($conn, $sql1)){
-                if(mysqli_num_rows($result) > 0){
+                    . " building, faculty, advisor, department "
+                    . " WHERE attendance.A_Stud_ID = user.User_ID AND"
+                    . " '".$_SESSION['user_id']."' = faculty.Facu_ID AND attendance.A_Facu_ID = faculty.Facu_ID AND"
+                    . " building.B_Dept_ID = department.Department_ID "
+                    . "AND  faculty.F_Dept_ID = department.Department_ID";
+                   $statment2=$conn->prepare($sql1);
+                   $statement2->bind_param(1, $_SESSION['user_id']);
+                   $statement2->execute();
+                   $result2=$statement2->get_result();
+           
+                if($result2->num_rows > 0){
             
                     echo "<table>"; 
                     
@@ -159,7 +165,7 @@ function closeNav() {
                     $rownumber = 0;
                    
 
-                   while($row = mysqli_fetch_array($result)){
+                   while($row = $result2->fetch_assoc()){
                     echo "<tr>";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
                     echo"<td>" . $row['F_Office'] . "</td>";
@@ -172,14 +178,12 @@ function closeNav() {
                 echo "</table>";
                 
             
-      mysqli_free_result($result);
-                }else {
-     ;
+                }else
+                echo"Not found";{
+     
     }
     
-            }else{
-    echo "Error: could not execute $sql. " . mysqli_error($conn);
-   }
+            
 ?>
 <?php 
 include "footer.php";

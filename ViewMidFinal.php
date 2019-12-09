@@ -61,6 +61,3 @@ $sql = "SELECT history.*, user.*, section.*, course.*, enrollment1.*, faculty.*
 <?php
 include "footer.php";
 ?>
-    </body>
-</html>
-

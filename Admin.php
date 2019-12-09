@@ -1,6 +1,5 @@
 <?php
-include "header5.php";
-
+include "header6.php";
 ?>
 <style>
 body {
@@ -45,25 +44,10 @@ body {
   .sidenav a {font-size: 18px;}
 }
 </style>
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="selectclass.php">View Roster/Grades/Attendance</a>
-  <a href="addtoclass.php">Add Grades/Attendance</a>
-   <a href="ResHold.php">View Holds</a>
-      <a href="ResMajorGpa.php">View Major/GPA</a>
-    <a href="ResRoster.php">View Roster</a>
-   <a href="ResMidFinal.php">View Midterm/Final</a>
-   <a href="ResFacuSche.php">View Faculty Schedules</a>
-  <a href="message.php">Message User</a>
-  
-      <a href="ViewAccount.php">View Account Information</a>
-
-</div>
 
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
 
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Researcher Menu</span>
    <script>
             
             function openNav() {
@@ -75,6 +59,7 @@ function closeNav() {
 }
 </script>
 
-<?php 
+<?php
 include "footer.php";
 ?>
+

@@ -58,6 +58,8 @@ body {
       <a href="DegreeAudit.php">Degree Audit</a>
       <a href="ViewAdvisor.php">View Advisor List</a>
       <a href="ViewAccount.php">View Account Information</a>
+      <a href="messagestu.php">Message Users</a>
+      <a href="ViewMidFinal.php">View Midterm/Final Grades</a>
 </div>
  
 
@@ -66,10 +68,13 @@ body {
 
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Student Menu</span>
 <?php
+/*
 if(isset($_SESSION['HoldSet'])){
     echo "Cannot add courses due to hold conflict(s)";
     unset($_SESSION['HoldSet']);
 }
+ * 
+ */
                 ?>
 <table>
     <tr><td>Major: <?php 
@@ -156,7 +161,12 @@ function closeNav() {
             function ViewAdvisor(){
                 window.location.href="ViewAdvisor.php";
             }
-            
+            function Message(){
+                window.location.href="messagestu.php";
+            }
+            function ViewMidFin(){
+                window.location.href="ViewMidFinal.php";
+            }
 
             
             </script>
@@ -511,6 +521,8 @@ function closeNav() {
         <button class = "button" onclick="ChangeMajor()">Change Major</button>
         <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
         <button class ="button" onclick="ViewAdvisor()">View Advisor</button>
+        <button class ="button" onclick="ViewMidFin()">View Midterm/Final Grades</button>
+        <button class ="button" onclick="Message()">Message User</button>
              </div>
       </div>
              

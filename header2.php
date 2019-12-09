@@ -65,11 +65,13 @@ include "session.php";
       <button style="width:16.66%"><a href="DegreeAudit.php">Degree Audit</a></button>
       <button style="width:16.66%"><a href="ViewAccount.php">View Account Info</a></button>
       <button style="width:16.66%"><a href="Index1.php">Home</a></button>
-      <button style="width:16.66%"><a href="Student.php">MainPage</a></button>
+      <button style="width:16.66%"><a href="Student.php">Main Page</a></button>
       <button style="width:16.66%"><a href="logout.php">Log Out</a></button>
       </div>
-      <div class="btn-group" style="width:50%">
-      <button style="width:50%"><a href="CrsCatalogLogin.php">View Catalog</a></button>
+      <div class="btn-group" style="width:75%">
+      <button style="width:25%"><a href="CrsCatalogLogin.php">View Catalog</a></button>
+      <button style="width:25%"><a href="ViewMidFinal.php.php">View Midterm/Final Grades</a></button>
+      <button style="width:25%"><a href="messagestu.php">Message Users</a></button>
       </div>
       </section>
       </div>

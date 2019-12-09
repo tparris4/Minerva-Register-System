@@ -1,5 +1,5 @@
 <?php
-require "header4.php";
+require "header2.php";
 ?>
 
 <form name="contactform" method="post" action="message.php">
