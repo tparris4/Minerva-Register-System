@@ -57,8 +57,9 @@ body {
       <a href="ChangeMajor.php">Change Major Request</a>
       <a href="DegreeAudit.php">Degree Audit</a>
       <a href="ViewAdvisor.php">View Advisor List</a>
+      <a href="ViewAccount.php">View Account Information</a>
 </div>
-
+ 
 
 <p> <div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']; ?></h2> </p>
             <p></p></div>
@@ -268,6 +269,7 @@ function closeNav() {
                     }
                     
                 echo "<td>" . "Credit Number: " . $credittotal . "</td>";
+                $_SESSION['creditAll'] = $credittotal;
                 echo "</tr>";
                 echo "</table>";
                 //if student is pt
@@ -493,10 +495,13 @@ function closeNav() {
 
             <br>
             <br>
+            <div id="Homepagecontainer">
+      <div id="main">
+      <section class="wrapper">
+      <div class="btn-group" style="width:100%">
         <div align="center">
             
-             <div class="w3-panel" style="width:30%">
-        <button class = "w3-btn w3-block w3-teal" onclick="AddCourse()">Add Course</button>
+        <button class = "button" onclick="AddCourse()">Add Course</button>
         <button class = "button" onclick="DropCourse()">Drop Course</button>
         <button class = "button" onclick="ClassSearch()" >Search Courses</button>
         <button class = "button" onclick="LookUpTranscript()">Look Up Transcript</button>
@@ -507,9 +512,10 @@ function closeNav() {
         <button class = "button" onclick="DegreeAudit()">Degree Audit</button>
         <button class ="button" onclick="ViewAdvisor()">View Advisor</button>
              </div>
-       
+      </div>
              
         </div>
+            </div>
 <div class="w3-panel" style="width:30%">
             <button class="w3-btn w3-block w3-teal">Button</button>
              </div>

@@ -49,10 +49,14 @@ include "session.php";
     			<li><a href = "Staff.html"> Staff</a></li>
     			<li><a href = "Mission.html"> Mission</a></li>
     			<li><a href = "IT Department.html"> IT Department</a></li>
-    		</ul></li>
+                        </ul>
+                        
+    		</li>
+                <ul><li>
+                        <li><a href="login.php" class="button">Login</a></li>
+                        </li> </ul>
         </nav>
             <div align="right">
-                <a href="Login.php">Login</a><br>
                             <p id="date"></p>
 <p>
 <script> document.write(new Date().toLocaleDateString()); </script>

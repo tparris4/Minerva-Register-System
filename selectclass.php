@@ -1,29 +1,29 @@
 <?php
-include "header2.php";
+include "header4.php";
 
 ?>
 
 
  <?php
- $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, c.*, f.*
+ $sql = "SELECT history.*,section.*, user.*,timeslot.*,building.*,room.*, facuschedule.*, course.*, faculty.*
               
-                FROM history AS h,
-               JOIN 
-               section AS s,
-               course AS c,
-               faculty AS f,
-               facuschedule AS e,
-               user AS u,
-               timeslot AS t,
-               building AS b,
-               room AS r
-                WHERE f.Facu_ID = '".$_SESSION['user_id']."' AND s.S_Section_ID = e.Facu_sec_id
-                    AND e.Facu_id = f.Facu_ID
-                   AND  u.User_ID = f.Facu_ID
-                    AND s.S_RoomNum = r.Room_ID AND s.S_BuildID = b.Build_ID
-                    AND c.Course_ID = s.S_CourseID AND h.SemesterYearID = '50001'
-                    AND f.Facu_ID = s.S_FacuID AND t.TimeSlotID = s.S_TimeSlotID
-            GROUP BY e.Facu_sec_id ";
+                FROM history JOIN 
+                
+               section,
+               course,
+               faculty,
+               facuschedule,
+               user,
+               timeslot,
+               building,
+               room
+                WHERE faculty.Facu_ID = '".$_SESSION['user_id']."' AND section.S_Section_ID = facuschedule.Facu_sec_id
+                    AND facuschedule.Facu_id = faculty.Facu_ID
+                   AND  user.User_ID = faculty.Facu_ID
+                    AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
+                    AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
+                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
+            GROUP BY facuschedule.Facu_sec_id ";
             if ($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
             

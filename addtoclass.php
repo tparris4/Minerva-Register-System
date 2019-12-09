@@ -1,5 +1,5 @@
 <?php
-include "header2.php";
+include "header4.php";
 
 ?>
 
@@ -7,8 +7,8 @@ include "header2.php";
  <?php
  $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, c.*, f.*
               
-                FROM history AS h,
-               JOIN 
+                FROM history AS h
+               JOIN
                section AS s,
                course AS c,
                faculty AS f,
@@ -42,8 +42,7 @@ include "header2.php";
                    
 
                    while($row = mysqli_fetch_array($result)){
-                    echo "<tr>";
-                     
+                    echo "<tr>";                
         echo "<td><form method='POST' action='addtoclass.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='addg'  value='".$row['S_Section_ID']."'><input type='submit' name='addgrade' value='Add Grade'></form></td>";
         echo "<td><form method='POST' action='addtoclass.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='adda'  value='".$row['S_Section_ID']."'><input type='submit' name='addatt' value='Add Attendance'></form></td>";
                     echo"<td>" . $row['C_Name'] . "</td>";

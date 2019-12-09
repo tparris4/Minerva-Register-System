@@ -25,44 +25,28 @@ use search with $ids
   <li>  <a href ="Medicalcoursesearch.php">Medical</a></li>
    <li> <a href ="Musiccoursesearch.php">Music</a></li>
         </li></ul>
-<div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Semesters</button>
-  <div id="myDropdown" class="dropdown-content">
-      
-    <a href="">2018</a>
-    <a href="Artcoursesearch.php">Art</a>
-    <a href ="Biologycoursesearch.php">Biology</a>
-    <a href ="Businesscoursesearch.php">Business</a>
-    <a href ="compscicoursesearch.php">Computer Science</a>
-    <a href ="mathcoursesearch.php">Math</a>
-    <a href ="humcoursesearch.php">Humanities</a>
-    <a href ="Englishcoursesearch.php">English</a>
-    <a href ="Medicalcoursesearch.php">Medical</a>
-    <a href ="Musiccoursesearch.php">Music</a>
-  </div>
-</div>
+    <ul><li>
+            <div id="Homepagecontainer">
+      <div id="main">
+      <section class="wrapper">
+      <div class="btn-group" style="width:100%">
+             <button style="width:11.11%"><a href="Artcoursesearch.php">Art</a></button>
+      <button style="width:11.11%"><a href="Biologycoursesearch.php">Biology</a></button>
+      <button style="width:11.11%"><a href="Businesscoursesearch.php">Business</a></button>
+      <button style="width:11.11%"><a href="compscicoursesearch.php">Computer Science</a></button>
+      <button style="width:11.11%"><a href="mathcoursesearch.php">Math</a></button>
+      <button style="width:11.11%"><a href="humcoursesearch.php">Humanities</a></button>
+      <button style="width:11.11%"><a href="Englishcoursesearch.php">English</a></button>
+      <button style="width:11.11%"><a href="Medicalcoursesearch.php">Medical</a></button>
+      <button style="width:11.11%"><a href="Musiccoursesearch.php">Music</a></button>
+ </div>
+      </section>
+      </div>
+                </div>
+        </li></ul>
 
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
+
 <br>
 <br>
 <br>

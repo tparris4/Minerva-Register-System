@@ -9,7 +9,7 @@ Add course w/ checkbox
 -->
 <?php
 //add date function 
-if(isset($_SESSION['Fall2019'])){
+if(isset($_SESSION['Fall2019']) && ($_SESSION['creditAll'] <= 18)){
     
    $sql = "SELECT s.*, c.*, t.*, r.*, b.*, f.*, u.*, p.* 
             FROM section AS s
@@ -156,8 +156,10 @@ else {
     echo "Error: could not execute $sql. " . mysqli_error($conn);
      }
    
-mysqli_close($conn);
 
+}
+else if($_SESSION['creditAll'] > 18){
+    echo"Credit amount is more than 18.0";
 }
    
 ?>

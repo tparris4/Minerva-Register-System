@@ -1,5 +1,5 @@
 <?php
-include "header2.php";
+include "header4.php";
 
 ?>
 <style>
@@ -50,6 +50,8 @@ body {
   <a href="selectclass.php">View Roster/Grades/Attendance</a>
   <a href="addtoclass.php">Add Grades/Attendance</a>
   <a href="message.php">Message User</a>
+  
+      <a href="ViewAccount.php">View Account Information</a>
 
 </div>
 
@@ -68,10 +70,11 @@ function closeNav() {
 }
 </script>
 <?php
+//teaching schedule
  $sql = "SELECT h.*,s.*, u.*,t.*,b.*,r.*, e.*, c.*, f.*
               
                 FROM history AS h,
-               JOIN 
+               
                section AS s,
                course AS c,
                faculty AS f,
@@ -105,7 +108,7 @@ function closeNav() {
 
                    while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
-                     echo "<td><form method='POST' action='Biologycoursesearch.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
+                   // echo "<td><form method='POST' action='Biologycoursesearch.php'><input type='hidden' name='addc'  value='".$row['Course_ID']."'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
                     echo"<td>" . $row['C_Name'] . "</td>";
                     echo"<td>" . $row['R_Num'] . ',' . $row['B_Name'] . "</td>";
                     echo"<td>" . $row['Period'] . "</td>";
@@ -128,22 +131,22 @@ function closeNav() {
             }else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
-   mysqli_close($conn);
    ?>
 
  
             <?php 
-            $sql = "SELECT u.*, b.*, f.*, d.*, a.* "
+            //advising students
+            $sql1 = "SELECT u.*, b.*, f.*, d.*, a.* "
                     
-                    . "FROM user AS u "
-                    . "JOIN"
+                    . "FROM user AS u, "
+                    
                     . " building AS b, faculty AS f, advisor AS a, department AS d"
-                    . " WHERE a.A_Stud_ID = u.User_ID"
-                    . " AND a.A_Facu_ID = f.Facu_ID AND"
-                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND b.B_Dept_ID = d.Department_ID "
+                    . " WHERE a.A_Stud_ID = u.User_ID AND"
+                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND a.A_Facu_ID = f.Facu_ID AND"
+                    . " b.B_Dept_ID = d.Department_ID "
                     . "AND  f.F_Dept_ID = d.Department_ID";
                       
-            if ($result = mysqli_query($conn, $sql)){
+            if ($result = mysqli_query($conn, $sql1)){
                 if(mysqli_num_rows($result) > 0){
             
                     echo "<table>"; 
@@ -171,13 +174,12 @@ function closeNav() {
             
       mysqli_free_result($result);
                 }else {
-      echo "Not found";
+     ;
     }
     
             }else{
     echo "Error: could not execute $sql. " . mysqli_error($conn);
    }
-   mysqli_close($conn);
 ?>
 <?php 
 include "footer.php";

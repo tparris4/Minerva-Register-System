@@ -1,5 +1,5 @@
 <?php
-include "header2.php";
+include "header4.php";
 
 ?>
 
@@ -8,13 +8,13 @@ include "header2.php";
             $sql = "SELECT u.*,  f.*, a.*, s.*, c.*, e.*"
                     
                     . "FROM user AS u "
-                    . "JOIN"
+                    . "JOIN "
                     . "faculty AS f, attendance AS a, section AS s, course AS c, enrollment1 AS e"
                     . " WHERE a.A_StudId = u.User_ID"
                     . " AND a.Facu_ID = f.Facu_ID AND"
-                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND a.Att_Sec_ID = s.Sec_ID AND "
-                    . "s.CourseID = c.Course_ID AND e.E_Sec_ID = '".$_SESSION['addg']."' AND "
-                    . "e.E_SemesterYearID = '50001' AND e.Facu_ID = f.Facu_ID"
+                    . " '".$_SESSION['user_id']."' = f.Facu_ID AND a.Att_Sec_ID = s.S_Section_ID AND "
+                    . "s.S_CourseID = c.Course_ID AND e.E_Sec_ID = '".$_SESSION['addgrade']."' AND "
+                    . "e.E_SemesterYearID = '50001' AND e.Facu_ID = f.Facu_ID "
                     . "ORDER BY e.E_Sec_ID";
                       
             if ($result = mysqli_query($conn, $sql)){
@@ -36,9 +36,9 @@ include "header2.php";
                     echo"<td>" . $row['Last_Name'] . ', ' . $row['First_Name'] . "</td>"; 
                     echo"<td>" . $row['A_StudId'] . "</td>";
                     echo"<td><form action='addgrades.php' method='POST'> <input type='text' name='assignment'></form></td>";
-echo"<td><form action='addgrades.php' method='POST'> <input type='text' name='date'></form></td>";
-echo"<td><form action='addgrades.php' method='POST'> <input type='text' name='grade'></form></td>";
-echo"<td><button type='submit' method='POST' name='save'>Submit</button></td>";
+echo"<td><input type='text' name='date'></td>";
+echo"<td><input type='text' name='grade'></td>";
+echo"<td><input type='submit' name='save' value='Submit'></form></td>";
                             
                     
                     echo"</tr>";
@@ -50,10 +50,14 @@ echo"<td><button type='submit' method='POST' name='save'>Submit</button></td>";
                 $id1 = mysqli_real_escape_string($conn, $_POST['assignment']);
                 $id2 = mysqli_real_escape_string($conn, $_POST['date']);
                 $id3 = mysqli_real_escape_string($conn, $_POST['grade']);
-      $sql = "INSERT INTO `enrollment1` (`Stud_ID`, `E_Sec_ID`, `Assignment`, `Grade`, `E_SemesterYearID`, `Facu_ID`) VALUES ('".$row['A_StudId']."', '".$row['E_Sec_ID']."' , '".$id1."', '".$id2."', '".$id3."', '50001')";
-    
+      $sql = "INSERT INTO `enrollment1` (`Stud_ID`, `E_Sec_ID`, `Assignment`, `Grade`, `E_SemesterYearID`, `Facu_ID`) VALUES ('".$row['A_StudId']."', '".$row['E_Sec_ID']."' , '".$id1."', '".$id2."', '".$id3."', '50001', '".$_SESSION['user_id']."')";
+    /*
+      $stmt = mysqli_prepare($sql);
+    $stmt->bind_param("sss". $_POST['assignment'], $_POST['date'], $_POST['grade']);
+          $stmt->execute();
           
-          
+     * 
+     */
           
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";

@@ -50,7 +50,7 @@ AND s.S_FacuID = f.Facu_ID
           $rownumber = $rownumber + 1;
         echo "<tr>";
         //echo "<td><input type='checkbox' name='checkbox[" . $rownumber . "]' value='". $rownumber . "' </td>";
-        echo "<td><form method='POST' action='Biologycoursesearch.php'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
+        echo "<td><form method='POST' action='Businesscoursesearch.php'><input type='hidden' name='add'  value='".$row['S_Section_ID']."'><input type='submit' name='addcourse' value='Add'></form></td>";
                     
         echo "<td>" . $row['C_Name'] . "</td>";
        echo "<td>" . $row['C_Description'] . "</td>";      
