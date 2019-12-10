@@ -9,7 +9,7 @@ include "header5.php";
        holdstatus.HS_HoldID = holds.Holds_ID 
        AND student.Stud_ID = holdstatus.HS_StudentID";
 $statement = $conn->prepare($sql);
-$statment->execute();
+$statement->execute();
 $result=$statement->get_result();
    $rownumber = 0;
    if ($result->num_rows > 0){
@@ -36,7 +36,7 @@ $result=$statement->get_result();
        echo "</tr>";
       
       }
-      echo "</table";
+      echo "</table>";
 
    } else {
       echo "Not found";

@@ -52,7 +52,6 @@ $sql = "SELECT history.*,section.*, user.*,timeslot.*,building.*,room.*, enrollm
                     
                     }
                 echo "</table>";
-                 mysqli_free_result($result);
             }
             else {
       echo "Not found";

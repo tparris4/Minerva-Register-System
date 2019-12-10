@@ -1,7 +1,7 @@
 <?php
 include "header5.php";
         ?>
-<form action="ResMajorGpa.php" method="POST">
+<form action="ResMidFinal.php" method="POST">
 <select name ="majorid">
   <option value="1112">Calculus</option>
   <option value="1113">Trigonometry</option>
@@ -18,20 +18,33 @@ include "header5.php";
   <option value="1124">Comp Engineering</option>
   <option value="1125">Bus Leadership</option>
   <option value="1126">Math Theory</option>
-  <option value="1127">Biogentics</option>
+  <option value="1127">Biogenetics</option>
 </select>
+    <select name="yearid">
+        <option value="50001">Spring 2019</option>
+        <option value = "50003">Fall 2019</option>
+    </select>
     <input type="Submit" name="Submit" value ="Submit"></form>
 <?php
 
 if(isset($_POST['Submit'])){
     
-$select1 = $conn->prepare("SELECT major.*, user.*, course.*, section.* building.*, FROM building, section, major,undergraduate, course, user WHERE major.Major_ID = undergraduate.MajorID and undergraduate."
-        . "UG_Student_ID = user.User_ID AND section.S_CourseID = course.Course_ID AND "
-        . "major.M_DepartID = department.Department_ID AND department.Department_ID = building.B_Dept_ID"
-        . "AND building.BuildID = section.S_BuildID AND major.Major_ID = ?  ORDER BY course.Course_ID");
+$select1 = $conn->prepare("SELECT user.User_ID, user.First_Name, User.Last_Name, "
+        . "course.C_Name, history.Midterm_Grade, history.Final_Grade "
+        . " "
+        . " "
+        . "FROM building JOIN section, major, undergraduate, history, course, department, user "
+        . "WHERE major.Major_ID = undergraduate.MajorID AND undergraduate."
+        . "UG_StudentID = user.User_ID AND section.S_CourseID = course.Course_ID AND "
+        . "major.M_DepartID = department.Department_ID AND "
+        . "department.Department_ID = building.B_Dept_ID "
+        . "AND building.Build_ID = section.S_BuildID AND "
+        . "history.Sec_ID = section.S_Section_ID AND  history.Stud_ID = undergraduate.UG_StudentID AND (major.Major_ID = ? AND history.SemesterYearID = ?)"
+        . "  ORDER BY user.User_ID ");
     $maj = $_POST['majorid'];
-$select1->bind_param('i', $maj);
-$major = $select1->execute();
+    $year = $_POST['yearid'];
+$select1->bind_param('ii', $maj, $year);
+$select1->execute();
 $result=$select1->get_result();
 //$majors =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
 //

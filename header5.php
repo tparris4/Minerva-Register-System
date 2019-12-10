@@ -6,7 +6,7 @@ if (!isset($_SESSION['Username']) || empty($_SESSION['Username'])) {
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 }
-
+//Researcher
 include "session.php";
 ?>
 
@@ -32,13 +32,15 @@ include "session.php";
       <div id="main">
       <section class="wrapper">
       <div class="btn-group" style="width:100%">
-          <button style="width:16.66%"><a href="ResHold.php">View Holds</a></button>
-      <button style="width:16.66%"><a href="ResMajorGpa.php">View Major/GPA</a></button>
-      <button style="width:16.66%"><a href="ResRoster.php">View Roster</a></button>
-      <button style="width:16.66%"><a href="ResMidFinal.php">View Midterm/Final</a></button>
+          <button style="width:33.33%"><a href="ResHold.php">View Holds</a></button>
+      <button style="width:33.33%"><a href="ResMajorGpa.php">View Major/GPA</a></button>
+      <button style="width:33.33%"><a href="ResRoster.php">View Roster</a></button>
+      </div>
+          <div class="btn-group" style="width:100%">
+      <button style="width:33.33%"><a href="ResMidFinal.php">View Midterm/Final</a></button>
       
-      <button style="width:16.66%"><a href="ResFacuSche.php">View Faculty Schedules</a></button>
-      <button style="width:16.66"><a href="message.php">Message User</a></button>
+      <button style="width:33.33%"><a href="ResFacuSche.php">View Faculty Schedules</a></button>
+      <button style="width:33.33%"><a href="messager.php">Message User</a></button>
       </div>
          
            <div class="btn-group" style="width:100%">
@@ -72,6 +74,5 @@ include "session.php";
 
 
         </header>
-    </head>
-<body>
+ 
         

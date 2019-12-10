@@ -2,62 +2,79 @@
 include "header5.php";
 ?>
 
-<form action="ResMajorGpa.php" method="POST">
+<form action="ResFacuSche.php" method="POST">
 <select name ="majorid">
-  <option value="1112">Calculus</option>
-  <option value="1113">Trigonometry</option>
-  <option value="1114">Business</option>
-  <option value="1115">Economics</option>
-  <option value="1116">Accounting</option>
-  <option value="1117">Biochemistry</option>
-  <option value="1118">Medical Chemistry</option>
-  <option value="1119">Graphic Design</option>
-  <option value="1120">Digital Art</option>
-  <option value="1121">Human Systems</option>
-  <option value="1122">Comp Sci B.S.</option>
-  <option value="1123">Comp Sci B.A.</option>
-  <option value="1124">Comp Engineering</option>
-  <option value="1125">Bus Leadership</option>
-  <option value="1126">Math Theory</option>
-  <option value="1127">Biogentics</option>
+  <option value="124">Math</option>
+  <option value="125">Biology</option>
+  <option value="126">Business</option>
+  <option value="127">Medical</option>
+  <option value="128">Art</option>
+  <option value="129">Computer Science</option>
+  <option value="130">English</option>
+  <option value="131">Humanities</option>
+  <option value="132">Music</option>
+ 
 </select>
+    <select name="yearid">
+        <option value="50001">Spring 2019</option>
+        <option value = "50003">Fall 2019</option>
+    </select>
     <input type="Submit" name="Submit" value ="Submit"></form>
 
 <?php
 
 if(isset($_POST['Submit'])){
     
-$select1 = $conn->prepare("SELECT history.*,section.*, user.*,timeslot.*,building.*,room.*, facuschedule.*, course.*, faculty.*
+$select1 = $conn->prepare("SELECT DISTINCT 
+   user.User_ID,
+                    
+                    user.First_Name,
+                   user.Last_Name, 
+                    course.C_Name, 
+                    timeslot.Period,
+                    timeslot.Day,
+                    room.R_Num, building.B_Name,
+                   
+                    course.C_CreditAmt,
+                    section.S_Num
+                        
               
-                FROM history,
+                FROM history 
                
-               JOIN section,
-               course,
-               faculty,
-               facuschedule,
-               user,
-               timeslot,
-               building,
-               room
-                WHERE section.S_Section_ID = facuschedule.Facu_sec_id
-                    AND facuschedule.Facu_id = faculty.Facu_ID
-                   AND  user.User_ID = faculty.Facu_ID
-                    AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
-                    AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
-                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = s.S_TimeSlotID
-                    major.M_DepartID = department.Department_ID AND department.Department_ID = building.B_Dept_ID"
-        . "AND building.BuildID = section.S_BuildID
-    AND major.Major_ID = ?
-            GROUP BY facuschedule.Facu_sec_id ");
+               JOIN section, 
+                course, 
+                faculty, 
+                facuschedule, 
+                user, 
+                major, 
+                department, 
+                building, 
+                room, 
+                timeslot
+                WHERE section.S_Section_ID = facuschedule.Facu_sec_id 
+                    AND facuschedule.Facu_id = faculty.Facu_ID 
+                    AND user.User_ID = faculty.Facu_ID 
+                    AND section.S_RoomNum = room.Room_ID 
+                    AND section.S_BuildID = building.Build_ID 
+                    AND course.Course_ID = section.S_CourseID  
+                    AND faculty.Facu_ID = section.S_FacuID 
+                    AND timeslot.TimeSlotID = section.S_TimeSlotID 
+                    AND Course.CDeptID = department.Department_ID  
+                    AND department.Department_ID = building.B_Dept_ID "
+        . " AND building.Build_ID = section.S_BuildID  
+     AND (department.Department_ID = ? AND section.S_SemesterYearID = ?)   
+            ORDER BY facuschedule.Facu_sec_id");
     $maj = $_POST['majorid'];
-$select1->bind_param('i', $maj);
-$major = $select1->execute();
+    $year = $_POST['yearid'];
+$select1->bind_param('ii', $maj, $year);
+$select1->execute();
 $result=$select1->get_result();
 //$majors =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
 //
 //echo $majors[0];
 if ($result->num_rows > 0){
     echo "<table>";
+    echo "<th>User ID</th>";
     echo "<th>First Name</th>";
     echo "<th>Last Name</th>";
      echo "<th>Course Name</th>";

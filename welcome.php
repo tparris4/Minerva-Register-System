@@ -61,7 +61,7 @@ require "header2.php";
                         {
                                 echo "Correct Login";
                                 //$_SESSION['undergradptid'] = $_SESSION['user_id'];
-                                header("Location: Faculty.php");
+                                header("Location: Researcher.php");
                                 /**
                                 $q = $conn->prepare("SELECT user_id FROM user WHERE email_address = '$username'");
                                 

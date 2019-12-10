@@ -6,7 +6,7 @@ if (!isset($_SESSION['Username']) || empty($_SESSION['Username'])) {
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 }
-
+//Faculty
 include "session.php";
 ?>
 

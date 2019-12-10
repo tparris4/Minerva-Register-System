@@ -59,22 +59,114 @@ window.onclick = function(event) {
            }
                 
         }
+        
+        
         ?></p>
         
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         
+        
+<form action="ResFacuSche.php" method="POST">
+<select name ="majorid">
+  <option value="1112">Calculus</option>
+  <option value="1113">Trigonometry</option>
+  <option value="1114">Business</option>
+  <option value="1115">Economics</option>
+  <option value="1116">Accounting</option>
+  <option value="1117">Biochemistry</option>
+  <option value="1118">Medical Chemistry</option>
+  <option value="1119">Graphic Design</option>
+  <option value="1120">Digital Art</option>
+  <option value="1121">Human Systems</option>
+  <option value="1122">Comp Sci B.S.</option>
+  <option value="1123">Comp Sci B.A.</option>
+  <option value="1124">Comp Engineering</option>
+  <option value="1125">Bus Leadership</option>
+  <option value="1126">Math Theory</option>
+  <option value="1127">Biogenetics</option>
+</select>
+    <select name  ="minorid">
+          <option value="0">None</option>
+  <option value="101">Math</option>
+  <option value="102">Biology</option>
+  <option value="103">Business</option>
+  <option value="104">Art</option>
+  <option value="105">Computer Science</option>
+  <option value="106">English</option>
+  <option value="107">Humanities</option>
+  <option value="108">Music</option>
+ 
+        
+    </select>
+    <input type="Submit" name="Submit" value ="Submit"></form>
+        
+        <br>
         
         <p align="center">Select the major</p>
-        <div class="dropdown">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+       
+        
+        
+        <?php 
+        if (isset($_POST['Submit'])){
+            $select1 = $conn->prepare("UPDATE undergraduate SET (undergraduate.MajorID = ?, undergraduate.MinorID = ?) WHERE undergraduate.UG_StudentID = '".$_SESSION['user_id']."'");
+   
+    $maj = $_POST['majorid'];
+    $min = $_POST['minorid'];
+$select1->bind_param('ii', $maj, $min);
+$select1->execute();
+$result=$select1->get_result();
+//$majors =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//
+//echo $majors[0];
+if ($result->num_rows > 0){
+    echo "<table>";
+    echo "<th>First Name</th>";
+    echo "<th>Last Name</th>";
+     echo "<th>Course Name</th>";
+    echo "<th>Time</th>";
+    echo "<th>Day</th>";
+    echo "<th>Room/Building</th>";
+    echo "<th>Credits</th>";
+    echo "<th>Section Number</th>";
+    $rownumber = 0;
+    while($row=$result->fetch_assoc()){
+       echo "<tr>";
+                    echo"<td>" . $row['User_ID'] . "</td>";
+                    
+                    echo"<td>" . $row['First_Name'] . "</td>";
+                    echo"<td>" . $row['Last_Name'] . "</td>";
+                    echo"<td>" . $row['C_Name'] . "</td>";
+                    echo"<td>" . $row['Period'] . "</td>";
+                    echo"<td>" . $row['Day'] . "</td>";
+                    echo"<td>" . $row['R_Num'] . ',' . $row['B_Name'] . "</td>";
+                   
+                    echo"<td>" . $row['C_CreditAmt'] . "</td>";
+                    echo"<td>" . $row['S_Num'] . "</td>";
+                    
+                    $rownumber = $rownumber +1;
+                    echo"</tr>";
+                    
+    }
+
+}
+}
+            
+            
+            
+        
+        
+        ?>
+        
+        <!--<div class="dropdown">
             <button onclick="PromptFunction()" class="dropbtn">Choose Major</button>
         <div id="myDropdown" class="dropdown-content">
             <option value="Biology">Biology</option>
@@ -82,7 +174,7 @@ window.onclick = function(event) {
             <button onclick="PromptFunction()" class="dropbtn">Choose Major</button>
         </div>
         </div>
-        
+        -->
         
         
 

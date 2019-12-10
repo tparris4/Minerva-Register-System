@@ -18,7 +18,7 @@ include "header5.php";
   <option value="1124">Comp Engineering</option>
   <option value="1125">Bus Leadership</option>
   <option value="1126">Math Theory</option>
-  <option value="1127">Biogentics</option>
+  <option value="1127">Biogenetics</option>
 </select>
     <input type="Submit" name="Submit" value ="Submit"></form>
 <?php
@@ -26,10 +26,10 @@ include "header5.php";
 if(isset($_POST['Submit'])){
     
 $select1 = $conn->prepare("SELECT major.*, user.* FROM major,undergraduate, user WHERE major.Major_ID = undergraduate.MajorID and undergraduate."
-        . "UG_Student_ID = user.User_ID AND major.Major_ID = ?");
+        . "UG_StudentID = user.User_ID AND major.Major_ID = ?");
     $maj = $_POST['majorid'];
 $select1->bind_param('i', $maj);
-$major = $select1->execute();
+$select1->execute();
 $result=$select1->get_result();
 //$majors =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
 //
