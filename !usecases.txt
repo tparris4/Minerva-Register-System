@@ -1,0 +1,73 @@
+ALL
+Log in
+Message User
+View Account Info
+Home
+Main Page
+Log Out
+Search Course
+
+VISITOR
+View Main Page
+View Undergrad Page
+View Grad Page
+View Academic Calender
+View Master Schedule
+View Course Catalog (And use cases for each department course catalog)
+Use case for each department page
+Use case for each major document
+View president page
+View staff page
+View Mission page
+View IT department
+View About
+Login
+
+
+ADMIN
+Add Faculty
+Add Section
+Add Advisor
+Add Hold
+Add Major Requirements
+Delete Section
+View Section
+Add Semester
+
+
+STUDENT
+View Schedule
+View Major
+View Minor
+View Advisor
+Search Courses to add
+Add Course
+Drop Course
+View Transcript
+View Holds
+View Grades
+Change Major
+Degree Audit
+View Midterm/Final Grades
+View Course Catalog 
+
+FACULTY
+View Teaching Schedule
+View Advising Schedule
+Add Attendance
+Add Grades
+Add Midterm/Final
+View Roster
+View Attendance
+View Grades
+View Midterm/Final
+
+
+RESEARCHER
+View Holds
+View Major/GPA
+View Roster
+View Midterm/Final
+View Faculty Schedules
+
+57 use cases not counting the department pages
