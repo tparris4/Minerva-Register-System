@@ -84,15 +84,15 @@ function closeNav() {
                timeslot,
                building,
                room
-                WHERE faculty.Facu_ID = '".$_SESSION['user_id']."' AND section.S_Section_ID = facuschedule.Facu_sec_id
+                WHERE section.S_Section_ID = facuschedule.Facu_sec_id
                     AND facuschedule.Facu_id = faculty.Facu_ID
                    AND  user.User_ID = faculty.Facu_ID
                     AND section.S_RoomNum = room.Room_ID AND section.S_BuildID = building.Build_ID
                     AND course.Course_ID = section.S_CourseID AND history.SemesterYearID = '50001'
-                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID
+                    AND faculty.Facu_ID = section.S_FacuID AND timeslot.TimeSlotID = section.S_TimeSlotID AND (faculty.Facu_ID = ?)
             GROUP BY facuschedule.Facu_sec_id ";
  $statement=$conn->prepare($sql);
- $statement->bind_param(1, $_SESSION['user_id']);
+ $statement->bind_param('i', $_SESSION['user_id']);
  $statement->execute();
  $result = $statement->get_result();
  
@@ -139,17 +139,19 @@ function closeNav() {
  
             <?php 
             //advising students
-            $sql1 = "SELECT user.*, building.*, faculty.*, department.*, attendance.* "
+            $sql1 = "SELECT user.*, building.*, faculty.*, advisor.*, department.*, attendance.* "
                     
                     . "FROM user JOIN "
                     
-                    . " building, faculty, advisor, department "
-                    . " WHERE attendance.A_Stud_ID = user.User_ID AND"
-                    . " '".$_SESSION['user_id']."' = faculty.Facu_ID AND attendance.A_Facu_ID = faculty.Facu_ID AND"
+                    . " building, faculty, advisor, department, attendance "
+                    . " WHERE advisor.A_Stud_ID = user.User_ID AND "
+                    . " advisor.A_Facu_ID = faculty.Facu_ID AND "
                     . " building.B_Dept_ID = department.Department_ID "
-                    . "AND  faculty.F_Dept_ID = department.Department_ID";
-                   $statment2=$conn->prepare($sql1);
-                   $statement2->bind_param(1, $_SESSION['user_id']);
+                    . " AND faculty.F_Dept_ID = department.Department_ID "
+                    . " AND (faculty.Facu_ID = ?)"
+                    . " GROUP BY advisor.A_Stud_ID";
+                   $statement2=$conn->prepare($sql1);
+                   $statement2->bind_param('i', $_SESSION['user_id']);
                    $statement2->execute();
                    $result2=$statement2->get_result();
            

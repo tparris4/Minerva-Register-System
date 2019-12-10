@@ -25,8 +25,8 @@ include "header5.php";
 
 if(isset($_POST['Submit'])){
     
-$select1 = $conn->prepare("SELECT major.*, user.* FROM major,undergraduate, user WHERE major.Major_ID = undergraduate.MajorID and undergraduate."
-        . "UG_StudentID = user.User_ID AND major.Major_ID = ?");
+$select1 = $conn->prepare("SELECT major.*, user.*, history.* FROM major,undergraduate, user WHERE major.Major_ID = undergraduate.MajorID and undergraduate."
+        . "UG_StudentID = user.User_ID AND history.Stud_ID = undergraduate.UG_StudentID AND major.Major_ID = ?");
     $maj = $_POST['majorid'];
 $select1->bind_param('i', $maj);
 $select1->execute();
@@ -42,6 +42,7 @@ if ($result->num_rows > 0){
     echo "<th>Major</th>";
     echo "<th>GPA</th>";
     $rownumber = 0;
+    $gpatemp = 0;
     while($row=$result->fetch_assoc()){
        echo "<tr>";
                     echo"<td>" . $row['User_ID'] . "</td>";
@@ -50,8 +51,30 @@ if ($result->num_rows > 0){
                     echo"<td>" . $row['Last_Name'] . "</td>";
                     echo"<td>" . $row['M_Name'] . "</td>";
                     
+                    
                     $rownumber = $rownumber +1;
+                    $gpatemp = $gpatemp + $row['Course_Grade'];
+                    
                     echo"</tr>";
+                    $gpacalc = $gpatemp/$rownumber;
+                    
+                    }
+                    switch($gpacalc){
+                        case($gpacalc > 90 || gpacalc < 100);
+                            echo "GPA is A";
+                            break;
+                        case($gpacalc > 80 || gpacalc < 90);
+                            echo "GPA is B";
+                            break;
+                        case($gpacalc > 70 || gpacalc < 80);
+                            echo "GPA is C";
+                            break;
+                        case($gpacalc > 60 || gpacalc < 70);
+                            echo "GPA is D";
+                            break;
+                        case($gpacalc < 60);
+                            echo "GPA is unsatisfactory";
+                            break;
                     
     }
     echo"</table>";

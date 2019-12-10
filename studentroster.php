@@ -5,19 +5,19 @@ include "header4.php";
 
 
   <?php 
-            $sql = "SELECT user.*,  faculty.*, attendace.*, section.*, course.* "
+            $sql = "SELECT user.*,  faculty.*, attendance.*, section.*, course.* "
                     
                     . "FROM user JOIN "
                     
-                    . "faculty, attendance, section, course"
+                    . "faculty, attendance, section, course "
                     . " WHERE attendance.A_StudId = user.User_ID"
                     . " AND attendance.Facu_ID = faculty.Facu_ID AND"
-                    . " '".$_SESSION['user_id']."' = faculty.Facu_ID AND attendance.Att_Sec_ID = section.S_Section_ID AND "
-                    . "section.S_CourseID = course.Course_ID AND attendance.Att_Sec_ID = '".$_SESSION['roster']."'"
-                    . "ORDER BY attendance.Att_Sec_ID";
+                    . "  attendance.Att_Sec_ID = section.S_Section_ID AND "
+                    . "section.S_CourseID = course.Course_ID "
+                    . " AND (faculty.Facu_ID = ? AND attendance.Att_Sec_ID = ?) ORDER BY attendance.Att_Sec_ID";
                       
             $statement=$conn->prepare($sql);
-            $statement->bind_param(1, $_SESSION['user_id']);
+            $statement->bind_param('ii', $_SESSION['user_id'], $_SESSION['roster']);
             $statement->execute();
             $result=$statement->get_result();
             if ($result ->num_rows > 0){
