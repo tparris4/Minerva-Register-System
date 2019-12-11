@@ -1,0 +1,86 @@
+<?php
+require "header2.php";
+?>
+<?php
+echo '<div name=form-rapper>';
+echo '<form method="post" action="/scripts/addHold.php">';
+echo '<p><label>Student ID:</label>';
+echo '<input type="StudentID" name="StudentID"placeholder="49"/></p>';
+
+$select1 = $conn->prepare("SELECT hold_type FROM Holds ORDER BY hold_type");
+$success1 = $select1->execute();
+//echo "I did this <br>";
+$holds =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($holds[0]);
+//echo $holds[0];
+
+$select2 = $conn->prepare("SELECT holds_id FROM Holds ORDER BY hold_type");
+$success2 = $select2->execute();
+//echo "I did this <br>";
+$holdID =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($holdID[0]);
+//echo $holdID[0];
+
+echo '<p><label>Hold Type:</label>';
+echo '<select name="HoldType">';
+for($i = 0; $i < count($holds); $i++)
+{
+        echo '<option value='.$holdID[$i].'>'.$holds[$i].'</option>';
+}
+
+echo '</select></p>';
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>';
+
+        if(isset($_POST['StudentID']))
+        {
+                $studentID = $_POST['StudentID'];
+                $flag1 = true;
+                //echo $studentID;
+        }
+        else
+        {
+                //echo "Invalid Student ID<br>";
+                $flag1 = false;
+        }
+        if(isset($_POST['HoldType']))
+        {
+                $holdType = $_POST['HoldType'];
+                $flag2 = true;
+                //echo $holdType;
+        }
+        else
+        {
+                //echo "Invalid Hold Type<br>";
+                $flag2 = false;
+        }
+
+        if($flag1 && $flag2)
+        {
+                $update1 = $conn->prepare("UPDATE  holdstatus SET hs_holdid  = ? WHERE hs_studentid = ?");
+                $update1->bindParam(1,$holdType);
+                $update1->bindParam(2,$studentID);
+                $holdUpdated = $update1->execute();
+
+                if($holdUpdated)
+                {
+                        echo "Updated <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        header('Location: ../scripts/addHold.php');
+                }
+                else
+                {
+                        echo "Not updated <br>";
+                }
+        }
+        else
+        {
+                //echo "Something went wrong";
+                //header('Location: ../addHold.php');
+        }
+
+?>
+<br></br><br></br></br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+<?php
+require "footer.php";
+?>

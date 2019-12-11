@@ -1,0 +1,205 @@
+<?php
+require "header2.php";
+?>
+<?php
+echo '<div id="form-rapper">';
+echo '<form method="post" action="viewSection1.php">';
+
+$select1 = $conn->prepare("SELECT year FROM masterschedule ORDER BY year ASC");
+$succ1 = $select1->execute();
+//echo "I did this <br>";
+$years =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($years[0]);
+//echo $years[0];
+
+$select2 = $conn->prepare("SELECT semesters FROM masterschedule ORDER BY year ASC");
+$succ2 = $select2->execute();
+//echo "I did this <br>";
+$semesters =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($semesters[0]);
+//echo $semesters[0];
+
+$select3 = $conn->prepare("SELECT semesteryear_id FROM masterschedule ORDER BY year ASC");
+$succ3 = $select3->execute();
+//echo "I did this <br>";
+$masterscheduleID =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($masterscheduleID[0]);
+//echo $masterscheduleID[0];
+
+echo '<p><label>Semester:</label>';
+echo '<select name="Semester">';
+        for($i=0;$i<count($masterscheduleID);$i++)
+        {
+                echo "<option value=".$masterscheduleID[$i].">".$years[$i]." ".$semesters[$i]."</option>";
+        }
+echo '</select></p>';
+
+$select4 = $conn->prepare("SELECT d_name FROM Department ORDER BY d_name");
+$succ4 = $select4->execute();
+//echo "I did this <br>";
+$departments =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($departments[0]);
+//echo $departments[0];
+
+$select5 = $conn->prepare("SELECT department_id FROM Department ORDER BY d_name");
+$succ5 = $select5->execute();
+//echo "I did this <br>";
+$departmentID =  $select5->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($departmentID[0]);
+//echo $departmentID[0];
+
+echo '<p><label>Department:</label>';
+echo '<select name="Department">';
+        for($i=0;$i<count($departments);$i++)
+        {
+                echo "<option value=".$departments[$i].">".$departments[$i]."</option>";
+        }
+echo '</select></p>';
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>'
+
+        if(isset($_POST['Semester']))
+        {
+                $semester = $_POST['Semester'];
+                $flag1 = true;
+                //echo $semester;
+        }
+        else
+        {
+                //echo "Invalid Semester <br>";
+                $flag1 = false;
+        }
+        if(isset($_POST['Department']))
+        {
+                $department = $_POST['Department'];
+                $flag2 = true;
+                //echo $department;
+        }
+        else
+        {
+                //echo "Invalid Department <br>";
+                $flag2 = false;
+        }
+        if($flag1 && $flag2)
+        {
+                //echo "made it <br>";
+                $select6 = $conn->prepare("SELECT s_section_id FROM Section,Course WHERE s_semesteryearid = ? AND c_deptname = ? AND s_courseid = course_id;");
+                $select6->bindParam(1,$semester);
+                $select6->bindParam(2,$department);
+                $succ6 = $select6->execute();
+                //echo "I did this <br>";
+                $sectionID =  $select6->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($sectionID[0]);
+                //echo $sectionID[0];
+
+                $select7 = $conn->prepare("SELECT course_id FROM Course,Section WHERE s_courseid = course_id AND s_semesteryearid = ? AND c_deptname = ?;");
+                $select7->bindParam(1,$semester);
+                $select7->bindParam(2,$department);
+                $succ7 = $select7->execute();
+                //echo "I did this <br>";
+                $courseID =  $select7->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($courseID[0]);
+                //echo $courseID[0];
+
+                $select8 = $conn->prepare("SELECT c_name FROM Course,Section WHERE s_courseid = course_id AND s_semesteryearid = ? AND c_deptname = ?;");
+                $select8->bindParam(1,$semester);
+                $select8->bindParam(2,$department);
+                $succ8 = $select8->execute();
+                //echo "I did this <br>";
+                $courseName =  $select8->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($courseName[0]);
+                //echo $courseName[0];
+
+                $select9 = $conn->prepare("SELECT day FROM timeSlot,Section,Course WHERE s_timeslotid = timeslotid AND s_semesteryearid = ? AND c_deptname = ? AND s_courseid = course_id;");
+                $select9->bindParam(1,$semester);
+                $select9->bindParam(2,$department);
+                $succ9 = $select9->execute();
+                //echo "I did this <br>";
+                $days =  $select9->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($days[0]);
+                //echo $days[0];
+
+                $select10 = $conn->prepare("SELECT period FROM timeslot,Section,Course WHERE s_timeslotid = timeslotid AND s_semesteryearid = ? AND c_deptname = ? AND s_courseid = course_id;");
+                $select10->bindParam(1,$semester);
+                $select10->bindParam(2,$department);
+                $succ10 = $select10->execute();
+                //echo "I did this <br>";
+                $times =  $select10->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($times[0]);
+                //echo $times[0];
+
+                $select11 = $conn->prepare("SELECT r_num FROM Room,Section,Course WHERE s_roomnum = room.room_id AND s_semesteryearid = ? AND c_deptname = ? AND s_courseid = course_id;");
+                $select11->bindParam(1,$semester);
+                $select11->bindParam(2,$department);
+                $succ11 = $select11->execute();
+                //echo "I did this <br>";
+                $rooms =  $select11->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($rooms[0]);
+                //echo $rooms[0];
+
+                $select12 = $conn->prepare("SELECT b_name FROM building,Section,Course WHERE s_buildid = build_id AND s_semesteryearid = ? AND c_deptname = ? AND s_courseid = course_id;");
+                $select12->bindParam(1,$semester);
+                $select12->bindParam(2,$department);
+                $succ12 = $select12->execute();
+                //echo "I did this <br>";
+                $buildings =  $select12->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($buildings[0]);
+                //echo $buildings[0];
+
+                $select13 = $conn->prepare("SELECT first_name FROM Person,Section,Faculty,Course WHERE s_semesteryearid = ? AND user_ID = facu_ID AND s_facuid = facu_ID AND c_deptname = ? AND s_courseid = course_id;");
+                $select13->bindParam(1,$semester);
+                $select13->bindParam(2,$department);
+                $succ13 = $select13->execute();
+                //echo "I did this <br>";
+                $firstName =  $select13->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($firstName[0]);
+                //echo $firstName[0];
+
+                $select14 = $conn->prepare("SELECT last_name FROM Person,Section,Faculty,Course WHERE s_semesteryearid = ? AND user_ID = facu_ID AND s_facuid = facu_id AND c_deptname = ? AND s_courseid = course_id;");
+                $select14->bindParam(1,$semester);
+                $select14->bindParam(2,$department);
+                $succ14 = $select14->execute();
+                //echo "I did this <br>";
+                $lastName =  $select14->fetchALL(PDO::FETCH_COLUMN,0);
+                //var_dump($lastName[0]);
+                //echo $lastName[0];
+
+                echo '<table>';
+                echo '<tr>';
+                echo '<th>SECTION ID</th>';
+                echo '<th>COURSE ID</th>';
+                echo '<th>COURSE NAME</th>';
+                echo '<th>Day</th>';
+                echo '<th>Time</th>';
+                echo '<th>Room</th>';
+                echo '<th>Building</th>';
+                echo '<th>Instructor</th>';
+                echo '</tr>';
+
+                for($i=0;$i<count($sectionID);$i++)
+                {
+                        echo '<tr>';
+                        echo '<td>'.$sectionID[$i].'</input></td>';
+                        echo '<td>'.$courseID[$i].'</td>';
+                        echo '<td>'.$courseName[$i].'</td>';
+                        echo '<td>'.$days[$i].'</td>';
+                        echo '<td>'.$times[$i].'</td>';
+                        echo '<td>'.$rooms[$i].'</td>';
+                        echo '<td>'.$buildings[$i].'</td>';
+                        echo '<td>'.$firstName[$i].' '.$lastName[$i].'</td>';
+                        echo '</tr>';
+                }
+                echo '</table>';
+        }
+        else
+        {
+                //echo "Something went wrong";
+                //header('Location: viewSection1.php');
+        }
+
+?>
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></$
+<?php
+require "footer.php";
+?>

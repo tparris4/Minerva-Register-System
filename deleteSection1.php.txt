@@ -1,0 +1,143 @@
+<?php
+require "header2.php";
+?>
+<?php
+$select1 = $conn->prepare("SELECT s_section_id FROM Section");
+$succ1 = $select1->execute();
+//echo "I did this <br>";
+$sectionID =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($sectionID[0]);
+//echo $sectionID[0];
+
+$select2 = $conn->prepare("SELECT course_id FROM Course,Section WHERE s_courseid = course_id;");
+$succ2 = $select2->execute();
+//echo "I did this <br>";
+$courseID =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courseID[0]);
+//echo $courseID[0];
+
+$select3 = $conn->prepare("SELECT c_name FROM Course,Section WHERE s_courseid = course_id;");
+$succ3 = $select3->execute();
+//echo "I did this <br>";
+$courseName =  $select3->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($courseName[0]);
+//echo $courseName[0];
+
+$select4 = $conn->prepare("SELECT day FROM timeSlot,Section WHERE s_timeslotid = timeslotid;");
+$succ4 = $select4->execute();
+//echo "I did this <br>";
+$days =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($days[0]);
+//echo $days[0];
+
+$select5 = $conn->prepare("SELECT period FROM timeslot,Section WHERE s_timeslotid = timeslotid;");
+$succ5 = $select5->execute();
+//echo "I did this <br>";
+$times =  $select5->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($times[0]);
+//echo $times[0];
+
+$select6 = $conn->prepare("SELECT r_num FROM Room,Section WHERE s_roomnum = room.room_id;");
+$succ6 = $select6->execute();
+//echo "I did this <br>";
+$rooms =  $select6->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($rooms[0]);
+//echo $rooms[0];
+
+$select9 = $conn->prepare("SELECT b_name FROM building,Section WHERE s_buildid = build_id;");
+$succ9 = $select9->execute();
+//echo "I did this <br>";
+$buildings =  $select9->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($buildings[0]);
+//echo $buildings[0];
+
+$select7 = $conn->prepare("SELECT first_name FROM Person,Section,Faculty WHERE user_ID = facu_ID AND s_facuid = facu_ID;");
+$succ7 = $select7->execute();
+//echo "I did this <br>";
+$firstName =  $select7->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($firstName[0]);
+//echo $firstName[0];
+
+$select8 = $conn->prepare("SELECT last_name FROM Person,Section,Faculty WHERE user_ID = facu_ID AND s_facuid = facu_ID;");
+$succ8 = $select8->execute();
+//echo "I did this <br>";
+$lastName =  $select8->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($lastName[0]);
+//echo $lastName[0];
+
+echo '<div id="form-rapper">';
+echo '<form method="post" action="deleteSection1.php">';
+
+echo '<table>';
+echo '<tr>';
+echo '<th>SECTION ID</th>';
+echo '<th>COURSE ID</th>';
+echo '<th>COURSE NAME</th>';
+echo '<th>Day</th>';
+echo '<th>Time</th>';
+echo '<th>Room</th>';
+echo '<th>Building</th>';
+echo '<th>Instructor</th>';
+echo '</tr>';
+
+for($i=0;$i<count($sectionID);$i++)
+{
+        echo '<tr>';
+        echo '<td><input type="radio" name="SectionID" value="'
+                .$sectionID[$i].'">'.$sectionID[$i].'</input></td>';
+        echo '<td>'.$courseID[$i].'</td>';
+        echo '<td>'.$courseName[$i].'</td>';
+        echo '<td>'.$days[$i].'</td>';
+        echo '<td>'.$times[$i].'</td>';
+        echo '<td>'.$rooms[$i].'</td>';
+        echo '<td>'.$buildings[$i].'</td>';
+        echo '<td>'.$firstName[$i].' '.$lastName[$i].'</td>';
+        echo '</tr>';
+}
+echo '</table>';
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+//echo '</form></div>';
+
+        if(isset($_POST["SectionID"]))
+        {
+                $sectionID = $_POST["SectionID"];
+                $flag1 = true;
+                //echo $sectionID;
+        }
+        else
+        {
+                //echo "Invalid Section to delete<br>";
+                $flag1 = false;
+        }
+        if($flag1)
+        {
+                //echo "made it <br>";
+
+                $delete1 = $dbh->prepare("DELETE FROM Section WHERE section_id = ?");
+                $delete1->bindParam(1,$sectionID);
+                $sectionDeleted = $delete1->execute();
+
+                if($sectionDeleted)
+                {
+                        //echo "Inserted <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        //header('Location: ../addSection.php');
+                }
+                else
+                {
+                        //echo "Not inserted <br>";
+                }
+        }
+        else
+        {
+                //echo "Something went wrong";
+                //header('Location: ../addSection.php');
+        }
+
+
+?>
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><b$
+<?php
+require "footer.php";
+?>

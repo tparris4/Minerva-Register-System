@@ -1,0 +1,163 @@
+<?php
+require "header2.php";
+?>
+<?php
+echo '<form method="post" action="/scripts/addCourse.php">';
+echo '<p><label>Course Name:</label>';
+echo '<input type="CourseName" name="CourseName"';
+echo 'placeholder="Intro to Uni"/></p>';
+echo '<p><label>Course Description:</label>';
+echo '<input type="CourseDescription" name="CourseDescription"';
+echo 'placeholder="In this course you will learn about..."/></p>';
+echo '<p><label>Course Code:</label>';
+echo '<input type="CourseCode" name="CourseCode"';
+echo 'placeholder="IUS 100"/></p>';
+echo '<p><label>Course Credit:</label>';
+echo '<select name="CourseCredit">';
+echo '<option value="1">1</option>';
+echo '<option value="2">2</option>';
+echo '<option value="3">3</option>';
+echo '<option value="4">4</option>';
+echo '</select></p>';
+echo '<p><label>Course Level:</label>';
+echo '<select name="CourseLevel">';
+echo '<option value="1">1</option>';
+echo '<option value="2">2</option>';
+echo '<option value="3">3</option>';
+echo '<option value="4">4</option></select></p>';
+
+$select1 = $conn->prepare("SELECT d_name FROM Department ORDER BY d_name");
+$succ1 = $select1->execute();
+//echo "I did this <br>";
+$departments =  $select1->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($departments[0]);
+//echo $departments[0];
+
+$select2 = $conn->prepare("SELECT department_id FROM Department ORDER BY d_name");
+$succ2 = $select2->execute();
+//echo "I did this <br>";
+$departmentID =  $select2->fetchALL(PDO::FETCH_COLUMN,0);
+//var_dump($departmentID[0]);
+//echo $departmentID[0];
+
+echo '<p><label>Department:</label>';
+echo '<select name="Department">';
+for($i = 0; $i < count($departments); $i++)
+{
+        echo '<option value='.$departmentID[$i].'>'.$departments[$i].'</option>';
+}
+
+echo '<button type="submit" id="submitButton">Submit</button>';
+echo '</form>';
+
+        if(isset($_POST['CourseName']))
+        {
+                $courseName = $_POST['CourseName'];
+                $flag1 = true;
+                echo $courseName;
+        }
+        else
+        {
+                echo "Invalid Course Name<br>";
+                $flag1 = false;
+        }
+        if(isset($_POST['CourseDescription']))
+        {
+                $courseDescription = $_POST['CourseDescription'];
+                $flag2 = true;
+                echo $courseDescription;
+        }
+        else
+        {
+                echo "Invalid Course Description<br>";
+                $flag2 = false;
+        }
+        if(isset($_POST['CourseCode']))
+        {
+                $courseCode = $_POST['CourseCode'];
+                $flag3 = true;
+                echo $courseCode;
+        }
+        else
+        {
+                echo "Invalid Course Code<br>";
+                $flag3 = false;
+        }
+        if(isset($_POST['CourseCredit']))
+        {
+                $courseCredit = $_POST['CourseCredit'];
+                $flag4 = true;
+                echo $courseCredit;
+        }
+        else
+        {
+                echo "Invalid Course Credit<br>";
+                $flag4 = false;
+        }
+        if(isset($_POST['CourseLevel']))
+        {
+                $courseLevel = $_POST['CourseLevel'];
+                $flag5 = true;
+                echo $courseLevel;
+        }
+        else
+        {
+                echo "Invalid Course Level<br>";
+                $flag5 = false;
+        }
+        if(isset($_POST['Department']))
+        {
+                $departmentID = $_POST['Department'];
+                $flag6 = true;
+                echo $departmentID;
+        }
+        else
+        {
+                echo "Invalid Department<br>";
+                $flag6 = false;
+        }
+        if($flag1 && $flag2 && $flag3 && $flag4 && $flag5&& $flag6)
+        {
+                $select3 = $conn->prepare("SELECT MAX(course_id) FROM course;");
+                $succ3 = $select3->execute();
+                $maxCourseID = $select3->fetchALL(PDO::FETCH_COLUMN,0);
+                $courseID = $maxCourseID[0] + 1;
+
+                $select4 = $conn->prepare("SELECT d_name FROM Department WHERE department_id = ?;");
+                $select4->bindParam(1,$departmentID);
+                $succ4 = $select4->execute();
+                $department =  $select4->fetchALL(PDO::FETCH_COLUMN,0);
+
+                $insert1 = $conn->prepare("INSERT INTO Course VALUES(?,?,?,?,?,?,?,?)");
+                $insert1->bindParam(1,$courseID);
+                $insert1->bindParam(2,$courseName);
+                $insert1->bindParam(3,$courseDescription);
+                $insert1->bindParam(4,$courseCode);
+                $insert1->bindParam(5,$courseCredit);
+                $insert1->bindParam(6,$departmentID);
+                $insert1->bindParam(7,$department[0]);
+                $insert1->bindParam(8,$courseLevel);
+                $courseAdded = $insert1->execute();
+
+                if($courseAdded)
+                {
+                        echo "Inserted <br>";
+                        //propably add a pop up box stating that it was done sucessfully
+                        //header('Location: ../addCourse.html');
+                }
+                else
+                {
+                        echo "Not inserted <br>";
+                }
+        }
+        else
+        {
+                echo "Something went wrong";
+                //header('Location: ../addCourse.html');
+        }
+
+?>
+<br></br><br></br></br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+<?php
+require "footer.php";
+?>

@@ -1,0 +1,44 @@
+<?php
+require "header2.php";
+?>
+<p><div class ="Welcome"><h2>Welcome <?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName']?><h2></p><p></p></div>
+<?php
+echo'<form action="addCourse.php">';
+echo'<input type="submit" value="Insert Course"/>';
+echo'</form>';
+echo'<form action="ClassSearch.html>';
+echo'<input type="submit" value="Class Search"/>';
+echo'</form>';
+echo'<form action="addSemester1.php">';
+echo'<input type="submit" value="Add Semester"/>';
+echo'</form>';
+echo'<form action="addSection1.php">';
+echo'<input type="submit" value="Add Section"/>';
+echo'</form>';
+echo'<form action="deleteSection1.php">';
+echo'<input type="submit" value="Delete Section"/>';
+echo'</form>';
+echo'<form action="viewSection1.php">';
+echo'<input type="submit" value="View Section"/>';
+echo'</form>';
+echo'<form action="/scripts/addHold.php">';
+echo'<input type="submit" value="Add Hold"/>';
+echo'</form>';
+echo'<form action="addAdvisor1.php">';
+echo'<input type="submit" value="Add Advisor"/>';
+echo'</form>';
+echo'<form action="addMjrReq1.php">';
+echo'<input type="submit" value="Assign Major Requirments"/>';
+echo'</form>';
+echo'<form action="mailto:">';
+echo'<input type="submit" value="Message"/>';
+echo'</form>';
+echo'<form action="viewTranscripts.php">';
+echo'<input type="submit" value="Access Transcripts"/>';
+echo'</form>';
+
+?>
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+<?php
+require "footer.php";
+?>
