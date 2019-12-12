@@ -33,6 +33,7 @@ Add Major Requirements
 Delete Section
 View Section
 Add Semester
+View Transcripts
 
 
 STUDENT
