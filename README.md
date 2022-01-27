@@ -5,6 +5,6 @@
     • Provided support and leadership in order to assist team members with their roles in the project
     • Learned various business models and methods of deploying websites while developing project
     
-
+Demo: https://xenodochial-leavitt-45a094.netlify.app/
 
 ![Screenshot 2022-01-25 190917](https://user-images.githubusercontent.com/45776810/151080970-57b2f45f-56a0-4a10-b903-4f74afeab213.png)
